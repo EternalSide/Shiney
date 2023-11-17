@@ -1,11 +1,11 @@
-import { LucideIcon } from 'lucide-react';
+import {LucideIcon} from "lucide-react";
 
 export type HeaderTopLinkType = {
 	label: string;
 	href: string;
 };
 
-export type HeaderLinkType{
+export type HeaderLinkType = {
 	href: string;
-	icon: LucideIcon
-}
+	icon: LucideIcon;
+};

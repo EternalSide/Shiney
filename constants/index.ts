@@ -1,5 +1,5 @@
 import {HeaderLinkType, HeaderTopLinkType} from "./types";
-import {Heart, ShoppingBag, ShoppingCart, UserPlus} from "lucide-react";
+import {Heart, ShoppingBag} from "lucide-react";
 
 export const headerTopLinks: HeaderTopLinkType[] = [
 	{

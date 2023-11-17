@@ -23,7 +23,7 @@ const ProductCard = ({
 	ratingCounter,
 	price,
 	shopLink,
-}: Props) => {
+}: any) => {
 	return (
 		<div>
 			<Link
