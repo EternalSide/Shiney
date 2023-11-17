@@ -7,14 +7,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 // import required modules
-import {Navigation, Pagination} from "swiper/modules";
+import {Navigation, Pagination, Autoplay} from "swiper/modules";
 import Link from "next/link";
 const MainSlider = () => {
 	return (
 		<Swiper
 			navigation={true}
-			modules={[Navigation, Pagination]}
+			modules={[Navigation, Pagination, Autoplay]}
 			className='mySwiper'
+			autoplay={{delay: 5000}}
 		>
 			<SwiperSlide>
 				<Link href='/'>
@@ -24,14 +25,23 @@ const MainSlider = () => {
 					/>
 				</Link>
 			</SwiperSlide>
-			<SwiperSlide>Slide 2</SwiperSlide>
-			<SwiperSlide>Slide 3</SwiperSlide>
-			<SwiperSlide>Slide 4</SwiperSlide>
-			<SwiperSlide>Slide 5</SwiperSlide>
-			<SwiperSlide>Slide 6</SwiperSlide>
-			<SwiperSlide>Slide 7</SwiperSlide>
-			<SwiperSlide>Slide 8</SwiperSlide>
-			<SwiperSlide>Slide 9</SwiperSlide>
+			<SwiperSlide>
+				<Link href='/'>
+					<img
+						className='rounded-xl'
+						src='https://blablabla.cdn.wikkeo.com/BlaBlaBla/0f/90/c9/ad/b7/018b3810-0f90-7dc9-adb7-2c4fcf0a988d.avif'
+					/>
+				</Link>
+			</SwiperSlide>
+
+			<SwiperSlide>
+				<Link href='/'>
+					<img
+						className='rounded-xl'
+						src='https://blablabla.cdn.wikkeo.com/BlaBlaBla/de/85/44/aa/e3/018ba942-de85-7c44-aae3-27ce8101b797.avif'
+					/>
+				</Link>
+			</SwiperSlide>
 		</Swiper>
 	);
 };

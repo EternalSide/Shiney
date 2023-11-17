@@ -1,32 +1,40 @@
-import {HeaderTopLinkType} from "./types";
+import {HeaderLinkType, HeaderTopLinkType} from "./types";
+import {Heart, ShoppingCart, UserPlus} from "lucide-react";
 
 export const headerTopLinks: HeaderTopLinkType[] = [
 	{
 		label: "Войти",
-		href: "/",
+		href: "/login",
 	},
 	{
-		label: "Управление магазином",
-		href: "/",
+		label: "Управление магазинами",
+		href: "/shops",
 	},
 	{
 		label: "Новинки",
-		href: "/",
+		href: "/new",
 	},
 	{
-		label: "Для поставщиков",
-		href: "/",
-	},
-	{
-		label: "О конкурсе",
-		href: "/",
+		label: "Для продавцов",
+		href: "/for-sellers",
 	},
 	{
 		label: "Помощь",
+		href: "/help",
+	},
+];
+
+export const headerLinks: HeaderLinkType[] = [
+	{
 		href: "/",
+		icon: Heart,
 	},
 	{
-		label: "Поддержка",
 		href: "/",
+		icon: ShoppingCart,
+	},
+	{
+		href: "/login",
+		icon: UserPlus,
 	},
 ];

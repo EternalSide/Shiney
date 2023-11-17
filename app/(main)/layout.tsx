@@ -1,11 +1,13 @@
 import Header from "@/components/shared/Header/Header";
+import ModalProvider from "@/providers/ModalProvider";
 import {ReactChildren} from "@/types";
 
 const MainLayout = ({children}: ReactChildren) => {
 	return (
 		<>
 			<Header />
-			<div className='bg-[#f4f5fa] h-[2000px]'>{children}</div>
+			<div>{children}</div>
+			<ModalProvider />
 		</>
 	);
 };

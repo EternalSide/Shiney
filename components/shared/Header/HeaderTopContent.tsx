@@ -1,29 +1,33 @@
 import {headerTopLinks} from "@/constants";
 import {HeaderTopLinkType} from "@/constants/types";
-import {Navigation, Sun} from "lucide-react";
+import {Sun} from "lucide-react";
 import Link from "next/link";
 
 const HeaderTopContent = () => {
 	return (
-		<div className='bg-[#f4f5fa] relative'>
+		<div className='bg-[#f4f5fa]'>
 			<div className='flex items-center justify-between max-w-[1420px] w-full mx-auto px-4 py-5'>
 				<div className='flex items-end gap-1.5'>
-					<Navigation
-						className='h-4 w-4 text-indigo-700'
-						fill='blue'
+					<img
+						src='https://www.svgrepo.com/show/508628/flag-ru.svg'
+						className='object-cover h-5 w-5'
 					/>
-					<p className='text-indigo-700 text-xs font-semibold'>Россия</p>
+
+					<p className='text-blue-700 text-xs font-semibold'>Россия</p>
 				</div>
-				<ul className='flex items-center gap-6 fixed left-2/4 -translate-x-2/4'>
+				<ul className='flex items-center gap-6'>
 					{headerTopLinks.map((item: HeaderTopLinkType) => (
 						<Link
 							key={item.href}
 							href={item.href}
 							className='hover:underline'
 						>
-							<li className='text-sm'>{item.label}</li>
+							<li className='text-sm font-medium'>{item.label}</li>
 						</Link>
 					))}
+					<li className='text-sm font-medium hover:underline cursor-pointer'>
+						Поддержка
+					</li>
 				</ul>
 				<div className='flex items-end gap-1.5'>
 					<Sun

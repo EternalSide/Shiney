@@ -7,7 +7,7 @@ const HeaderSearch = () => {
 		<div className='flex-1 bg-[#f4f5fa] relative rounded-xl flex items-center justify-between'>
 			<Button
 				variant='mainPage'
-				className='ml-1 flex items-center gap-1.5 w-40 !px-0'
+				className='ml-1 flex items-center gap-1.5 w-40 !px-0 border-transparent'
 			>
 				<Image
 					alt='header icon'
@@ -16,7 +16,7 @@ const HeaderSearch = () => {
 					src='/headericon.jfif'
 					className='object-cover rounded-full'
 				/>
-				<p className='text-indigo-500 font-semibold'>Везде</p>
+				<p className='text-blue-700 font-semibold'>Везде</p>
 				<ChevronRight className='text-neutral-700 h-4 w-4' />
 			</Button>
 			<Input
@@ -25,9 +25,9 @@ const HeaderSearch = () => {
 			/>
 			<Button
 				variant='mainPage'
-				className='mr-1'
+				className='mr-1 border-transparent'
 			>
-				<Search className='text-indigo-700 h-4 w-4' />
+				<Search className='text-blue-700 h-4 w-4' />
 			</Button>
 		</div>
 	);
