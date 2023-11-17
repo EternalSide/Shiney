@@ -9,7 +9,7 @@ import {Navigation} from "lucide-react";
 
 const SupportModal = () => {
 	return (
-		<Dialog open={true}>
+		<Dialog open={false}>
 			<DialogContent className='bg-white'>
 				<DialogHeader>
 					<DialogTitle className='text-center mb-3'>

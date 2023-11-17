@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const HeaderLogo = () => {
 	return (
-		<div className='flex items-center gap-3'>
+		<div className='flex items-center gap-3 max-lg:hidden'>
 			<Button className='bg-[#f2f5fa] hover:bg-[#e2e4ee]'>
 				<Sparkles className='text-blue-700 h-5 w-5' />
 			</Button>

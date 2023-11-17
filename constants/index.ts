@@ -1,5 +1,5 @@
 import {HeaderLinkType, HeaderTopLinkType} from "./types";
-import {Heart, ShoppingCart, UserPlus} from "lucide-react";
+import {Heart, ShoppingBag, ShoppingCart, UserPlus} from "lucide-react";
 
 export const headerTopLinks: HeaderTopLinkType[] = [
 	{
@@ -31,10 +31,6 @@ export const headerLinks: HeaderLinkType[] = [
 	},
 	{
 		href: "/",
-		icon: ShoppingCart,
-	},
-	{
-		href: "/login",
-		icon: UserPlus,
+		icon: ShoppingBag,
 	},
 ];

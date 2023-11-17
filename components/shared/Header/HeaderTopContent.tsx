@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const HeaderTopContent = () => {
 	return (
-		<div className='bg-[#f4f5fa]'>
+		<div className='bg-[#f4f5fa] max-lg:hidden'>
 			<div className='flex items-center justify-between max-w-[1420px] w-full mx-auto px-4 py-5'>
 				<div className='flex items-end gap-1.5'>
 					<img

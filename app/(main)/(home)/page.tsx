@@ -12,8 +12,8 @@ export default function Home() {
 			<PopularCategories />
 			<Promos />
 			<SpecialOffers />
-			<Trends />
-			<NewProducts />
+			{/* <Trends />
+			<NewProducts /> */}
 		</main>
 	);
 }
