@@ -1,8 +1,8 @@
 "use client";
+import ThemeAction from "@/components/actions/ThemeAction";
 import {HeaderTopLinkType} from "@/constants/types";
 import {useModal} from "@/hooks/useModal";
-import {auth, useAuth} from "@clerk/nextjs";
-import {Sun} from "lucide-react";
+import {useAuth} from "@clerk/nextjs";
 import Link from "next/link";
 
 const HeaderTopContent = () => {
@@ -43,14 +43,14 @@ const HeaderTopContent = () => {
 					<p className='text-blue-700 text-xs font-semibold'>Россия</p>
 				</div>
 
-				<ul className='flex items-center gap-6'>
+				<ul className='flex items-center gap-8 absolute right-2/4 translate-x-2/4 w-3/4 justify-center'>
 					{headerTopLinks.map((item: HeaderTopLinkType) => (
 						<Link
 							key={item.href}
 							href={item.href}
-							className='hover:text-sky-500 transition hover:underline'
+							className='hover:text-sky-500 transition hover:underline flex justify-center'
 						>
-							<li className='text-sm font-medium'>{item.label}</li>
+							<li className='text-sm font-medium text-center'>{item.label}</li>
 						</Link>
 					))}
 					<li
@@ -61,13 +61,7 @@ const HeaderTopContent = () => {
 					</li>
 				</ul>
 
-				<div className='flex items-end gap-1.5'>
-					<Sun
-						className='h-4 w-4 text-orange-500'
-						fill='orange'
-					/>
-					<p className='text-xs font-semibold'>Светлая</p>
-				</div>
+				<ThemeAction />
 			</div>
 		</div>
 	);

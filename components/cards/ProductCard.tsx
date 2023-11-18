@@ -39,7 +39,7 @@ const ProductCard = ({
 				/>
 			</Link>
 
-			<div className='flex justify-between w-full items-center mt-3'>
+			<div className='flex justify-between w-full items-center mt-2.5'>
 				<Link
 					href='/'
 					className='flex-1'

@@ -31,7 +31,7 @@ const MyShopCard = ({
 						className='rounded-lg'
 						alt={`Изображение магазина ${name}`}
 						fill
-						src='https://i.pinimg.com/564x/22/3d/c2/223dc242bf21fbb9d6e324154bbf5889.jpg'
+						src='https://i.pinimg.com/564x/eb/3b/46/eb3b46dbd475a0a01f0fa6ed15c36986.jpg'
 					/>
 				</Link>
 				<div className='flex flex-col gap-3'>
@@ -68,8 +68,8 @@ const MyShopCard = ({
 					className='absolute bottom-0 right-0'
 				>
 					<Button
-						className='bg-sky-500 font-semibold p-6 rounded-lg mb-auto'
-						type='submit'
+						variant='blue'
+						className='!px-10'
 					>
 						Управление
 					</Button>

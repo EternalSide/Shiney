@@ -8,7 +8,7 @@ import {ruRU} from "@clerk/localizations";
 const inter = Inter({subsets: ["latin"]});
 
 export const metadata: Metadata = {
-	title: "Shiney. Самый быстрый и простой маркетплейс.",
+	title: "Shiney. Самый быстрый и элегантный маркетплейс.",
 	description:
 		"Маркетплейс Shiney - платформа для продажи и покупки товаров, неограниченное количество ваших личных магазинов и товаров. ",
 	icons: {

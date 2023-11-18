@@ -146,14 +146,14 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 				/>
 				<div className='flex justify-end items-center gap-6'>
 					<Button
-						onClick={(e) => form.reset()}
-						className='bg-[#edeefb] font-semibold text-[#223bdd]  p-6 rounded-lg'
+						onClick={() => form.reset()}
+						className='bg-[#edeefb] font-semibold text-sky-500  p-6 rounded-lg'
 						type='button'
 					>
 						{type === "Edit" ? "Очистить" : "Отменить"}
 					</Button>
 					<Button
-						className='bg-[#223bdd] font-semibold p-6 rounded-lg'
+						variant='blue'
 						type='submit'
 					>
 						{type === "Edit" ? "Сохранить изменения" : "Создать магазин"}

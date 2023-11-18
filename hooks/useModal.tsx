@@ -1,6 +1,6 @@
 import {create} from "zustand";
 
-export type ModalType = "deleteShop" | "help";
+export type ModalType = "deleteShop" | "help" | "shopAvatar";
 
 interface ModalStore {
 	type: ModalType | null;

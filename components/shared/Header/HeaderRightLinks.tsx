@@ -1,11 +1,15 @@
+"use client";
+import Korzina from "@/components/actions/Korzina";
 import {Button} from "@/components/ui/button";
 import {headerLinks} from "@/constants";
 import {HeaderLinkType} from "@/constants/types";
-import {SignedIn, SignedOut, UserButton, auth} from "@clerk/nextjs";
-import {ShoppingCart, UserPlus} from "lucide-react";
+import {SignedIn, SignedOut, UserButton} from "@clerk/nextjs";
+import {UserPlus} from "lucide-react";
 import Link from "next/link";
+import {useState} from "react";
 
 const HeaderRightLinks = () => {
+	const [korzinaOpen, setKorzinaOpen] = useState(false);
 	return (
 		<div className='flex gap-3 max-lg:hidden'>
 			{headerLinks.map((item: HeaderLinkType) => (
@@ -36,12 +40,10 @@ const HeaderRightLinks = () => {
 
 			<SignedIn>
 				{/* Корзина товаров. Modalka */}
-				<Button
-					variant='mainPage'
-					className=' hover:border-sky-500'
-				>
-					<ShoppingCart className='text-[#252525] h-5 w-5' />
-				</Button>
+				<Korzina
+					open={korzinaOpen}
+					setOpen={setKorzinaOpen}
+				/>
 				<UserButton
 					appearance={{
 						elements: {

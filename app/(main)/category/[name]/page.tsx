@@ -24,13 +24,13 @@ const CategoryPage = ({params}: Props) => {
 		<div className='max-w-[1420px] w-full mx-auto p-6'>
 			<div className='mt-2 flex items-center gap-2'>
 				<Link href='/'>
-					<p className='text-[#626d7a] font-medium text-sm hover:text-blue-600 transition'>
+					<p className='text-[#626d7a] font-medium text-sm hover:text-sky-500 transition'>
 						Главная
 					</p>
 				</Link>
 				<ChevronRight className='h-4 w-4' />
 				<Link href={category?.href!}>
-					<p className='font-medium text-sm text-blue-600 transition'>
+					<p className='font-medium text-sm text-sky-500 transition'>
 						{category?.label}
 					</p>
 				</Link>

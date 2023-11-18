@@ -7,7 +7,7 @@ const SellersInfoPage = () => {
 			<div className='p-6 bg-white rounded-xl mt-4'>
 				<div className='flex flex-col gap-1.5'>
 					<p>
-						Для начала торговли на Peppe вам нужно{" "}
+						Для начала торговли на Shiney вам нужно{" "}
 						<Link href='/create'>
 							<span className='text-blue-600 font-semibold'>
 								создать свой магазин.
