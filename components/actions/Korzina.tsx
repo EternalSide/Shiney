@@ -1,5 +1,4 @@
 "use client";
-
 import {ShoppingCart} from "lucide-react";
 import {Button} from "../ui/button";
 import {useEffect, useRef} from "react";
@@ -21,11 +20,20 @@ const Korzina = ({open, setOpen}: Props) => {
 				setOpen(false);
 			}
 		};
+		const handleScroll = (e: any) => {
+			window.scrollTo(0, 0);
+		};
 
-		// setOpen(false);
 		document.addEventListener("click", handleOutsideClick);
 
-		return () => document.removeEventListener("click", handleOutsideClick);
+		if (open) {
+			document.addEventListener("scroll", handleScroll);
+		}
+
+		return () => {
+			document.removeEventListener("click", handleOutsideClick);
+			document.removeEventListener("scroll", handleScroll);
+		};
 	}, [korzinaRef, pathname, open]);
 
 	if (!open)
