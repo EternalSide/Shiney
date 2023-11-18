@@ -1,38 +1,7 @@
+import {popularCategories} from "@/constants";
 import CategoryCard from "../cards/CategoryCard";
 
 const PopularCategories = () => {
-	const popularCategories = [
-		{
-			label: "Электроника",
-			href: "/",
-			imgSrc: "https://wikkeo.com/assets/front/images/popularCategories/1.png",
-		},
-		{
-			label: "Одежда",
-			href: "/",
-			imgSrc: "https://wikkeo.com/assets/front/images/popularCategories/2.png",
-		},
-		{
-			label: "Обувь",
-			href: "/",
-			imgSrc: "https://wikkeo.com/assets/front/images/popularCategories/3.png",
-		},
-		{
-			label: "Автотовары",
-			href: "/",
-			imgSrc: "https://wikkeo.com/assets/front/images/popularCategories/4.png",
-		},
-		{
-			label: "Строительство",
-			href: "/",
-			imgSrc: "https://wikkeo.com/assets/front/images/popularCategories/5.png",
-		},
-		{
-			label: "Аксессуары",
-			href: "/",
-			imgSrc: "https://wikkeo.com/assets/front/images/popularCategories/6.png",
-		},
-	];
 	return (
 		<div className='mt-10'>
 			<h3 className='main-title'>Популярные категории</h3>

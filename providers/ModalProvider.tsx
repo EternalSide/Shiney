@@ -1,4 +1,5 @@
 "use client";
+import DeleteShopModal from "@/components/modals/DeleteShopModal";
 import SupportModal from "@/components/modals/SupportModal";
 import {useEffect, useState} from "react";
 
@@ -14,6 +15,7 @@ const ModalProvider = () => {
 	return (
 		<>
 			<SupportModal />
+			<DeleteShopModal />
 		</>
 	);
 };

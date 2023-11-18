@@ -2,7 +2,7 @@ import Header from "@/components/shared/Header/Header";
 import MobileNavigation from "@/components/shared/MobileNavigation";
 import ModalProvider from "@/providers/ModalProvider";
 import {ReactChildren} from "@/types";
-
+import {Toaster} from "@/components/ui/toaster";
 const MainLayout = ({children}: ReactChildren) => {
 	return (
 		<>
@@ -10,6 +10,7 @@ const MainLayout = ({children}: ReactChildren) => {
 			<div>{children}</div>
 			<MobileNavigation />
 			<ModalProvider />
+			<Toaster />
 		</>
 	);
 };

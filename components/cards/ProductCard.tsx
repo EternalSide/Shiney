@@ -1,4 +1,5 @@
 import {Heart, Star} from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
@@ -27,12 +28,14 @@ const ProductCard = ({
 	return (
 		<div>
 			<Link
-				className='block'
+				className='block relative w-full h-64'
 				href={`/${id}`}
 			>
-				<img
+				<Image
 					className='h-64 object-cover rounded-xl'
 					src={imgSrc}
+					alt={title}
+					fill
 				/>
 			</Link>
 

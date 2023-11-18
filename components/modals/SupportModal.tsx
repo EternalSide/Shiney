@@ -4,27 +4,50 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import {Button} from "../ui/button";
-import {Navigation} from "lucide-react";
+import {Github, Navigation} from "lucide-react";
+import {useModal} from "@/hooks/useModal";
+import Link from "next/link";
 
 const SupportModal = () => {
+	const {isOpen, onClose, type} = useModal();
+	const modalOpen = type === "help" && isOpen;
+
+	const supportLinks = [
+		{
+			label: "Telegram",
+			href: "https://t.me/J_Eternal",
+			icon: Navigation,
+		},
+		{
+			label: "Github",
+			href: "https://github.com/EternalSide",
+			icon: Github,
+		},
+	];
+
 	return (
-		<Dialog open={false}>
+		<Dialog
+			open={modalOpen}
+			onOpenChange={() => onClose()}
+		>
 			<DialogContent className='bg-white'>
 				<DialogHeader>
 					<DialogTitle className='text-center mb-3'>
-						Поддержка Peppe
+						Контактная информация
 					</DialogTitle>
 				</DialogHeader>
 				<div className='flex flex-col gap-4'>
-					<Button className='bg-blue-700 text-white text-base font-semibold gap-2'>
-						<Navigation className='h-5 w-5' />
-						Помощь с заказами
-					</Button>
-					<Button className='bg-blue-700 text-white text-base font-semibold gap-2'>
-						<Navigation className='h-5 w-5' />
-						Техническая поддержка
-					</Button>
+					{supportLinks.map((item: any) => (
+						<Link
+							key={item.href}
+							target='_blank'
+							className='bg-blue-700 text-white text-base font-semibold gap-2 flex justify-center items-center rounded-lg p-3'
+							href={item.href}
+						>
+							<item.icon className='h-5 w-5' />
+							{item.label}
+						</Link>
+					))}
 				</div>
 			</DialogContent>
 		</Dialog>

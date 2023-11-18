@@ -2,10 +2,11 @@ import {Schema, models, model, Document} from "mongoose";
 
 export interface IShop extends Document {
 	name: string;
+	link: string;
 	avatar: string;
 	banner: string;
 	description: string;
-	author: Schema.Types.ObjectId;
+	creator: Schema.Types.ObjectId;
 	products: Schema.Types.ObjectId[];
 	buyCount: number;
 	verified: boolean;
@@ -15,6 +16,11 @@ export interface IShop extends Document {
 const ShopSchema = new Schema<IShop>(
 	{
 		name: {
+			type: String,
+			required: true,
+			unique: true,
+		},
+		link: {
 			type: String,
 			required: true,
 			unique: true,
@@ -29,7 +35,7 @@ const ShopSchema = new Schema<IShop>(
 		description: {
 			type: String,
 		},
-		author: {
+		creator: {
 			type: Schema.Types.ObjectId,
 			ref: "User",
 			required: true,
@@ -40,6 +46,14 @@ const ShopSchema = new Schema<IShop>(
 				ref: "Product",
 			},
 		],
+		buyCount: {
+			type: Number,
+			default: 0,
+		},
+		verified: {
+			type: Boolean,
+			default: false,
+		},
 		createdOn: {
 			type: Date,
 			default: Date.now,
@@ -50,6 +64,6 @@ const ShopSchema = new Schema<IShop>(
 	}
 );
 
-const Shop = models.Shop || model<IShop>("Shop", ShopSchema);
+const Shop = models?.Shop || model<IShop>("Shop", ShopSchema);
 
 export default Shop;

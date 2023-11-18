@@ -31,6 +31,7 @@ const MobileNavigation = () => {
 						pathname === item.href || pathname.includes(item.href);
 					return (
 						<Link
+							key={item.href}
 							className='relative'
 							href={item.href}
 						>

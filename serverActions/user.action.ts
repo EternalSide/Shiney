@@ -13,3 +13,35 @@ export const createUser = async (userData: any) => {
 		throw e;
 	}
 };
+
+export const getUserShops = async (params: any) => {
+	try {
+		entryDatabase();
+		const {clerkId} = params;
+
+		const user = await User.findOne({clerkId}).populate({
+			path: "shops",
+		});
+
+		return {
+			shops: user.shops,
+		};
+	} catch (e) {
+		console.log(e);
+		throw e;
+	}
+};
+
+export const getUserInfo = async (params: any) => {
+	try {
+		entryDatabase();
+		const {clerkId} = params;
+
+		const user = await User.findOne({clerkId});
+
+		return user;
+	} catch (e) {
+		console.log(e);
+		throw e;
+	}
+};

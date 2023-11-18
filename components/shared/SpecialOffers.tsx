@@ -8,7 +8,7 @@ const SpecialOffers = () => {
 				<ProductCard
 					title='Часы Peppe LUX'
 					id={0}
-					imgSrc='https://miro.medium.com/v2/resize:fit:512/1*kzDS0UK5LyGz-Wg7qD1NLA.png'
+					imgSrc='https://i.pinimg.com/736x/35/aa/26/35aa261ed79bfdd34da9b98eb7a1f369.jpg'
 					price={66666}
 					ratingNumber={5.0}
 					ratingCounter={666}
