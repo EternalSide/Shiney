@@ -2,14 +2,11 @@ import {Schema, models, model, Document} from "mongoose";
 
 export interface IProduct extends Document {
 	title: string;
-	text: string;
-	banner: string;
-	views: number;
+	description: string;
+	picture: string;
 	createdAt: Date;
-	tags: Schema.Types.ObjectId[];
-	upvotes: Schema.Types.ObjectId[];
-	downvotes: Schema.Types.ObjectId[];
-	author: Schema.Types.ObjectId;
+	category: Schema.Types.ObjectId;
+	shop: Schema.Types.ObjectId;
 	comments: Schema.Types.ObjectId[];
 }
 
@@ -19,39 +16,20 @@ const ProductSchema = new Schema<IProduct>(
 			type: String,
 			required: true,
 		},
-		text: {
+		description: {
 			type: String,
 			required: true,
 		},
-		banner: {
+		picture: {
 			type: String,
 		},
-		tags: [
-			{
-				type: Schema.Types.ObjectId,
-				ref: "Tag",
-			},
-		],
-		views: {
-			type: Number,
-			default: 0,
-			required: true,
-		},
-		upvotes: [
-			{
-				type: Schema.Types.ObjectId,
-				ref: "User",
-			},
-		],
-		downvotes: [
-			{
-				type: Schema.Types.ObjectId,
-				ref: "User",
-			},
-		],
-		author: {
+		category: {
 			type: Schema.Types.ObjectId,
-			ref: "User",
+			ref: "Category",
+		},
+		shop: {
+			type: Schema.Types.ObjectId,
+			ref: "Shop",
 		},
 		comments: [
 			{

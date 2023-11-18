@@ -10,6 +10,7 @@ const Trends = () => {
 				<div className='grid grid-cols-3 gap-6 flex-1'>
 					{Array.from({length: 6}, (_, i) => (
 						<ProductCard
+							key={i}
 							title='Часы Peppe LUX'
 							id={0}
 							imgSrc='https://i.pinimg.com/736x/34/83/27/348327ebf09db5e14fb15274b9cc3503.jpg'

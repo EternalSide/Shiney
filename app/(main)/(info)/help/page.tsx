@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const HelpPage = () => {
 	return (
-		<div className='max-w-[1420px] w-full mx-auto p-6'>
+		<>
 			<div className='mt-2 flex items-center gap-2'>
 				<Link href='/'>
 					<p className='text-[#626d7a] font-medium text-sm hover:text-blue-600 transition'>
@@ -64,7 +64,7 @@ const HelpPage = () => {
 					</ul>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 export default HelpPage;

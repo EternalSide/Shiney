@@ -7,6 +7,7 @@ const NewProducts = () => {
 			<div className='mt-4 grid grid-cols-5 gap-6'>
 				{Array.from({length: 10}, (_, i) => (
 					<ProductCard
+						key={i}
 						title='Часы Peppe LUX'
 						id={0}
 						imgSrc='https://i.pinimg.com/736x/34/83/27/348327ebf09db5e14fb15274b9cc3503.jpg'

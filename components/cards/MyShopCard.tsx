@@ -56,7 +56,7 @@ const MyShopCard = ({
 			</div>
 			<div className='flex flex-col items-end'>
 				<div className='flex items-center gap-2'>
-					<Link href={`/shop/edit/${link}`}>
+					<Link href={`shop/${link}/admin/edit`}>
 						<button>
 							<FileSignature className='text-green-500' />
 						</button>
@@ -64,7 +64,7 @@ const MyShopCard = ({
 					<DeleteShopAction shopLink={link} />
 				</div>
 				<Link
-					href='/'
+					href={`/shop/${link}/admin`}
 					className='absolute bottom-0 right-0'
 				>
 					<Button

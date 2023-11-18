@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const SellersInfoPage = () => {
 	return (
-		<div className='max-w-[1420px] w-full mx-auto p-6 font-medium text-sm text-[#626d7a]'>
+		<div className='font-medium text-sm text-[#626d7a]'>
 			<h1 className='font-semibold text-2xl text-black'>Для продавцов</h1>
 			<div className='p-6 bg-white rounded-xl mt-4'>
 				<div className='flex flex-col gap-1.5'>

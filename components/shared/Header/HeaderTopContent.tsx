@@ -20,7 +20,7 @@ const HeaderTopContent = () => {
 		},
 		{
 			label: "Новинки",
-			href: "/new",
+			href: "/new-products",
 		},
 		{
 			label: "Для продавцов",
