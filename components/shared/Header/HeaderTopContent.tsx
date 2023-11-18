@@ -48,14 +48,14 @@ const HeaderTopContent = () => {
 						<Link
 							key={item.href}
 							href={item.href}
-							className='hover:underline'
+							className='hover:text-sky-500 transition hover:underline'
 						>
 							<li className='text-sm font-medium'>{item.label}</li>
 						</Link>
 					))}
 					<li
 						onClick={() => onOpen("help")}
-						className='text-sm font-medium hover:underline cursor-pointer'
+						className='text-sm font-medium hover:underline cursor-pointer hover:text-sky-500 transition'
 					>
 						Контакты
 					</li>

@@ -41,7 +41,7 @@ const SupportModal = () => {
 						<Link
 							key={item.href}
 							target='_blank'
-							className='bg-blue-700 text-white text-base font-semibold gap-2 flex justify-center items-center rounded-lg p-3'
+							className='bg-sky-500 text-white text-base font-semibold gap-2 flex justify-center items-center rounded-lg p-3'
 							href={item.href}
 						>
 							<item.icon className='h-5 w-5' />

@@ -19,7 +19,7 @@ const HelpPage = () => {
 				<div className='w-[320px] bg-white rounded-lg py-6 h-64'>
 					<h3 className='px-4 font-semibold'>1. Мой заказ</h3>
 					<ul className='flex flex-col gap-3 mt-3'>
-						<Button className='bg-blue-600 font-semibold text-white py-6 text-left justify-start'>
+						<Button className='bg-sky-500 font-semibold text-white py-6 text-left justify-start'>
 							1.1 Как оформить розничный заказ
 						</Button>
 					</ul>

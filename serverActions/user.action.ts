@@ -1,3 +1,4 @@
+import Shop from "@/database/models/shop.model";
 import User from "@/database/models/user.model";
 import entryDatabase from "@/lib/mongoose";
 
@@ -21,6 +22,7 @@ export const getUserShops = async (params: any) => {
 
 		const user = await User.findOne({clerkId}).populate({
 			path: "shops",
+			model: Shop,
 		});
 
 		return {

@@ -16,7 +16,7 @@ const HeaderSearch = () => {
 					src='/headericon.jfif'
 					className='object-cover rounded-full'
 				/>
-				<p className='text-blue-700 font-semibold'>Везде</p>
+				<p className='text-sky-500 font-semibold'>Везде</p>
 				<ChevronRight className='text-neutral-700 h-4 w-4' />
 			</Button>
 			<Input
@@ -27,7 +27,7 @@ const HeaderSearch = () => {
 				variant='mainPage'
 				className='mr-1 border-transparent'
 			>
-				<Search className='text-blue-700 h-4 w-4' />
+				<Search className='text-sky-500 h-4 w-4' />
 			</Button>
 		</div>
 	);

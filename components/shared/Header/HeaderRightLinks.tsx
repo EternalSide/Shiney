@@ -15,7 +15,7 @@ const HeaderRightLinks = () => {
 				>
 					<Button
 						variant='mainPage'
-						className='hover:border-blue-700'
+						className='hover:border-sky-500'
 					>
 						<item.icon className='text-[#252525] h-5 w-5' />
 					</Button>
@@ -27,7 +27,7 @@ const HeaderRightLinks = () => {
 				<Link href='/login'>
 					<Button
 						variant='mainPage'
-						className=' hover:border-blue-700'
+						className=' hover:border-sky-500'
 					>
 						<UserPlus className='text-[#252525] h-5 w-5' />
 					</Button>
@@ -38,7 +38,7 @@ const HeaderRightLinks = () => {
 				{/* Корзина товаров. Modalka */}
 				<Button
 					variant='mainPage'
-					className=' hover:border-blue-700'
+					className=' hover:border-sky-500'
 				>
 					<ShoppingCart className='text-[#252525] h-5 w-5' />
 				</Button>

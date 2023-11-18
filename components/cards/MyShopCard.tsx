@@ -3,6 +3,7 @@ import Image from "next/image";
 import {FileSignature} from "lucide-react";
 import CopyAction from "../actions/CopyAction";
 import DeleteShopAction from "../actions/DeleteShopAction";
+import {Button} from "../ui/button";
 
 interface Props {
 	name: string;
@@ -20,7 +21,7 @@ const MyShopCard = ({
 	productsCount,
 }: Props) => {
 	return (
-		<div className='flex items-start justify-between'>
+		<div className='flex items-start justify-between relative'>
 			<div className='flex items-start gap-3'>
 				<Link
 					href={`/shop/${link}`}
@@ -53,13 +54,26 @@ const MyShopCard = ({
 					</Link>
 				</div>
 			</div>
-			<div className='flex items-center gap-2'>
-				<Link href={`/shop/edit/${link}`}>
-					<button>
-						<FileSignature className='text-green-500' />
-					</button>
+			<div className='flex flex-col items-end'>
+				<div className='flex items-center gap-2'>
+					<Link href={`/shop/edit/${link}`}>
+						<button>
+							<FileSignature className='text-green-500' />
+						</button>
+					</Link>
+					<DeleteShopAction shopLink={link} />
+				</div>
+				<Link
+					href='/'
+					className='absolute bottom-0 right-0'
+				>
+					<Button
+						className='bg-sky-500 font-semibold p-6 rounded-lg mb-auto'
+						type='submit'
+					>
+						Управление
+					</Button>
 				</Link>
-				<DeleteShopAction shopLink={link} />
 			</div>
 		</div>
 	);

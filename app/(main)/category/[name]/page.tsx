@@ -30,7 +30,7 @@ const CategoryPage = ({params}: Props) => {
 				</Link>
 				<ChevronRight className='h-4 w-4' />
 				<Link href={category?.href!}>
-					<p className='text-[#626d7a] font-medium text-sm hover:text-blue-600 transition'>
+					<p className='font-medium text-sm text-blue-600 transition'>
 						{category?.label}
 					</p>
 				</Link>

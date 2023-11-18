@@ -44,12 +44,18 @@ const DeleteShopModal = () => {
 						Вы уверены?
 					</DialogTitle>
 				</DialogHeader>
-				<DialogDescription className='text-zinc-700'>
-					После подтверждения все товары магазина, его информация, статистика, и
-					уникальная ссылка будут удалены. Отменить данное действие невозможно.
+				<DialogDescription className='text-zinc-700 text-center'>
+					После подтверждения, все товары магазина, его информация, статистика,
+					и уникальная ссылка будут удалены. Отменить данное действие
+					невозможно.
 				</DialogDescription>
 				<div className='flex justify-end items-center gap-3'>
-					<Button onClick={() => onClose()}>Отменить</Button>
+					<Button
+						className='bg-sky-500'
+						onClick={() => onClose()}
+					>
+						Отменить
+					</Button>
 					<Button
 						onClick={deleteShop}
 						variant='destructive'
