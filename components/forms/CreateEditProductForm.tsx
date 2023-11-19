@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {usePathname, useRouter} from "next/navigation";
-import {shopSchema} from "@/lib/validations";
+import {productSchema} from "@/lib/validations";
 import {useToast} from "../ui/use-toast";
 import {createShop, updateShop} from "@/serverActions/shop.action";
 
@@ -24,23 +24,23 @@ interface Props {
 	shopData?: any;
 }
 
-const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
+const CreateEditProductForm = ({clerkId, type, shopData}: Props) => {
 	const shop = shopData && type === "Edit" && JSON.parse(shopData);
 
-	const form = useForm<z.infer<typeof shopSchema>>({
-		resolver: zodResolver(shopSchema),
+	const form = useForm<z.infer<typeof productSchema>>({
+		resolver: zodResolver(productSchema),
 		defaultValues: {
-			name: shop?.name ? shop.name : "",
-			link: shop?.link ? shop.link : "",
-			description: shop?.description ? shop.description : "",
+			title: "",
+			description: "",
+			picture: "",
+			category: "",
 		},
 	});
-
 	const router = useRouter();
 	const {toast} = useToast();
 	const path = usePathname();
 
-	const onSubmit = async (values: z.infer<typeof shopSchema>) => {
+	const onSubmit = async (values: z.infer<typeof productSchema>) => {
 		try {
 			if (type !== "Edit") {
 				const newShop = await createShop({...values, clerkId});
@@ -76,9 +76,9 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 		}
 	};
 
-	const {isLoading, isDirty} = form.formState;
-
 	const cancelButton = () => (type === "Edit" ? form.reset() : router.back());
+
+	const {isLoading} = form.formState;
 
 	return (
 		<Form {...form}>
@@ -88,10 +88,10 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 			>
 				<FormField
 					control={form.control}
-					name='name'
+					name='title'
 					render={({field}) => (
 						<FormItem>
-							<FormLabel className='font-semibold'>Название</FormLabel>
+							<FormLabel className='font-semibold'>Наименование</FormLabel>
 							<FormControl>
 								<Input
 									className='border-none bg-[#f4f5fa]'
@@ -99,32 +99,7 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 									{...field}
 								/>
 							</FormControl>
-							<FormDescription>
-								Введите название дла вашего магазина.
-							</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name='link'
-					render={({field}) => (
-						<FormItem>
-							<FormLabel className='font-semibold'>Ссылка на магазин</FormLabel>
-							<FormControl>
-								<Input
-									className='border-none bg-[#f4f5fa]'
-									placeholder='PeppeShop'
-									{...field}
-								/>
-							</FormControl>
-							<FormDescription>
-								Ваш магазин будет располагаться по адресу{" "}
-								{`peppe-blue.vercel.app/shop/${
-									form.getValues().link || "peppeshop"
-								}`}
-							</FormDescription>
+							<FormDescription>Введите наименование товара.</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -138,13 +113,32 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 							<FormControl>
 								<Input
 									className='border-none bg-[#f4f5fa]'
-									placeholder='Продаем лягушек'
+									placeholder='PeppeShop'
 									{...field}
 								/>
 							</FormControl>
-							<FormDescription>
-								Введите описание дла вашего магазина.
-							</FormDescription>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name='picture'
+					render={({field}) => (
+						<FormItem>
+							<FormLabel className='font-semibold'>Изображение</FormLabel>
+							<FormControl></FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name='category'
+					render={({field}) => (
+						<FormItem>
+							<FormLabel className='font-semibold'>Категория</FormLabel>
+							<FormControl></FormControl>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -158,15 +152,15 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 						{type === "Edit" ? "Очистить" : "Отменить"}
 					</Button>
 					<Button
-						disabled={isLoading || !isDirty}
+						disabled={isLoading}
 						variant='blue'
 						type='submit'
 					>
-						{type === "Edit" ? "Сохранить изменения" : "Создать магазин"}
+						{type === "Edit" ? "Сохранить изменения" : "Добавить"}
 					</Button>
 				</div>
 			</form>
 		</Form>
 	);
 };
-export default CreateEditShopForm;
+export default CreateEditProductForm;

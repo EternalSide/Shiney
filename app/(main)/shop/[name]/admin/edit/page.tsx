@@ -1,30 +1,16 @@
 import CreateEditShopForm from "@/components/forms/CreateEditShopForm";
-import checkOwner from "@/serverActions/checkOwner";
-import {getShopInfo} from "@/serverActions/shop.action";
-import {getUserInfo} from "@/serverActions/user.action";
+import checkAdmin from "@/serverActions/checkAdmin";
+import {AdminParams} from "@/types";
 
-import {auth, redirectToSignIn} from "@clerk/nextjs";
-import {redirect} from "next/navigation";
-
-const EditShopPage = async ({params}: {params: {name: string}}) => {
-	const {userId} = auth();
-	if (!userId) redirectToSignIn();
-
-	const user = await getUserInfo({clerkId: userId});
-	const shop = await getShopInfo({name: params.name});
-
-	if (!shop) redirect("/");
-
-	const isOwner = checkOwner(user, shop._id.toString());
-
-	if (!isOwner) redirect("/");
+const EditShopPage = async ({params}: AdminParams) => {
+	const data = await checkAdmin(params.name);
 
 	return (
 		<div className='p-6 bg-white rounded-xl'>
 			<h1 className='font-semibold text-2xl'>Редактировать магазин</h1>
 			<CreateEditShopForm
-				clerkId={userId!}
-				shopData={JSON.stringify(shop)}
+				clerkId={data?.clerkId!}
+				shopData={JSON.stringify(data?.shop)}
 				type='Edit'
 			/>
 		</div>

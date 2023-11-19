@@ -29,3 +29,33 @@ export const shopSchema = z.object({
 			message: FIELD_MAX_ERROR,
 		}),
 });
+
+export const productSchema = z.object({
+	title: z
+		.string()
+		.min(2, {
+			message: FIELD_MIN_ERROR,
+		})
+		.max(30, {
+			message: FIELD_MAX_ERROR,
+		}),
+	description: z
+		.string()
+		.min(2, {
+			message: FIELD_MIN_ERROR,
+		})
+		.max(1000, {
+			message: FIELD_MAX_ERROR,
+		}),
+	picture: z
+		.string()
+		.min(2, {
+			message: "Изображение не добавлено",
+		})
+		.max(100, {
+			message: FIELD_MAX_ERROR,
+		}),
+	category: z.string().min(2, {
+		message: "Категория не добавлена",
+	}),
+});

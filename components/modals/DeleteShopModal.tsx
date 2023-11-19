@@ -10,20 +10,25 @@ import {DialogDescription} from "@radix-ui/react-dialog";
 import {Button} from "../ui/button";
 import {toast} from "../ui/use-toast";
 import {deleteShopAction} from "@/serverActions/shop.action";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 
 const DeleteShopModal = () => {
 	const {isOpen, onClose, type, data: shopLink} = useModal();
 	const modalOpen = type === "deleteShop" && isOpen;
 	const path = usePathname();
+	const router = useRouter();
+
 	const deleteShop = async () => {
 		try {
 			await deleteShopAction({shopLink, path});
 			onClose();
+
 			toast({
 				title: "Действие совершенно ✔️",
 				description: "Вся информация удалена.",
 			});
+
+			router.push("/shops");
 		} catch (e) {
 			toast({
 				title: "Что-то пошло не так...",
