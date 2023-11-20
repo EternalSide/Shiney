@@ -16,7 +16,7 @@ import {Input} from "@/components/ui/input";
 import {usePathname, useRouter} from "next/navigation";
 import {productSchema} from "@/lib/validations";
 import {useToast} from "../ui/use-toast";
-import {createShop, updateShop} from "@/serverActions/shop.action";
+import {createShop, updateShop} from "@/actions/dbActions/shop.action";
 
 interface Props {
 	clerkId: string;

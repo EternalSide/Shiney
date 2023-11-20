@@ -9,7 +9,7 @@ import {useModal} from "@/hooks/useModal";
 import {DialogDescription} from "@radix-ui/react-dialog";
 import {Button} from "../ui/button";
 import {toast} from "../ui/use-toast";
-import {deleteShopAction} from "@/serverActions/shop.action";
+import {deleteShopAction} from "@/actions/dbActions/shop.action";
 import {usePathname, useRouter} from "next/navigation";
 
 const DeleteShopModal = () => {

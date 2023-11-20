@@ -1,7 +1,6 @@
-"use server";
 import {auth} from "@clerk/nextjs";
-import {getUserInfo} from "./user.action";
-import {getShopInfo} from "./shop.action";
+import {getUserInfo} from "./dbActions/user.action";
+import {getShopInfo} from "./dbActions/shop.action";
 import {redirect} from "next/navigation";
 import checkOwner from "./checkOwner";
 import {IShop} from "@/database/models/shop.model";

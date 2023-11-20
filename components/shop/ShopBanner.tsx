@@ -1,12 +1,12 @@
 import Image from "next/image";
 
-const ShopBanner = () => {
+const ShopBanner = ({alt}: {alt: string}) => {
 	return (
 		<div className='h-64 w-full relative'>
 			<Image
 				className='rounded-lg object-cover object-center rounded-br-none rounded-bl-none'
-				src='/basedbg.jpg'
-				alt='bg'
+				src='/defaultBg.jfif'
+				alt={alt}
 				fill
 			/>
 		</div>

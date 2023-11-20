@@ -12,6 +12,7 @@ export interface IUser extends Document {
 	shops: Schema.Types.ObjectId[];
 	savedProducts: Schema.Types.ObjectId[];
 	orderedProducts: Schema.Types.ObjectId[];
+	followingShops: Schema.Types.ObjectId[];
 	joinedAt: Date;
 }
 
@@ -26,6 +27,7 @@ const UserSchema = new Schema<IUser>(
 		picture: {type: String, required: true},
 		shops: [{type: Schema.Types.ObjectId, ref: "Shop"}],
 		savedProducts: [{type: Schema.Types.ObjectId, ref: "Product"}],
+		followingShops: [{type: Schema.Types.ObjectId, ref: "Shop"}],
 		orderedProducts: [{type: Schema.Types.ObjectId, ref: "Product"}],
 		joinedAt: {type: Date, default: Date.now},
 		role: {type: String, default: "user"},

@@ -1,4 +1,4 @@
-import checkAdmin from "@/serverActions/checkAdmin";
+import checkAdmin from "@/actions/checkAdmin";
 import {AdminParams} from "@/types";
 
 const ShopViewPage = async ({params}: AdminParams) => {

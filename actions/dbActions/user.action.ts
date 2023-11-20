@@ -1,3 +1,4 @@
+"use server";
 import Shop from "@/database/models/shop.model";
 import User from "@/database/models/user.model";
 import entryDatabase from "@/lib/mongoose";
@@ -34,7 +35,7 @@ export const getUserShops = async (params: any) => {
 	}
 };
 
-export const getUserInfo = async (params: any) => {
+export const getUserInfo = async (params: {clerkId: string}) => {
 	try {
 		entryDatabase();
 		const {clerkId} = params;

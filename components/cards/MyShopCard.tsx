@@ -11,6 +11,7 @@ interface Props {
 	link: string;
 	buyCount: number;
 	productsCount: number;
+	clerkId: string | null;
 }
 
 const MyShopCard = ({
@@ -19,6 +20,7 @@ const MyShopCard = ({
 	link,
 	buyCount,
 	productsCount,
+	clerkId,
 }: Props) => {
 	return (
 		<div className='flex items-start justify-between relative'>
@@ -61,7 +63,10 @@ const MyShopCard = ({
 							<FileSignature className='text-green-500' />
 						</button>
 					</Link>
-					<DeleteShopAction shopLink={link} />
+					<DeleteShopAction
+						shopLink={link}
+						clerkId={clerkId}
+					/>
 				</div>
 				<Link
 					href={`/shop/${link}/admin`}

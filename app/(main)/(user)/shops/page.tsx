@@ -1,6 +1,6 @@
 import MyShopCard from "@/components/cards/MyShopCard";
 import {IShop} from "@/database/models/shop.model";
-import {getUserShops} from "@/serverActions/user.action";
+import {getUserShops} from "@/actions/dbActions/user.action";
 import {auth} from "@clerk/nextjs";
 
 const ShopsPage = async () => {
@@ -20,6 +20,7 @@ const ShopsPage = async () => {
 							link={shop.link}
 							buyCount={shop.buyCount}
 							productsCount={shop.products.length}
+							clerkId={userId}
 						/>
 					))}
 				</div>

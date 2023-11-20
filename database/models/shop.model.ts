@@ -8,9 +8,12 @@ export interface IShop extends Document {
 	description: string;
 	creator: Schema.Types.ObjectId;
 	products: Schema.Types.ObjectId[];
+	followers: Schema.Types.ObjectId[];
+	comments: Schema.Types.ObjectId[];
 	buyCount: number;
 	verified: boolean;
 	createdOn: Date;
+	rating: string;
 }
 
 const ShopSchema = new Schema<IShop>(
@@ -46,9 +49,25 @@ const ShopSchema = new Schema<IShop>(
 				ref: "Product",
 			},
 		],
+		followers: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: "User",
+			},
+		],
+		comments: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: "Comment",
+			},
+		],
 		buyCount: {
 			type: Number,
 			default: 0,
+		},
+		rating: {
+			type: String,
+			default: `0.00`,
 		},
 		verified: {
 			type: Boolean,

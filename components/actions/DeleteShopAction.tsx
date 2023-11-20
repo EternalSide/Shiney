@@ -6,11 +6,12 @@ import {Button} from "../ui/button";
 interface Props {
 	shopLink: string;
 	adminPage?: boolean;
+	clerkId: string | null;
 }
 
-const DeleteShopAction = ({shopLink, adminPage}: Props) => {
+const DeleteShopAction = ({shopLink, adminPage, clerkId}: Props) => {
 	const {onOpen} = useModal();
-
+	// Добавить clerkId
 	if (adminPage) {
 		return (
 			<Button

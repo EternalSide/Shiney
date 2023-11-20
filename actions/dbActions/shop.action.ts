@@ -69,11 +69,60 @@ export const deleteShopAction = async (params: any) => {
 	try {
 		entryDatabase();
 
+		// Удалить у пользователя магаз
 		const {shopLink, path} = params;
 
 		const shop = await Shop.deleteOne({
 			link: shopLink,
 		});
+
+		await User.findByIdAndUpdate({
+			link: shopLink,
+		});
+
+		revalidatePath(path);
+	} catch (e) {
+		console.log(e);
+		throw e;
+	}
+};
+
+export const followShopAction = async (params: any) => {
+	try {
+		entryDatabase();
+
+		const {shopLink, path, clerkId, isFollowing} = params;
+
+		let updateQuery = {};
+		let updateUserQuery = {};
+
+		const updatedUser = await User.findOne({clerkId});
+
+		if (isFollowing) {
+			updateQuery = {
+				$pull: {
+					followers: updatedUser._id,
+				},
+			};
+			updateUserQuery = {
+				$pull: {
+					followingShops: updatedUser._id,
+				},
+			};
+		} else {
+			updateQuery = {
+				$addToSet: {
+					followers: updatedUser._id,
+				},
+			};
+			updateUserQuery = {
+				$pull: {
+					followingShops: updatedUser._id,
+				},
+			};
+		}
+		await User.findOneAndUpdate({clerkId}, updateUserQuery);
+		await Shop.findOneAndUpdate({link: shopLink}, updateQuery);
 
 		revalidatePath(path);
 	} catch (e) {

@@ -1,5 +1,6 @@
 "use client";
 import DeleteShopModal from "@/components/modals/DeleteShopModal";
+import DevelopModal from "@/components/modals/DevelopModal";
 import ShopAvatarModal from "@/components/modals/ShopAvatarModal";
 import SupportModal from "@/components/modals/SupportModal";
 import {useEffect, useState} from "react";
@@ -18,6 +19,7 @@ const ModalProvider = () => {
 			<SupportModal />
 			<DeleteShopModal />
 			<ShopAvatarModal />
+			<DevelopModal />
 		</>
 	);
 };

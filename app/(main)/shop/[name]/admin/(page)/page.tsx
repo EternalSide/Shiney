@@ -1,6 +1,6 @@
 import DeleteShopAction from "@/components/actions/DeleteShopAction";
 import {Button} from "@/components/ui/button";
-import checkAdmin from "@/serverActions/checkAdmin";
+import checkAdmin from "@/actions/checkAdmin";
 import {AdminParams} from "@/types";
 import {FileEdit, PackagePlus, Plus, Sparkles, Store, X} from "lucide-react";
 import Link from "next/link";
@@ -61,6 +61,7 @@ const ShopAdminPage = async ({params}: AdminParams) => {
 					<DeleteShopAction
 						shopLink={data?.shop.link!}
 						adminPage={true}
+						clerkId={data?.clerkId!}
 					/>
 				</div>
 			</div>

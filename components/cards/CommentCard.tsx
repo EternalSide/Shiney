@@ -6,7 +6,7 @@ const CommentCard = () => {
 	return (
 		<div className='p-6 bg-[#e0f2fe] rounded-xl'>
 			<div className='flex justify-between'>
-				<h3 className='font-semibold text-sky-500'>Портрет Даши Каплан</h3>
+				<h3 className='font-bold text-sky-500 text-lg'>Портрет Даши Каплан</h3>
 				<p className='text-sm font-semibold text-zinc-500'>11 часов назад</p>
 			</div>
 			<div className='flex items-center gap-1.5 mt-1'>

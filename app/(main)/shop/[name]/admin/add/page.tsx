@@ -1,5 +1,5 @@
 import CreateEditProductForm from "@/components/forms/CreateEditProductForm";
-import checkAdmin from "@/serverActions/checkAdmin";
+import checkAdmin from "@/actions/checkAdmin";
 import {AdminParams} from "@/types";
 
 const AddProductPage = async ({params}: AdminParams) => {
