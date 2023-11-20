@@ -3,7 +3,7 @@ import ProductCard from "@/components/cards/ProductCard";
 const WishListPage = () => {
 	return (
 		<>
-			<h1 className='font-semibold text-2xl'>Избранное</h1>
+			<h1 className='base-title'>Избранное</h1>
 			<div className='mt-4 grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5 !gap-6'>
 				{Array.from({length: 1}, (_, i) => (
 					<ProductCard

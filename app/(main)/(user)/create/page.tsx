@@ -7,8 +7,8 @@ const CreateShopPage = async () => {
 	if (!userId) redirectToSignIn();
 
 	return (
-		<div className='p-6 bg-white rounded-xl'>
-			<h1 className='font-semibold text-2xl'>Создание магазина</h1>
+		<div className='base-block'>
+			<h1 className='base-title'>Создание магазина</h1>
 			<CreateEditShopForm clerkId={userId!} />
 		</div>
 	);

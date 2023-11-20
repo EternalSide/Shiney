@@ -1,71 +1,61 @@
 "use client";
 import {ShoppingCart} from "lucide-react";
 import {Button} from "../ui/button";
-import {useEffect, useRef} from "react";
+import {useRef} from "react";
 import {usePathname} from "next/navigation";
 import OverlayMain from "../shared/OverlayMain";
 import KorzinaCard from "../cards/KorzinaCard";
 import Link from "next/link";
+import useClickOutside from "@/hooks/useClickOutside";
 
 interface Props {
 	open: boolean;
 	setOpen: (action: boolean) => void;
 }
 
+export interface ILocalProduct {
+	image: string;
+	id: string;
+	title: string;
+	description: string;
+	quantity: number;
+	price: number;
+}
+
+const KorzinaButton = ({setOpen}: any) => {
+	return (
+		<Button
+			onClick={() => (setOpen ? setOpen(true) : () => {})}
+			variant='mainPage'
+			className=' hover:border-sky-500 relative'
+		>
+			<div className='absolute -top-3 -right-2 px-2 py-0.5 rounded-full bg-sky-500 text-white text-sm'>
+				0
+			</div>
+			<ShoppingCart className='text-[#252525] h-5 w-5' />
+		</Button>
+	);
+};
+
 const Korzina = ({open, setOpen}: Props) => {
 	const korzinaRef = useRef(null);
 	const pathname = usePathname();
-	// const {} = useKorzina()
 
-	useEffect(() => {
-		const handleOutsideClick = (event: any) => {
-			// @ts-ignore
-			if (korzinaRef.current && !korzinaRef.current.contains(event.target)) {
-				setOpen(false);
-			}
-		};
-		const handleScroll = (e: any) => {
-			window.scrollTo(0, 0);
-		};
+	useClickOutside({ref: korzinaRef, setOpen, pathname, open});
 
-		document.addEventListener("click", handleOutsideClick);
+	// const {products} = useKorzina();
+	// const emptyKorzina = products.length === 0;
 
-		if (open) {
-			document.addEventListener("scroll", handleScroll);
-		}
+	// const totalPrice = products.reduce((total: number, product: ILocalProduct) => {
+	// 	return total + product.price * product.quantity;
+	// }, 0);
 
-		return () => {
-			document.removeEventListener("click", handleOutsideClick);
-			document.removeEventListener("scroll", handleScroll);
-		};
-	}, [korzinaRef, pathname, open]);
-
-	if (!open)
-		return (
-			<Button
-				onClick={() => setOpen(true)}
-				variant='mainPage'
-				className=' hover:border-sky-500 relative'
-			>
-				<div className='absolute -top-3 -right-2 px-2 py-0.5 rounded-full bg-sky-500 text-white text-sm'>
-					0
-				</div>
-				<ShoppingCart className='text-[#252525] h-5 w-5' />
-			</Button>
-		);
+	if (!open) return <KorzinaButton setOpen={setOpen} />;
 
 	return (
 		<>
 			<OverlayMain zIndex='z-[50]' />
-			<Button
-				variant='mainPage'
-				className=' hover:border-sky-500 relative'
-			>
-				<div className='absolute -top-3 -right-2 px-2 py-0.5 rounded-full bg-sky-500 text-white text-sm'>
-					0
-				</div>
-				<ShoppingCart className='text-[#252525] h-5 w-5' />
-			</Button>
+			<KorzinaButton />
 			<div
 				ref={korzinaRef}
 				className='z-[60] p-4 w-[500px] bg-white rounded-lg absolute top-0 right-[52px] mt-[91px]'
@@ -76,11 +66,25 @@ const Korzina = ({open, setOpen}: Props) => {
 						<p className='font-semibold text-neutral-400 text-sm'>Очистить</p>
 					</button>
 				</div>
-				<div className='mt-4'>
-					<KorzinaCard />
+
+				<div className='mt-4 flex flex-col gap-4'>
+					{[0, 1, 2].map((_, item: any) => {
+						return (
+							<KorzinaCard
+								id={item.id}
+								key={item.id}
+								image={item.image}
+								title={item.title}
+								description={item.description}
+								quantity={item.quantity}
+								price={item.price}
+							/>
+						);
+					})}
 				</div>
+
 				<div className='mt-6 flex flex-col items-end gap-3'>
-					{/* Сложить цену всех товаров. */}
+					{/* <h3 className='font-bold'>Итого: {totalPrice} ₽</h3> */}
 					<h3 className='font-bold'>Итого: 2 000 ₽</h3>
 					<Link href='/'>
 						<Button variant='blue'>В корзину</Button>

@@ -46,4 +46,14 @@
 	.main-title {
 		@apply font-semibold text-3xl;
 	}
+	.no-focus {
+		@apply focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
+	}
+
+	.base-block {
+		@apply p-6 bg-white rounded-xl;
+	}
+	.base-title {
+		@apply font-semibold text-2xl;
+	}
 }

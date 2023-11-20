@@ -3,8 +3,15 @@ import Shop from "@/database/models/shop.model";
 import User from "@/database/models/user.model";
 import entryDatabase from "@/lib/mongoose";
 import {revalidatePath} from "next/cache";
+import {
+	CreateShopParams,
+	DeleteShopParams,
+	FollowShopParams,
+	GetShopInfoParams,
+	UpdateShopParams,
+} from "./index.shared";
 
-export const createShop = async (shopData: any) => {
+export const createShop = async (shopData: CreateShopParams) => {
 	try {
 		entryDatabase();
 
@@ -20,6 +27,7 @@ export const createShop = async (shopData: any) => {
 		});
 
 		user.shops.push(newShop._id);
+
 		await user.save();
 
 		return newShop;
@@ -28,17 +36,21 @@ export const createShop = async (shopData: any) => {
 		throw e;
 	}
 };
-// sadsadsadsa// sadsadsadsa// sadsadsadsa
-export const updateShop = async (updatedData: any) => {
+
+export const updateShop = async (params: UpdateShopParams) => {
 	try {
 		entryDatabase();
-		const {shopLink, name, link, description, path} = updatedData;
+
+		const {shopLink, name, link, description, path} = params;
+
 		const shop = await Shop.findOneAndUpdate(
 			{link: shopLink},
 			{name, link, description}
 		);
-		// Иначе ошибка вылетает
+
 		revalidatePath(path);
+
+		// Без JSON будет ошибка.
 		return JSON.parse(JSON.stringify(shop));
 	} catch (e) {
 		console.log(e);
@@ -46,15 +58,13 @@ export const updateShop = async (updatedData: any) => {
 	}
 };
 
-export const getShopInfo = async (params: any) => {
+export const getShopInfo = async (params: GetShopInfoParams) => {
 	try {
 		entryDatabase();
 
-		const {name} = params;
+		const {name: link} = params;
 
-		const shop = await Shop.findOne({
-			link: name,
-		});
+		const shop = await Shop.findOne({link});
 
 		if (!shop) return null;
 
@@ -65,20 +75,17 @@ export const getShopInfo = async (params: any) => {
 	}
 };
 
-export const deleteShopAction = async (params: any) => {
+export const deleteShopAction = async (params: DeleteShopParams) => {
 	try {
 		entryDatabase();
 
-		// Удалить у пользователя магаз
-		const {shopLink, path} = params;
+		// * TODO: Удалить у пользователя магазин
 
-		const shop = await Shop.deleteOne({
-			link: shopLink,
-		});
+		const {shopLink: link, path} = params;
 
-		await User.findByIdAndUpdate({
-			link: shopLink,
-		});
+		await Shop.deleteOne({link});
+
+		// await User.findByIdAndUpdate({link});
 
 		revalidatePath(path);
 	} catch (e) {
@@ -87,7 +94,7 @@ export const deleteShopAction = async (params: any) => {
 	}
 };
 
-export const followShopAction = async (params: any) => {
+export const followShopAction = async (params: FollowShopParams) => {
 	try {
 		entryDatabase();
 
@@ -121,6 +128,7 @@ export const followShopAction = async (params: any) => {
 				},
 			};
 		}
+
 		await User.findOneAndUpdate({clerkId}, updateUserQuery);
 		await Shop.findOneAndUpdate({link: shopLink}, updateQuery);
 

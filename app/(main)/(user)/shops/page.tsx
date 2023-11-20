@@ -8,8 +8,8 @@ const ShopsPage = async () => {
 	const {shops} = await getUserShops({clerkId: userId});
 
 	return (
-		<div className='p-6 bg-white rounded-xl'>
-			<h1 className='font-semibold text-2xl'>Мои магазины</h1>
+		<div className='base-block'>
+			<h1 className='base-title'>Мои магазины</h1>
 			{shops?.length > 0 ? (
 				<div className='mt-4 flex flex-col gap-10'>
 					{shops.map((shop: IShop) => (

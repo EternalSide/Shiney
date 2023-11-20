@@ -7,9 +7,9 @@ const AddProductPage = async ({params}: AdminParams) => {
 
 	return (
 		<>
-			<h1 className='font-semibold text-2xl'>Магазин Peppe</h1>
-			<div className='p-6 bg-white rounded-xl mt-4'>
-				<h1 className='font-semibold text-2xl'>Добавить товар</h1>
+			<h1 className='base-title'>Магазин Peppe</h1>
+			<div className='base-block mt-4'>
+				<h3 className='base-title'>Добавить товар</h3>
 				<CreateEditProductForm clerkId={data?.clerkId!} />
 			</div>
 		</>

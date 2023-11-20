@@ -43,14 +43,14 @@ const ShopAdminPage = async ({params}: AdminParams) => {
 
 	return (
 		<>
-			<div className='p-6 bg-white rounded-xl'>
-				<h1 className='font-semibold text-2xl'>Магазин {data?.shop.name}</h1>
+			<div className='base-block'>
+				<h1 className='base-title'>Магазин {data?.shop.name}</h1>
 				<div className='grid grid-cols-3 gap-6 mt-4'>
 					{buttons.map((item: any) => (
 						<Link
+							key={item.label}
 							className='h-20 rounded-md border border-sky-400 bg-transparent text-black text-xl font-semibold'
 							href={item.href}
-							key={item.label}
 						>
 							<Button className='h-20 bg-transparent text-black text-xl justify-start gap-5 font-semibold'>
 								<item.icon className={`h-9 w-9 ${item.iconColor}`} />

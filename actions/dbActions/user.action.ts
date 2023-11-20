@@ -2,8 +2,9 @@
 import Shop from "@/database/models/shop.model";
 import User from "@/database/models/user.model";
 import entryDatabase from "@/lib/mongoose";
+import {CreateUserParams} from "./index.shared";
 
-export const createUser = async (userData: any) => {
+export const createUser = async (userData: CreateUserParams) => {
 	try {
 		entryDatabase();
 
@@ -16,9 +17,10 @@ export const createUser = async (userData: any) => {
 	}
 };
 
-export const getUserShops = async (params: any) => {
+export const getUserShops = async (params: {clerkId: string | null}) => {
 	try {
 		entryDatabase();
+
 		const {clerkId} = params;
 
 		const user = await User.findOne({clerkId}).populate({
@@ -38,6 +40,7 @@ export const getUserShops = async (params: any) => {
 export const getUserInfo = async (params: {clerkId: string}) => {
 	try {
 		entryDatabase();
+
 		const {clerkId} = params;
 
 		const user = await User.findOne({clerkId});

@@ -9,14 +9,14 @@ const CategoryLogoButton = ({active, setActive}: any) => {
 			{active ? (
 				<Button
 					onClick={() => setActive(false)}
-					className='bg-sky-400 !py-6 !z-[21]'
+					className='bg-sky-400 !py-6 !z-[21] no-focus '
 				>
 					<X className='text-white h-6 w-6' />
 				</Button>
 			) : (
 				<Button
 					onClick={() => setActive(true)}
-					className='bg-[#f2f5fa] hover:bg-[#e2e4ee] !py-6'
+					className='bg-[#f2f5fa] hover:bg-[#e2e4ee] !py-6 no-focus '
 				>
 					<Blinds className='text-sky-500 h-6 w-6' />
 				</Button>

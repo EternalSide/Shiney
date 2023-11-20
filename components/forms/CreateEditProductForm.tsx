@@ -16,7 +16,6 @@ import {Input} from "@/components/ui/input";
 import {usePathname, useRouter} from "next/navigation";
 import {productSchema} from "@/lib/validations";
 import {useToast} from "../ui/use-toast";
-import {createShop, updateShop} from "@/actions/dbActions/shop.action";
 
 interface Props {
 	clerkId: string;
@@ -25,6 +24,7 @@ interface Props {
 }
 
 const CreateEditProductForm = ({clerkId, type, shopData}: Props) => {
+	// change to product
 	const shop = shopData && type === "Edit" && JSON.parse(shopData);
 
 	const form = useForm<z.infer<typeof productSchema>>({
@@ -43,28 +43,11 @@ const CreateEditProductForm = ({clerkId, type, shopData}: Props) => {
 	const onSubmit = async (values: z.infer<typeof productSchema>) => {
 		try {
 			if (type !== "Edit") {
-				const newShop = await createShop({...values, clerkId});
-
-				setTimeout(() => {
-					router.push(`/shop/${newShop.link}`);
-				}, 1000);
 			} else {
-				const updatedShop = await updateShop({
-					...values,
-					shopLink: shop.link,
-					path,
-				});
-
-				setTimeout(() => {
-					router.push(`/shop/${updatedShop.link}`);
-				}, 1000);
 			}
 
 			toast({
-				title:
-					type !== "Edit"
-						? "Магазин успешно создан ✔️"
-						: "Изменения сохранены ✔️",
+				title: type !== "Edit" ? "Успех ✔️" : "Изменения сохранены ✔️",
 				description: "Через секунду вы будете перенаправлены на его страницу.",
 			});
 		} catch (e) {
