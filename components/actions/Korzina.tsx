@@ -15,7 +15,7 @@ interface Props {
 const Korzina = ({open, setOpen}: Props) => {
 	const korzinaRef = useRef(null);
 	const pathname = usePathname();
-	const {} = useKorzina()
+	// const {} = useKorzina()
 
 	useEffect(() => {
 		const handleOutsideClick = (event: any) => {
