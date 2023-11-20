@@ -1,4 +1,9 @@
 import ProductCard from "@/components/cards/ProductCard";
+import {Metadata} from "next";
+
+export const metadata: Metadata = {
+	title: "Shiney / Избранное ",
+};
 
 const WishListPage = () => {
 	return (

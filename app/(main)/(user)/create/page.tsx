@@ -1,9 +1,14 @@
 import CreateEditShopForm from "@/components/forms/CreateEditShopForm";
-
 import {auth, redirectToSignIn} from "@clerk/nextjs";
+import {Metadata} from "next";
+
+export const metadata: Metadata = {
+	title: "Shiney / Создание магазина",
+};
 
 const CreateShopPage = async () => {
 	const {userId} = auth();
+
 	if (!userId) redirectToSignIn();
 
 	return (

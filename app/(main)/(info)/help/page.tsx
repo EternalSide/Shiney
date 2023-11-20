@@ -1,6 +1,11 @@
 import {Button} from "@/components/ui/button";
 import {ChevronRight} from "lucide-react";
+import {Metadata} from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+	title: "Shiney / Помощь ",
+};
 
 const HelpPage = () => {
 	return (
@@ -15,7 +20,7 @@ const HelpPage = () => {
 
 				<p className='text-blue-600 font-medium text-sm'>Помощь</p>
 			</div>
-			<div className='mt-4 flex gap-8 items-start'>
+			<div className='mt-4 flex gap-6 items-start'>
 				<div className='w-[320px] bg-white rounded-lg py-6 h-64'>
 					<h3 className='px-4 font-semibold'>1. Мой заказ</h3>
 					<ul className='flex flex-col gap-3 mt-3'>

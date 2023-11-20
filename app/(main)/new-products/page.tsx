@@ -1,4 +1,10 @@
 import ProductCard from "@/components/cards/ProductCard";
+import {Metadata} from "next";
+import Loading from "./loading";
+
+export const metadata: Metadata = {
+	title: "Shiney / Новинки",
+};
 
 const NewProductsPage = () => {
 	return (

@@ -12,6 +12,7 @@ export default authMiddleware({
 		"/for-sellers",
 		"/new-products",
 		"/help",
+		"/category/:name",
 	],
 	ignoredRoutes: ["/api/webhook"],
 });

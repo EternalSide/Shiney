@@ -9,6 +9,22 @@ interface Props {
 	};
 }
 
+export async function generateMetadata({params}: Props) {
+	const detectName = () => {
+		const category = popularCategories.find((item: any) => {
+			if (item.category === params.name) return item;
+		});
+
+		return category;
+	};
+
+	const category = detectName();
+
+	return {
+		title: `Shiney / ${category?.label}`,
+	};
+}
+
 const CategoryPage = ({params}: Props) => {
 	const detectName = () => {
 		const category = popularCategories.find((item: any) => {
@@ -17,7 +33,9 @@ const CategoryPage = ({params}: Props) => {
 
 		return category;
 	};
+
 	const category = detectName();
+
 	if (!category) redirect("/");
 
 	return (
