@@ -17,6 +17,7 @@ import {usePathname, useRouter} from "next/navigation";
 import {shopSchema} from "@/lib/validations";
 import {useToast} from "../ui/use-toast";
 import {createShop, updateShop} from "@/actions/dbActions/shop.action";
+import {useState} from "react";
 
 interface Props {
 	clerkId: string;
@@ -51,7 +52,7 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 			} else {
 				const updatedShop = await updateShop({
 					...values,
-					shopLink: shop.link,
+					shopLink: shop.link.trim(),
 					path,
 				});
 
@@ -122,7 +123,7 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 							<FormDescription>
 								Ваш магазин будет располагаться по адресу{" "}
 								{`peppe-blue.vercel.app/shop/${
-									form.getValues().link || "peppeshop"
+									form.getValues().link.trim() || "peppeshop"
 								}`}
 							</FormDescription>
 							<FormMessage />

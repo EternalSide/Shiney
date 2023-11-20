@@ -38,6 +38,8 @@ const CategoryPage = ({params}: Props) => {
 
 	if (!category) redirect("/");
 
+	console.log(category);
+
 	return (
 		<div className='mt-2 flex items-center gap-2'>
 			<Link href='/'>

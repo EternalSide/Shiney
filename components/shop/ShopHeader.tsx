@@ -64,8 +64,8 @@ const ShopHeader = ({
 				>
 					<Image
 						className='rounded-full object-cover object-center hover:scale-105 transition'
-						src='https://i.pinimg.com/564x/eb/3b/46/eb3b46dbd475a0a01f0fa6ed15c36986.jpg'
-						alt='bg'
+						src='/no-photo.jpg'
+						alt={`Баннер магазина ${shopName}`}
 						fill
 					/>
 				</button>

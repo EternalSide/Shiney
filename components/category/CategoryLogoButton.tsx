@@ -1,7 +1,7 @@
 import Image from "next/image";
 import {Button} from "../ui/button";
 import Link from "next/link";
-import {Blinds, X} from "lucide-react";
+import {LayoutList, X} from "lucide-react";
 
 const CategoryLogoButton = ({active, setActive}: any) => {
 	return (
@@ -16,9 +16,9 @@ const CategoryLogoButton = ({active, setActive}: any) => {
 			) : (
 				<Button
 					onClick={() => setActive(true)}
-					className='bg-[#f2f5fa] hover:bg-[#e2e4ee] !py-6 no-focus '
+					className='bg-[#f4f5fa] hover:bg-[#fbf9f9] !py-6 no-focus '
 				>
-					<Blinds className='text-sky-500 h-6 w-6' />
+					<LayoutList className='text-sky-500 h-6 w-6' />
 				</Button>
 			)}
 			<Link

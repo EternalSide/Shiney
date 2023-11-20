@@ -3,6 +3,7 @@ import {IShop} from "@/database/models/shop.model";
 import {getUserShops} from "@/actions/dbActions/user.action";
 import {auth} from "@clerk/nextjs";
 import {Metadata} from "next";
+import Loading from "./loading";
 
 export const metadata: Metadata = {
 	title: "Shiney / Мои магазины",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 
 const ShopsPage = async () => {
 	const {userId} = auth();
+
 	const {shops} = await getUserShops({clerkId: userId});
 
 	return (

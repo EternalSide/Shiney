@@ -19,7 +19,8 @@ export const shopSchema = z.object({
 		})
 		.max(30, {
 			message: FIELD_MAX_ERROR,
-		}),
+		})
+		.refine((s) => !s.includes(" "), "Ссылка не может содержать пробелы"),
 	description: z
 		.string()
 		.min(2, {
