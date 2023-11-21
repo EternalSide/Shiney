@@ -60,6 +60,7 @@ const ShopAdminPage = async ({params}: AdminParams) => {
 					))}
 					<DeleteShopAction
 						shopLink={data?.shop.link!}
+						shopAvatar={data?.shop.avatar!}
 						adminPage={true}
 						clerkId={data?.clerkId!}
 					/>

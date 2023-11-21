@@ -12,12 +12,12 @@ const ShopsPage = async () => {
 	const {userId} = auth();
 
 	const {shops} = await getUserShops({clerkId: userId});
-	console.log(shops);
+
 	return (
 		<div className='base-block'>
 			<h1 className='base-title'>Мои магазины</h1>
 			{shops?.length > 0 ? (
-				<div className='mt-4 flex flex-col gap-10'>
+				<div className='mt-4 flex flex-col gap-8'>
 					{shops.map((shop: IShop) => (
 						<MyShopCard
 							key={shop._id}

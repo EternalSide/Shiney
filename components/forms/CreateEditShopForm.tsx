@@ -40,6 +40,7 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 	});
 
 	const [shopImage, setShopImage] = useState<File>();
+
 	const {edgestore} = useEdgeStore();
 
 	const router = useRouter();
@@ -49,46 +50,67 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 	const onSubmit = async (values: z.infer<typeof shopSchema>) => {
 		try {
 			if (type !== "Edit") {
-				console.log(shopImage);
+				toast({
+					title: "Ваш магазин создается.. 🏪",
+					description:
+						"Через несколько секунд вы будете перенаправлены на его страницу.",
+				});
+
+				let shop_image = "";
+
 				if (shopImage) {
 					const res = await edgestore.shopImage.upload({
-						// @ts-ignore
-
 						onProgressChange: (progress) => {},
 						file: shopImage,
 					});
+					shop_image = res.url;
+				}
 
-					const newShop = await createShop({
-						...values,
-						clerkId,
-						path,
-						image: res.url,
+				const {shopLink} = await createShop({
+					...values,
+					clerkId,
+					path,
+					image: shop_image,
+				});
+
+				toast({
+					title: "Магазин успешно создан ✔️",
+				});
+
+				router.push(`/shop/${shopLink}`);
+			} else {
+				toast({
+					title: "Обновляем информацию..",
+				});
+
+				let updated_shop_avatar = shop?.avatar || "";
+
+				if (shopImage) {
+					// Загрузить новую
+					const res = await edgestore.shopImage.upload({
+						onProgressChange: (progress) => {},
+						file: shopImage,
+						options: {
+							replaceTargetUrl: shop?.avatar,
+						},
 					});
 
-					setTimeout(() => {
-						router.push(`/shop/${newShop.link}`);
-					}, 1000);
+					updated_shop_avatar = res.url;
 				}
-			} else {
-				const updatedShop = await updateShop({
+
+				await updateShop({
 					...values,
 					path,
-					image: "",
+					avatar: updated_shop_avatar,
 					shopLink: shop.link.trim(),
 				});
 
-				setTimeout(() => {
-					router.push(`/shop/${updatedShop.link}`);
-				}, 1000);
-			}
+				toast({
+					title: "Изменения сохранены ✔️",
+				});
 
-			toast({
-				title:
-					type !== "Edit"
-						? "Магазин успешно создан ✔️"
-						: "Изменения сохранены ✔️",
-				description: "Через секунду вы будете перенаправлены на его страницу.",
-			});
+				router.push(`/shops`);
+			}
 		} catch (e) {
 			toast({
 				title: "Что-то пошло не так...",
@@ -172,6 +194,7 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 						</FormItem>
 					)}
 				/>
+
 				<FormField
 					control={form.control}
 					// @ts-ignore
@@ -180,16 +203,14 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 						<FormItem>
 							<FormLabel className='font-semibold'>Изображение</FormLabel>
 							<FormControl>
-								<>
-									<SingleImageDropzone
-										width={300}
-										height={300}
-										value={shopImage}
-										onChange={(file) => {
-											setShopImage(file);
-										}}
-									/>
-								</>
+								<SingleImageDropzone
+									width={300}
+									height={300}
+									value={shopImage || shop?.avatar}
+									onChange={(file) => {
+										setShopImage(file);
+									}}
+								/>
 							</FormControl>
 							<FormDescription>Изображение вашего магазина.</FormDescription>
 							<FormMessage />

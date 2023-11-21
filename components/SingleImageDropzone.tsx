@@ -141,7 +141,12 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
 								перетащите или выберите изображение
 							</div>
 							<div className='mt-3'>
-								<Button disabled={disabled}>Выбрать</Button>
+								<Button
+									type='button'
+									disabled={disabled}
+								>
+									Выбрать
+								</Button>
 							</div>
 						</div>
 					)}

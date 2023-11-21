@@ -3,6 +3,12 @@ import * as z from "zod";
 const FIELD_MIN_ERROR = "Поле не может быть меньше 2 символов";
 const FIELD_MAX_ERROR = "Поле не может быть больше 30 символов";
 
+const emptyStringToUndefined = z.literal("").transform(() => undefined);
+
+export function asOptionalField<T extends z.ZodTypeAny>(schema: T) {
+	return schema.optional().or(emptyStringToUndefined);
+}
+
 export const shopSchema = z.object({
 	name: z
 		.string()
@@ -56,7 +62,4 @@ export const productSchema = z.object({
 		.max(100, {
 			message: FIELD_MAX_ERROR,
 		}),
-	category: z.string().min(2, {
-		message: "Категория не добавлена",
-	}),
 });

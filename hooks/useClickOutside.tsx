@@ -7,9 +7,9 @@ interface Props {
 	open: boolean;
 }
 
-const useClickOutside = ({ref, setOpen, pathname, open}: Props) => {
+const useClickOutside = ({ref, open, setOpen, pathname}: Props) => {
 	useEffect(() => {
-		const handleOutsideClick = (e: Event) => {
+		const handleOutsideClick = (e: MouseEvent) => {
 			// @ts-ignore
 			if (ref && ref.current && !ref.current.contains(e.target)) {
 				setOpen(false);
@@ -18,7 +18,7 @@ const useClickOutside = ({ref, setOpen, pathname, open}: Props) => {
 
 		const handleScroll = (e: Event) => window.scrollTo(0, 0);
 
-		const handleEscClick = (e: any) => {
+		const handleEscClick = (e: KeyboardEvent) => {
 			if (e.key === "Escape") return setOpen(false);
 		};
 

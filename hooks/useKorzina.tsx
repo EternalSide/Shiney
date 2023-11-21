@@ -2,10 +2,13 @@ import {IProduct} from "@/database/models/product.model";
 import {create} from "zustand";
 
 interface KorzinaStore {
-	products: any;
+	products: IProduct[];
 	addProduct: (newProduct: IProduct) => void;
-	updateProduct: (productId: string, update: (product: any) => any) => void;
-	removeProduct: (productId: number) => void;
+	updateProduct: (
+		productId: string,
+		update: (data: Partial<IProduct>) => any
+	) => void;
+	removeProduct: (productId: string) => void;
 }
 
 export const useKorzina = create<KorzinaStore>((set) => ({

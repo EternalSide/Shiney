@@ -25,7 +25,7 @@ const MyShopCard = ({
 	clerkId,
 }: Props) => {
 	return (
-		<div className='flex items-start justify-between relative'>
+		<div className='flex items-start justify-between relative py-3'>
 			<div className='flex items-start gap-3'>
 				<Link
 					href={`/shop/${link}`}
@@ -60,14 +60,18 @@ const MyShopCard = ({
 			</div>
 			<div className='flex flex-col items-end'>
 				<div className='flex items-center gap-2'>
-					<Link href={`shop/${link}/admin/edit`}>
+					<Link
+						className='block'
+						href={`shop/${link}/admin/edit`}
+					>
 						<button>
-							<FileSignature className='text-green-500' />
+							<FileSignature className='text-sky-500' />
 						</button>
 					</Link>
 					<DeleteShopAction
 						shopLink={link}
 						clerkId={clerkId}
+						shopAvatar={avatar}
 					/>
 				</div>
 				<Link

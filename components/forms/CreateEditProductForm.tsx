@@ -33,7 +33,6 @@ const CreateEditProductForm = ({clerkId, type, shopData}: Props) => {
 			title: "",
 			description: "",
 			picture: "",
-			category: "",
 		},
 	});
 	const router = useRouter();
@@ -115,17 +114,7 @@ const CreateEditProductForm = ({clerkId, type, shopData}: Props) => {
 						</FormItem>
 					)}
 				/>
-				<FormField
-					control={form.control}
-					name='category'
-					render={({field}) => (
-						<FormItem>
-							<FormLabel className='font-semibold'>Категория</FormLabel>
-							<FormControl></FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+
 				<div className='flex justify-end items-center gap-6'>
 					<Button
 						onClick={cancelButton}

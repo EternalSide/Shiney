@@ -11,30 +11,50 @@ import {Button} from "../ui/button";
 import {toast} from "../ui/use-toast";
 import {deleteShopAction} from "@/actions/dbActions/shop.action";
 import {usePathname, useRouter} from "next/navigation";
+import {useEdgeStore} from "@/lib/edgestore";
 
 const DeleteShopModal = () => {
-	const {isOpen, onClose, type, data: shopLink} = useModal();
+	const {isOpen, onClose, type, data} = useModal();
+
+	let shopLink: string;
+	let shopAvatar: string;
+
+	if (data !== null) {
+		shopLink = data.shopLink;
+		shopAvatar = data.shopAvatar;
+	}
+
 	const modalOpen = type === "deleteShop" && isOpen;
 	const path = usePathname();
 	const router = useRouter();
+	const {edgestore} = useEdgeStore();
 
 	const deleteShop = async () => {
 		try {
-			await deleteShopAction({shopLink, path});
-			onClose();
-
 			toast({
-				title: "Действие совершенно ✔️",
-				description: "Вся информация удалена.",
+				title: "Мы начали удалять ваш магазин..",
 			});
 
-			router.push("/shops");
+			onClose();
+
+			await deleteShopAction({shopLink, path});
+
+			await edgestore.shopImage.delete({
+				url: shopAvatar,
+			});
+
+			toast({
+				title: "Магазин удален ✔️",
+			});
+
+			if (path !== "/shops") return router.push("/shops");
 		} catch (e) {
 			toast({
 				title: "Что-то пошло не так...",
 				description: "Попробуйте еще раз",
 				variant: "destructive",
 			});
+			console.log(e);
 		}
 	};
 

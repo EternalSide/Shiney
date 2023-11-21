@@ -27,7 +27,7 @@ export interface FollowShopParams {
 export interface UpdateShopParams {
 	shopLink: string;
 	name: string;
-	image: string;
+	avatar: string;
 	link: string;
 	description: string;
 	path: string;

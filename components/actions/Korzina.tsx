@@ -7,6 +7,7 @@ import OverlayMain from "../shared/OverlayMain";
 import KorzinaCard from "../cards/KorzinaCard";
 import Link from "next/link";
 import useClickOutside from "@/hooks/useClickOutside";
+import {useKorzina} from "@/hooks/useKorzina";
 
 interface Props {
 	open: boolean;
@@ -43,7 +44,7 @@ const Korzina = ({open, setOpen}: Props) => {
 
 	useClickOutside({ref: korzinaRef, setOpen, pathname, open});
 
-	// const {products} = useKorzina();
+	const {products} = useKorzina();
 	// const emptyKorzina = products.length === 0;
 
 	// const totalPrice = products.reduce((total: number, product: ILocalProduct) => {

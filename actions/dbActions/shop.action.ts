@@ -32,7 +32,10 @@ export const createShop = async (shopData: CreateShopParams) => {
 		await user.save();
 
 		revalidatePath(path);
-		return newShop;
+
+		return {
+			shopLink: newShop.link,
+		};
 	} catch (e) {
 		console.log(e);
 		throw e;
@@ -43,11 +46,11 @@ export const updateShop = async (params: UpdateShopParams) => {
 	try {
 		entryDatabase();
 
-		const {shopLink, name, link, description, path} = params;
+		const {shopLink, name, link, description, path, avatar} = params;
 
 		const shop = await Shop.findOneAndUpdate(
 			{link: shopLink},
-			{name, link, description}
+			{name, link, description, avatar}
 		);
 
 		revalidatePath(path);

@@ -7,7 +7,9 @@ const es = initEdgeStore.create();
  * This is the main router for the Edge Store buckets.
  */
 const edgeStoreRouter = es.router({
-	shopImage: es.fileBucket(),
+	shopImage: es.fileBucket().beforeDelete(({ctx, fileInfo}) => {
+		return true;
+	}),
 });
 
 const handler = createEdgeStoreNextHandler({
