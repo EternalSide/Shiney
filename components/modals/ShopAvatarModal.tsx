@@ -26,9 +26,7 @@ const ShopAvatarModal = () => {
 					</div>
 				</DialogContent>
 			</Dialog>
-			<div className='z-[900] fixed bottom-2 right-3 text-lg font-bold text-sky-400'>
-				Peppe
-			</div>
+			<div className='z-[900] fixed bottom-2 right-3 text-lg font-bold text-sky-400'></div>
 		</>
 	);
 };

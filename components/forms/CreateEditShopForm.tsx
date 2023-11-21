@@ -17,7 +17,9 @@ import {usePathname, useRouter} from "next/navigation";
 import {shopSchema} from "@/lib/validations";
 import {useToast} from "../ui/use-toast";
 import {createShop, updateShop} from "@/actions/dbActions/shop.action";
+import {useEdgeStore} from "@/lib/edgestore";
 import {useState} from "react";
+import {SingleImageDropzone} from "../SingleImageDropzone";
 
 interface Props {
 	clerkId: string;
@@ -37,6 +39,9 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 		},
 	});
 
+	const [shopImage, setShopImage] = useState<File>();
+	const {edgestore} = useEdgeStore();
+
 	const router = useRouter();
 	const {toast} = useToast();
 	const path = usePathname();
@@ -44,16 +49,32 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 	const onSubmit = async (values: z.infer<typeof shopSchema>) => {
 		try {
 			if (type !== "Edit") {
-				const newShop = await createShop({...values, clerkId});
+				console.log(shopImage);
+				if (shopImage) {
+					const res = await edgestore.shopImage.upload({
+						// @ts-ignore
 
-				setTimeout(() => {
-					router.push(`/shop/${newShop.link}`);
-				}, 1000);
+						onProgressChange: (progress) => {},
+						file: shopImage,
+					});
+
+					const newShop = await createShop({
+						...values,
+						clerkId,
+						path,
+						image: res.url,
+					});
+
+					setTimeout(() => {
+						router.push(`/shop/${newShop.link}`);
+					}, 1000);
+				}
 			} else {
 				const updatedShop = await updateShop({
 					...values,
-					shopLink: shop.link.trim(),
 					path,
+					image: "",
+					shopLink: shop.link.trim(),
 				});
 
 				setTimeout(() => {
@@ -74,6 +95,7 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 				description: "Попробуйте еще раз",
 				variant: "destructive",
 			});
+			console.log(e);
 		}
 	};
 
@@ -146,6 +168,30 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 							<FormDescription>
 								Введите описание дла вашего магазина.
 							</FormDescription>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					// @ts-ignore
+					name='image'
+					render={({field}) => (
+						<FormItem>
+							<FormLabel className='font-semibold'>Изображение</FormLabel>
+							<FormControl>
+								<>
+									<SingleImageDropzone
+										width={300}
+										height={300}
+										value={shopImage}
+										onChange={(file) => {
+											setShopImage(file);
+										}}
+									/>
+								</>
+							</FormControl>
+							<FormDescription>Изображение вашего магазина.</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}

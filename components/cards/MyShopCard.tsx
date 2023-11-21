@@ -12,11 +12,13 @@ interface Props {
 	buyCount: number;
 	productsCount: number;
 	clerkId: string | null;
+	avatar: string;
 }
 
 const MyShopCard = ({
 	name,
 	description,
+	avatar,
 	link,
 	buyCount,
 	productsCount,
@@ -33,7 +35,7 @@ const MyShopCard = ({
 						className='rounded-lg'
 						alt={`Изображение магазина ${name}`}
 						fill
-						src='https://i.pinimg.com/564x/eb/3b/46/eb3b46dbd475a0a01f0fa6ed15c36986.jpg'
+						src={avatar || "/no-photo.jpg"}
 					/>
 				</Link>
 				<div className='flex flex-col gap-3'>

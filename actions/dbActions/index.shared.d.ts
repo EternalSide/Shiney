@@ -6,6 +6,8 @@ export interface CreateShopParams extends ShopName {
 	link: string;
 	description: string;
 	clerkId: string;
+	image: string;
+	path: string;
 }
 
 export interface GetShopInfoParams extends ShopName {}
@@ -25,6 +27,7 @@ export interface FollowShopParams {
 export interface UpdateShopParams {
 	shopLink: string;
 	name: string;
+	image: string;
 	link: string;
 	description: string;
 	path: string;

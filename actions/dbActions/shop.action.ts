@@ -15,7 +15,7 @@ export const createShop = async (shopData: CreateShopParams) => {
 	try {
 		entryDatabase();
 
-		const {name, link, description, clerkId} = shopData;
+		const {name, link, description, clerkId, image, path} = shopData;
 
 		const user = await User.findOne({clerkId});
 
@@ -24,12 +24,14 @@ export const createShop = async (shopData: CreateShopParams) => {
 			link,
 			description,
 			creator: user._id,
+			avatar: image,
 		});
 
 		user.shops.push(newShop._id);
 
 		await user.save();
 
+		revalidatePath(path);
 		return newShop;
 	} catch (e) {
 		console.log(e);

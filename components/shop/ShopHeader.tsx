@@ -10,7 +10,8 @@ import {usePathname} from "next/navigation";
 import {followShopAction} from "@/actions/dbActions/shop.action";
 
 interface Props {
-	shopName: String;
+	shopName: string;
+	shopImage: string;
 	followersLength: number;
 	buyCount: number;
 	commentsLength: number;
@@ -24,6 +25,7 @@ interface Props {
 
 const ShopHeader = ({
 	shopName,
+	shopImage,
 	followersLength,
 	buyCount,
 	commentsLength,
@@ -37,11 +39,7 @@ const ShopHeader = ({
 	const {onOpen} = useModal();
 	const path = usePathname();
 
-	const openAvatar = () =>
-		onOpen(
-			"shopAvatar",
-			"https://i.pinimg.com/564x/eb/3b/46/eb3b46dbd475a0a01f0fa6ed15c36986.jpg"
-		);
+	const openAvatar = () => onOpen("shopAvatar", shopImage || "/no-photo.jpg");
 
 	const followShop = async () => {
 		try {
@@ -64,7 +62,7 @@ const ShopHeader = ({
 				>
 					<Image
 						className='rounded-full object-cover object-center hover:scale-105 transition'
-						src='/no-photo.jpg'
+						src={shopImage || "/no-photo.jpg"}
 						alt={`Баннер магазина ${shopName}`}
 						fill
 					/>

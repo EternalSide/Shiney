@@ -4,6 +4,7 @@ import "./globals.css";
 import {ReactChildren} from "@/types";
 import {ClerkProvider} from "@clerk/nextjs";
 import {ruRU} from "@clerk/localizations";
+import {EdgeStoreProvider} from "../lib/edgestore";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -20,7 +21,9 @@ export default function RootLayout({children}: ReactChildren) {
 	return (
 		<ClerkProvider localization={ruRU}>
 			<html lang='ru'>
-				<body className={inter.className}>{children}</body>
+				<body className={inter.className}>
+					<EdgeStoreProvider>{children}</EdgeStoreProvider>
+				</body>
 			</html>
 		</ClerkProvider>
 	);

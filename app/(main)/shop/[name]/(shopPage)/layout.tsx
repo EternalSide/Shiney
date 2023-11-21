@@ -24,6 +24,7 @@ const ShopPageLayout = async ({params, children}: Props) => {
 			<ShopBanner alt={`Баннер магазина ${shop.name}`} />
 			<ShopHeader
 				shopName={shop.name}
+				shopImage={shop.avatar}
 				shopLink={shop.link}
 				buyCount={shop.buyCount}
 				followersLength={shop.followers?.length}

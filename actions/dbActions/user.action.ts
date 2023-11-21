@@ -26,6 +26,7 @@ export const getUserShops = async (params: {clerkId: string | null}) => {
 		const user = await User.findOne({clerkId}).populate({
 			path: "shops",
 			model: Shop,
+			options: {sort: {createdOn: -1}},
 		});
 
 		return {
