@@ -24,5 +24,10 @@ export const allCategories = [
 		href: "/electric",
 		label: "Электроника",
 	},
-	// {data: beaty, value: "beaty"},
+	{
+		data: beaty,
+		value: "beaty",
+		href: "/beaty",
+		label: "Красота и здоровье",
+	},
 ];

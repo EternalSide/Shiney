@@ -16,6 +16,7 @@ const CategoryLinks = ({activeCategory, setActive}: Props) => {
 		<div className='w-full'>
 			<h3 className='base-title'>{activeCategory}</h3>
 			<div className='grid grid-cols-3 mt-6 gap-12 max-[1300px]:grid-cols-2'>
+				{/* @ts-ignore */}
 				{currentItem?.data.categories?.map((item: any) => (
 					<div className='flex flex-col gap-3'>
 						<Link

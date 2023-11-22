@@ -27,7 +27,7 @@ const KorzinaButton = ({setOpen, productsLength}: any) => {
 		<Button
 			onClick={() => (setOpen ? setOpen(true) : () => {})}
 			variant='mainPage'
-			className=' hover:border-sky-500 relative'
+			className=' hover:border-sky-500 relative p-0 w-12 h-12'
 		>
 			{Boolean(productsLength) && (
 				<div className='absolute -top-3 -right-2 px-2 py-0.5 rounded-full bg-sky-500 text-white text-sm'>

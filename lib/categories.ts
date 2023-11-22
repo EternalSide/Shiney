@@ -37,9 +37,9 @@ export const electronic = {
 
 export const beaty = {
 	label: "Красота и здоровье",
-	value: "electric",
+	value: "beaty",
 	icon: HeartPulse,
-	href: "/electric",
+	href: "/beaty",
 	subCategories: [
 		{
 			label: "Телефоны и смарт-часы",

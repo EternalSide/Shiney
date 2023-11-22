@@ -28,7 +28,7 @@ const HeaderCategories = () => {
 			{active && <OverlayMain zIndex='z-[20]' />}
 			<div
 				ref={containerRef}
-				className={`relative h-[90px] pt-3.5 bg-white  px-3 ${
+				className={`relative h-[90px]  bg-white px-4 ${
 					active && "rounded-xl rounded-b-none z-[30]"
 				}`}
 			>
@@ -37,15 +37,18 @@ const HeaderCategories = () => {
 					setActive={setActive}
 				/>
 				{active && (
-					<div className='max-[1300px]:min-w-[900px] flex gap-6 absolute top-0 left-0 !z-[220] bg-white min-w-[1180px] mt-[90px] rounded-t-none rounded-lg py-6 pl-2.5'>
-						<CategoryMenu
-							setActive={setActive}
-							setActiveCategory={setActiveCategory}
-						/>
-						<CategoryLinks
-							setActive={setActive}
-							activeCategory={activeCategory}
-						/>
+					<div className='max-[1300px]:min-w-[900px] absolute top-0 left-0 !z-[220] min-w-[1180px] mt-[90px]'>
+						<div className='bg-white h-6 w-[132px]' />
+						<div className='flex gap-6 py-6 pl-2.5 rounded-xl rounded-tl-none bg-white w-full'>
+							<CategoryMenu
+								setActive={setActive}
+								setActiveCategory={setActiveCategory}
+							/>
+							<CategoryLinks
+								setActive={setActive}
+								activeCategory={activeCategory}
+							/>
+						</div>
 					</div>
 				)}
 			</div>

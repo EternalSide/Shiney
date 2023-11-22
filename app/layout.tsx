@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 	description:
 		"Маркетплейс Shiney - платформа для продажи и покупки товаров, неограниченное количество ваших личных магазинов и товаров. ",
 	icons: {
-		icon: "/favicon.png",
+		icon: "/logo.png",
 	},
 };
 
