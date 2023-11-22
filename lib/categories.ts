@@ -13,112 +13,22 @@ export const electronic = {
 	value: "electric",
 	icon: Plug,
 	href: "/electric",
-	subCategories: [
+	categories: [
 		{
 			label: "Телефоны и смарт-часы",
-			href: "/electric",
-			links: [
+			href: "/smarthphones-watch",
+			categories: [
 				{
 					label: "Смартфоны",
-					href: "/electric",
+					href: "/smarthphones",
 				},
 				{
 					label: "Смарт-часы и фитнес-браслеты",
-					href: "/electric",
+					href: "/smarthwatch",
 				},
 				{
 					label: "Аксессуары для смартфонов и телефонов",
-					href: "/electric",
-				},
-			],
-		},
-		{
-			label: "Аудиотехника",
-			href: "/electric",
-			links: [
-				{
-					label: "Наушники и гарнитура",
-					href: "/electric",
-				},
-				{
-					label: "Акустика и колонки",
-					href: "/electric",
-				},
-				{
-					label: "Микрофоны и аксессуары",
-					href: "/electric",
-				},
-			],
-		},
-		{
-			label: "Фото и видеокамеры",
-			href: "/electric",
-			links: [
-				{
-					label: "Экшн-камеры",
-					href: "/electric",
-				},
-				{
-					label: "Объективы",
-					href: "/electric",
-				},
-				{
-					label: "Видеокамеры и аксессуары",
-					href: "/electric",
-				},
-			],
-		},
-		{
-			label: "Моноблоки и системные блоки",
-			href: "/electric",
-			links: [
-				{
-					label: "Смартфоны",
-					href: "/electric",
-				},
-				{
-					label: "Смарт-часы и фитнес-браслеты",
-					href: "/electric",
-				},
-				{
-					label: "Аксессуары для смартфонов и телефонов",
-					href: "/electric",
-				},
-			],
-		},
-		{
-			label: "Компьютеры и комплектующие",
-			href: "/electric",
-			links: [
-				{
-					label: "Смартфоны",
-					href: "/electric",
-				},
-				{
-					label: "Смарт-часы и фитнес-браслеты",
-					href: "/electric",
-				},
-				{
-					label: "Аксессуары для смартфонов и телефонов",
-					href: "/electric",
-				},
-			],
-		},
-		{
-			label: "Ноутбуки, планшеты и электронные книги",
-			href: "/electric",
-			links: [
-				{
-					label: "Смартфоны",
-					href: "/electric",
-				},
-				{
-					label: "Смарт-часы и фитнес-браслеты",
-					href: "/electric",
-				},
-				{
-					label: "Аксессуары для смартфонов и телефонов",
-					href: "/electric",
+					href: "/electronic-acc",
 				},
 			],
 		},

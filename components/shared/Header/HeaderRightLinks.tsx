@@ -3,13 +3,15 @@ import Korzina from "@/components/actions/Korzina";
 import {Button} from "@/components/ui/button";
 import {headerLinks} from "@/constants";
 import {HeaderLinkType} from "@/constants/types";
-import {SignedIn, SignedOut, UserButton} from "@clerk/nextjs";
+import {SignedIn, SignedOut, UserButton, useAuth} from "@clerk/nextjs";
 import {UserPlus} from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const HeaderRightLinks = () => {
 	const [korzinaOpen, setKorzinaOpen] = useState(false);
+
 	return (
 		<div className='flex gap-3 max-lg:hidden'>
 			{headerLinks.map((item: HeaderLinkType) => (
@@ -39,7 +41,6 @@ const HeaderRightLinks = () => {
 			</SignedOut>
 
 			<SignedIn>
-				{/* Корзина товаров. Modalka */}
 				<Korzina
 					open={korzinaOpen}
 					setOpen={setKorzinaOpen}

@@ -1,3 +1,5 @@
+"use client";
+import {useKorzina} from "@/hooks/useKorzina";
 import {Heart, Star} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,6 +19,7 @@ interface Props {
 const ProductCard = ({
 	id,
 	title,
+	description,
 	imgSrc,
 	shopName,
 	buyNumber,
@@ -25,6 +28,26 @@ const ProductCard = ({
 	price,
 	shopLink,
 }: any) => {
+	const {addProduct, products} = useKorzina();
+
+	const handleKorzina = () => {
+		const alreadyInKorzina = products.some((item: any) => item.id === id);
+
+		if (alreadyInKorzina) return;
+
+		let product = {
+			title,
+			description,
+			picture: imgSrc,
+			price,
+			id,
+			quantity: 1,
+		};
+
+		addProduct(product);
+
+		localStorage.setItem("products", JSON.stringify([...products, product]));
+	};
 	return (
 		<div>
 			<Link
@@ -46,7 +69,7 @@ const ProductCard = ({
 				>
 					<h3 className='text-[#252525] font-semibold'>{title}</h3>
 				</Link>
-				<button>
+				<button onClick={handleKorzina}>
 					<Heart className='h-5 w-5 hover:text-orange-400 transition hover:scale-110' />
 				</button>
 			</div>

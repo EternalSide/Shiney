@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 
 interface Props {
-	ref: React.ForwardedRef<HTMLDivElement>;
+	ref: any;
 	setOpen: (action: boolean) => void;
 	pathname: string;
 	open: boolean;
@@ -10,7 +10,6 @@ interface Props {
 const useClickOutside = ({ref, open, setOpen, pathname}: Props) => {
 	useEffect(() => {
 		const handleOutsideClick = (e: MouseEvent) => {
-			// @ts-ignore
 			if (ref && ref.current && !ref.current.contains(e.target)) {
 				setOpen(false);
 			}
@@ -34,7 +33,7 @@ const useClickOutside = ({ref, open, setOpen, pathname}: Props) => {
 			document.removeEventListener("scroll", handleScroll);
 			document.removeEventListener("keydown", handleEscClick);
 		};
-	}, [ref, pathname, open]);
+	}, [ref, ref.current, pathname, open, setOpen]);
 };
 
 export default useClickOutside;

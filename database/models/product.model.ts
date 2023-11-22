@@ -5,7 +5,7 @@ export interface IProduct extends Document {
 	description: string;
 	picture: string;
 	createdAt: Date;
-	category: Schema.Types.ObjectId;
+	category: Schema.Types.ObjectId[];
 	shop: Schema.Types.ObjectId;
 	comments: Schema.Types.ObjectId[];
 	price: string;
@@ -27,10 +27,12 @@ const ProductSchema = new Schema<IProduct>(
 		price: {
 			type: String,
 		},
-		category: {
-			type: Schema.Types.ObjectId,
-			ref: "Category",
-		},
+		category: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: "Category",
+			},
+		],
 		shop: {
 			type: Schema.Types.ObjectId,
 			ref: "Shop",

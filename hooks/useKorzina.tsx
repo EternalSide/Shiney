@@ -1,33 +1,73 @@
 import {IProduct} from "@/database/models/product.model";
 import {create} from "zustand";
+import Cookies from "js-cookie";
 
 interface KorzinaStore {
-	products: IProduct[];
-	addProduct: (newProduct: IProduct) => void;
-	updateProduct: (
-		productId: string,
-		update: (data: Partial<IProduct>) => any
-	) => void;
+	products: any;
+	addProduct: (newProduct: any) => void;
+	updateProduct: (productId: string, data: any) => void;
 	removeProduct: (productId: string) => void;
+	clearAllProducts: () => void;
 }
 
+// const getInitialProducts = () => {
+// 	const products = JSON.parse(localStorage.getItem("products")!) || [];
+// 	return products;
+// };
+
+// Загрузка данных из куки
+const getInitialProducts = () => {
+	if (typeof window !== "undefined") {
+		const productsCookie = Cookies.get("products");
+		return productsCookie ? JSON.parse(productsCookie) : [];
+	}
+	return [];
+};
+
+// Сохранение данных в куках
+const saveProductsToCookie = (products: any) => {
+	return Cookies.set("products", JSON.stringify(products), {expires: 7}); // Пример: куки будут храниться 7 дней
+};
+
 export const useKorzina = create<KorzinaStore>((set) => ({
-	products: [],
+	products: getInitialProducts(),
 	addProduct: (newProduct) => {
-		set((state) => ({products: [newProduct, ...state.products]}));
+		set((state) => {
+			const products = [newProduct, ...state.products];
+
+			saveProductsToCookie(products);
+
+			return {products};
+		});
 	},
-	updateProduct: (productId, update) => {
-		set((state) => ({
-			products: state.products.map((product: IProduct) =>
-				product.id === productId ? {...product, ...update(product)} : product
-			),
-		}));
+	updateProduct: (productId, data) => {
+		set((state) => {
+			const products = state.products.map((product: IProduct) =>
+				product.id === productId ? {...product, ...data} : product
+			);
+			saveProductsToCookie(products);
+			// localStorage.setItem("products", JSON.stringify([...products]));
+			return {
+				products,
+			};
+		});
 	},
 	removeProduct: (productId) => {
-		set((state) => ({
-			products: state.products.filter(
+		set((state) => {
+			const products = state.products.filter(
 				(product: IProduct) => product.id !== productId
-			),
-		}));
+			);
+			// localStorage.setItem("products", JSON.stringify([...products]));
+			saveProductsToCookie(products);
+
+			return {
+				products,
+			};
+		});
+	},
+	clearAllProducts: () => {
+		set(() => ({products: []}));
+		// localStorage.removeItem("products");
+		Cookies.remove("products");
 	},
 }));

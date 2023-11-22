@@ -1,11 +1,10 @@
 "use client";
 import {ShoppingCart} from "lucide-react";
 import {Button} from "../ui/button";
-import {useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import {usePathname} from "next/navigation";
 import OverlayMain from "../shared/OverlayMain";
 import KorzinaCard from "../cards/KorzinaCard";
-import Link from "next/link";
 import useClickOutside from "@/hooks/useClickOutside";
 import {useKorzina} from "@/hooks/useKorzina";
 
@@ -23,73 +22,102 @@ export interface ILocalProduct {
 	price: number;
 }
 
-const KorzinaButton = ({setOpen}: any) => {
+const KorzinaButton = ({setOpen, productsLength}: any) => {
 	return (
 		<Button
 			onClick={() => (setOpen ? setOpen(true) : () => {})}
 			variant='mainPage'
 			className=' hover:border-sky-500 relative'
 		>
-			<div className='absolute -top-3 -right-2 px-2 py-0.5 rounded-full bg-sky-500 text-white text-sm'>
-				0
-			</div>
+			{Boolean(productsLength) && (
+				<div className='absolute -top-3 -right-2 px-2 py-0.5 rounded-full bg-sky-500 text-white text-sm'>
+					{productsLength}
+				</div>
+			)}
 			<ShoppingCart className='text-[#252525] h-5 w-5' />
 		</Button>
 	);
 };
 
 const Korzina = ({open, setOpen}: Props) => {
-	const korzinaRef = useRef(null);
+	const [hydration, setHydration] = useState(false);
+
+	useEffect(() => {
+		setHydration(true);
+	}, []);
+
+	const korzinaRef = useRef<HTMLDivElement>(null);
 	const pathname = usePathname();
 
-	useClickOutside({ref: korzinaRef, setOpen, pathname, open});
+	const {products, removeProduct, updateProduct, clearAllProducts, addProduct} =
+		useKorzina();
 
-	const {products} = useKorzina();
-	// const emptyKorzina = products.length === 0;
+	useClickOutside({
+		ref: korzinaRef,
+		setOpen,
+		pathname,
+		open,
+	});
 
-	// const totalPrice = products.reduce((total: number, product: ILocalProduct) => {
-	// 	return total + product.price * product.quantity;
-	// }, 0);
+	const totalPrice = products?.reduce((total: number, product: any) => {
+		return total + product.price * product.quantity;
+	}, 0);
 
-	if (!open) return <KorzinaButton setOpen={setOpen} />;
+	if (!hydration) return <KorzinaButton setOpen={setOpen} />;
+
+	if (!open)
+		return (
+			<KorzinaButton
+				productsLength={products?.length}
+				setOpen={setOpen}
+			/>
+		);
 
 	return (
 		<>
 			<OverlayMain zIndex='z-[50]' />
-			<KorzinaButton />
-			<div
-				ref={korzinaRef}
-				className='z-[60] p-4 w-[500px] bg-white rounded-lg absolute top-0 right-[52px] mt-[91px]'
-			>
-				<div className='flex justify-between items-center'>
-					<h3 className='font-semibold'>Корзина</h3>
-					<button>
-						<p className='font-semibold text-neutral-400 text-sm'>Очистить</p>
-					</button>
-				</div>
+			<KorzinaButton productsLength={products?.length} />
+			<div className='z-[60] p-4 w-[500px] bg-white rounded-lg absolute top-0 right-[52px] mt-[91px]'>
+				<div
+					ref={korzinaRef}
+					className='relative'
+				>
+					<div className='flex justify-between items-center'>
+						<h3 className='font-semibold'>Корзина</h3>
+						<button onClick={clearAllProducts}>
+							<p className='font-semibold text-neutral-400 text-sm'>Очистить</p>
+						</button>
+					</div>
 
-				<div className='mt-4 flex flex-col gap-4'>
-					{[0, 1, 2].map((_, item: any) => {
-						return (
-							<KorzinaCard
-								id={item.id}
-								key={item.id}
-								image={item.image}
-								title={item.title}
-								description={item.description}
-								quantity={item.quantity}
-								price={item.price}
-							/>
-						);
-					})}
-				</div>
-
-				<div className='mt-6 flex flex-col items-end gap-3'>
-					{/* <h3 className='font-bold'>Итого: {totalPrice} ₽</h3> */}
-					<h3 className='font-bold'>Итого: 2 000 ₽</h3>
-					<Link href='/'>
+					<div className='mt-4 flex flex-col gap-4'>
+						{products?.length === 0 ? (
+							<div className='text-center text-zinc-400'>
+								Товары отсутствуют
+							</div>
+						) : (
+							products?.map((item: any) => {
+								return (
+									<KorzinaCard
+										id={item.id}
+										key={item.id}
+										image={item.picture}
+										title={item.title}
+										description={item.description}
+										quantity={item.quantity}
+										price={item.price}
+										removeProduct={removeProduct}
+										updateProduct={updateProduct}
+									/>
+								);
+							})
+						)}
+					</div>
+					<div className='mt-6 flex flex-col items-end gap-3'>
+						<h3 className='font-bold'>Итого: {totalPrice} ₽</h3>
+						{/* <Link href='/'>
 						<Button variant='blue'>В корзину</Button>
-					</Link>
+					</Link> */}
+					</div>
 				</div>
 			</div>
 		</>
