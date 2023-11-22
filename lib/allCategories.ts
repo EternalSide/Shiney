@@ -8,15 +8,6 @@ import {
 	house,
 } from "./categories";
 
-// export const allCategories = [
-// 	{data: electronic, value: "electronic"},
-// 	{data: beaty, value: "beaty"},
-// 	{data: sport, value: "sport"},
-// 	{data: clothes, value: "clothes"},
-// 	{data: shoes, value: "shoes"},
-// 	{data: bytovia, value: "bytovia"},
-// 	{data: house, value: "house"},
-// ];
 export const allCategories = [
 	{
 		data: electronic,
@@ -30,4 +21,19 @@ export const allCategories = [
 		href: "/beaty",
 		label: "Красота и здоровье",
 	},
+	{data: sport, value: "sport", href: "/beaty", label: "Красота и здоровье"},
+	{
+		data: clothes,
+		value: "clothes",
+		href: "/beaty",
+		label: "Красота и здоровье",
+	},
+	{data: shoes, value: "shoes", href: "/beaty", label: "Красота и здоровье"},
+	{
+		data: bytovia,
+		value: "bytovia",
+		href: "/beaty",
+		label: "Красота и здоровье",
+	},
+	{data: house, value: "house", href: "/beaty", label: "Красота и здоровье"},
 ];

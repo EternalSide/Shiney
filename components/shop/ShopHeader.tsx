@@ -21,10 +21,12 @@ interface Props {
 	clerkId: string | null;
 	shopLink: string;
 	isFollowing: boolean;
+	shopDescription: string;
 }
 
 const ShopHeader = ({
 	shopName,
+	shopDescription,
 	shopImage,
 	followersLength,
 	buyCount,
@@ -54,7 +56,7 @@ const ShopHeader = ({
 	};
 
 	return (
-		<div className='p-6 flex justify-between max-lg:flex-col max-lg:gap-6 bg-white rounded-tr-none rounded-tl-none'>
+		<div className='p-6 flex justify-between items-start  max-lg:flex-col max-lg:gap-6 bg-white rounded-tr-none rounded-tl-none'>
 			<div className='flex items-center gap-3 '>
 				<button
 					onClick={openAvatar}
@@ -63,7 +65,7 @@ const ShopHeader = ({
 					<Image
 						className='rounded-full object-cover object-center hover:scale-105 transition'
 						src={shopImage || "/no-photo.jpg"}
-						alt={`Баннер магазина ${shopName}`}
+						alt={`${shopName}`}
 						fill
 					/>
 				</button>
@@ -73,6 +75,7 @@ const ShopHeader = ({
 						<h1 className='font-bold text-2xl'>{shopName}</h1>
 						{verified && <Check className='text-blue-500' />}
 					</div>
+					<p>{shopDescription}</p>
 					<div className='flex items-center gap-1.5'>
 						<Star
 							className='h-4 w-4 text-orange-400 '
@@ -112,7 +115,7 @@ const ShopHeader = ({
 					variant='blue'
 					className='!px-10'
 				>
-					{isFollowing ? "Вы подписаны ✓" : "Подписаться"}
+					{isFollowing ? "Вы подписаны  ✓" : "Подписаться"}
 				</Button>
 			</div>
 		</div>

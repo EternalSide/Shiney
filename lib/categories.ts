@@ -40,11 +40,11 @@ export const beaty = {
 	value: "beaty",
 	icon: HeartPulse,
 	href: "/beaty",
-	subCategories: [
+	categories: [
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -62,7 +62,7 @@ export const beaty = {
 		{
 			label: "Аудиотехника",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Наушники и гарнитура",
 					href: "/electric",
@@ -80,7 +80,7 @@ export const beaty = {
 		{
 			label: "Фото и видеокамеры",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Экшн-камеры",
 					href: "/electric",
@@ -98,7 +98,7 @@ export const beaty = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -116,7 +116,7 @@ export const beaty = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -134,7 +134,7 @@ export const beaty = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -157,11 +157,11 @@ export const sport = {
 	value: "electric",
 	icon: Dumbbell,
 	href: "/electric",
-	subCategories: [
+	categories: [
 		{
 			label: "Велоспорт",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "BMX",
 					href: "/electric",
@@ -179,7 +179,7 @@ export const sport = {
 		{
 			label: "Самокаты, скейтборды и эклектротранспорт",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Наушники и гарнитура",
 					href: "/electric",
@@ -197,7 +197,7 @@ export const sport = {
 		{
 			label: "Бег",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Экшн-камеры",
 					href: "/electric",
@@ -215,7 +215,7 @@ export const sport = {
 		{
 			label: "Бокс и боевые искусства",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -233,7 +233,7 @@ export const sport = {
 		{
 			label: "Тренажеры и фитнес",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -251,7 +251,7 @@ export const sport = {
 		{
 			label: "Водные виды спорта",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -274,11 +274,11 @@ export const clothes = {
 	value: "clothes",
 	icon: Shirt,
 	href: "/clothes",
-	subCategories: [
+	categories: [
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -296,7 +296,7 @@ export const clothes = {
 		{
 			label: "Аудиотехника",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Наушники и гарнитура",
 					href: "/electric",
@@ -314,7 +314,7 @@ export const clothes = {
 		{
 			label: "Фото и видеокамеры",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Экшн-камеры",
 					href: "/electric",
@@ -332,7 +332,7 @@ export const clothes = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -350,7 +350,7 @@ export const clothes = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -368,7 +368,7 @@ export const clothes = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -391,11 +391,11 @@ export const shoes = {
 	value: "shoes",
 	icon: Footprints,
 	href: "/shoes",
-	subCategories: [
+	categories: [
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -413,7 +413,7 @@ export const shoes = {
 		{
 			label: "Аудиотехника",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Наушники и гарнитура",
 					href: "/electric",
@@ -431,7 +431,7 @@ export const shoes = {
 		{
 			label: "Фото и видеокамеры",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Экшн-камеры",
 					href: "/electric",
@@ -449,7 +449,7 @@ export const shoes = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -467,7 +467,7 @@ export const shoes = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -485,7 +485,7 @@ export const shoes = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -508,11 +508,11 @@ export const bytovia = {
 	value: "bytovia",
 	icon: Home,
 	href: "/bytovia",
-	subCategories: [
+	categories: [
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -530,7 +530,7 @@ export const bytovia = {
 		{
 			label: "Аудиотехника",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Наушники и гарнитура",
 					href: "/electric",
@@ -548,7 +548,7 @@ export const bytovia = {
 		{
 			label: "Фото и видеокамеры",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Экшн-камеры",
 					href: "/electric",
@@ -566,7 +566,7 @@ export const bytovia = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -584,7 +584,7 @@ export const bytovia = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -602,7 +602,7 @@ export const bytovia = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -625,11 +625,11 @@ export const house = {
 	value: "house",
 	icon: LampCeiling,
 	href: "/house",
-	subCategories: [
+	categories: [
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -647,7 +647,7 @@ export const house = {
 		{
 			label: "Аудиотехника",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Наушники и гарнитура",
 					href: "/electric",
@@ -665,7 +665,7 @@ export const house = {
 		{
 			label: "Фото и видеокамеры",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Экшн-камеры",
 					href: "/electric",
@@ -683,7 +683,7 @@ export const house = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -701,7 +701,7 @@ export const house = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",
@@ -719,7 +719,7 @@ export const house = {
 		{
 			label: "Телефоны и смарт-часы",
 			href: "/electric",
-			links: [
+			categories: [
 				{
 					label: "Смартфоны",
 					href: "/electric",

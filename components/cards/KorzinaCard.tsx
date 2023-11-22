@@ -35,7 +35,7 @@ const KorzinaCard = ({
 	};
 
 	return (
-		<div className='flex justify-between w-full items-start border-b pb-3'>
+		<div className='flex justify-between w-full items-start border-b py-3'>
 			<div className='flex items-center gap-1.5'>
 				<Link href={"/"}>
 					<div className='h-14 w-14 relative'>

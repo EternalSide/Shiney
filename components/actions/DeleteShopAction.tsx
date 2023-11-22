@@ -21,18 +21,24 @@ const DeleteShopAction = ({
 	// Добавить clerkId
 	if (adminPage) {
 		return (
-			<Button
+			<button
 				onClick={() =>
 					onOpen("deleteShop", {
 						shopLink,
 						shopAvatar,
 					})
 				}
-				className='h-20 bg-transparent text-black text-xl justify-start gap-5 font-semibold border border-sky-400'
+				className='admin-shop-card group hover:bg-sky-500'
 			>
-				<X className='h-9 w-9 text-red-500' />
-				Удалить
-			</Button>
+				<img
+					className='h-28 w-28'
+					src='https://media.tenor.com/aS_EMXObWn8AAAAj/cxyduck.gif'
+				/>
+				<div className='flex items-center group'>
+					<X className='h-9 w-9 text-red-500' />
+					<p className='group-hover:text-white transition'>Удалить</p>
+				</div>
+			</button>
 		);
 	}
 

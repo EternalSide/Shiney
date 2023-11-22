@@ -53,8 +53,8 @@ const MyShopCard = ({
 						className='flex gap-2 items-center'
 						href={`/shop/${link}`}
 					>
-						<p className='text-[#223bdd] font-semibold'>{`peppe-blue.vercel.app/shop/${link}`}</p>
-						<CopyAction text={`https:/peppe-blue.vercel.app/shop/${link}`} />
+						<p className='text-[#223bdd] font-semibold'>{`shiney.ru/shop/${link}`}</p>
+						<CopyAction text={`https:/shiney.ru/shop/${link}`} />
 					</Link>
 				</div>
 			</div>

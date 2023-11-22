@@ -7,6 +7,7 @@ import OverlayMain from "../shared/OverlayMain";
 import KorzinaCard from "../cards/KorzinaCard";
 import useClickOutside from "@/hooks/useClickOutside";
 import {useKorzina} from "@/hooks/useKorzina";
+import Link from "next/link";
 
 interface Props {
 	open: boolean;
@@ -77,7 +78,7 @@ const Korzina = ({open, setOpen}: Props) => {
 		<>
 			<OverlayMain zIndex='z-[50]' />
 			<KorzinaButton productsLength={products?.length} />
-			<div className='z-[60] p-4 w-[500px] bg-white rounded-lg absolute top-0 right-[52px] mt-[91px]'>
+			<div className='z-[60] px-5 py-6 w-[500px] bg-white rounded-lg absolute top-0 right-[52px] mt-[91px]'>
 				<div
 					ref={korzinaRef}
 					className='relative'
@@ -89,10 +90,10 @@ const Korzina = ({open, setOpen}: Props) => {
 						</button>
 					</div>
 
-					<div className='mt-4 flex flex-col gap-4'>
+					<div className='mt-3 flex flex-col gap-4'>
 						{products?.length === 0 ? (
-							<div className='text-center text-zinc-400'>
-								Товары отсутствуют
+							<div className='flex py-6 justify-center items-center text-zinc-400'>
+								Товары отсутствуют...
 							</div>
 						) : (
 							products?.map((item: any) => {
@@ -114,9 +115,11 @@ const Korzina = ({open, setOpen}: Props) => {
 					</div>
 					<div className='mt-6 flex flex-col items-end gap-3'>
 						<h3 className='font-bold'>Итого: {totalPrice} ₽</h3>
-						{/* <Link href='/'>
-						<Button variant='blue'>В корзину</Button>
-					</Link> */}
+						{products?.length > 0 && (
+							<Link href='/'>
+								<Button variant='blue'>В корзину</Button>
+							</Link>
+						)}
 					</div>
 				</div>
 			</div>

@@ -25,6 +25,7 @@ const ShopPageLayout = async ({params, children}: Props) => {
 			<ShopHeader
 				shopName={shop.name}
 				shopImage={shop.avatar}
+				shopDescription={shop.description}
 				shopLink={shop.link}
 				buyCount={shop.buyCount}
 				followersLength={shop.followers?.length}

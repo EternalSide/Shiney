@@ -7,7 +7,7 @@ import {useState} from "react";
 const HeaderSearch = () => {
 	const [searchValue, setSearchValue] = useState("");
 	return (
-		<div className='flex-1 bg-[#f4f5fa] relative rounded-xl flex items-center justify-between mr-4'>
+		<div className='flex-1 bg-[#f4f5fa] relative rounded-xl flex items-center justify-between lg:mr-4'>
 			<Button
 				variant='mainPage'
 				className='ml-1 flex items-center gap-1.5 w-40 !px-0 border-transparent'
@@ -19,7 +19,7 @@ const HeaderSearch = () => {
 					src='/logo.png'
 					className='object-cover rounded-full'
 				/>
-				<p className='text-sky-500 font-semibold'>Везде</p>
+				<p className='text-sky-500 font-semibold max-md:hidden'>Везде</p>
 				<ChevronRight className='text-neutral-700 h-4 w-4' />
 			</Button>
 			<Input
