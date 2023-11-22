@@ -33,13 +33,10 @@ const HeaderRightLinks = () => {
 				);
 			})}
 
-			{/* Логин */}
-			<SignedOut>
-				<Korzina
-					open={korzinaOpen}
-					setOpen={setKorzinaOpen}
-				/>
-			</SignedOut>
+			<Korzina
+				open={korzinaOpen}
+				setOpen={setKorzinaOpen}
+			/>
 
 			<SignedIn>
 				<UserButton
