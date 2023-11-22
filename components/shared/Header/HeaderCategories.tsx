@@ -38,8 +38,14 @@ const HeaderCategories = () => {
 				/>
 				{active && (
 					<div className='max-[1300px]:min-w-[900px] flex gap-6 absolute top-0 left-0 !z-[220] bg-white min-w-[1180px] mt-[90px] rounded-t-none rounded-lg py-6 pl-2.5'>
-						<CategoryMenu setActiveCategory={setActiveCategory} />
-						<CategoryLinks activeCategory={activeCategory} />
+						<CategoryMenu
+							setActive={setActive}
+							setActiveCategory={setActiveCategory}
+						/>
+						<CategoryLinks
+							setActive={setActive}
+							activeCategory={activeCategory}
+						/>
 					</div>
 				)}
 			</div>
