@@ -55,16 +55,16 @@ export const electronic = {
 			href: "/foto-i-videokamery",
 			categories: [
 				{
-					label: "Наушники и гарнитура",
-					href: "/headphones-and-headset",
+					label: "Экшн-камеры",
+					href: "/action-cameras",
 				},
 				{
-					label: "Акустика и колонки",
-					href: "/acoustics-and-speakers",
+					label: "Фотоаппараты",
+					href: "/cameras",
 				},
 				{
-					label: "Микрофоны и аксессуары",
-					href: "/microphones-and-accessories",
+					label: "Объективы",
+					href: "/lenses",
 				},
 			],
 		},
@@ -73,16 +73,8 @@ export const electronic = {
 			href: "/monoblocks-and-system-blocks",
 			categories: [
 				{
-					label: "Наушники и гарнитура",
-					href: "/headphones-and-headset",
-				},
-				{
-					label: "Акустика и колонки",
-					href: "/acoustics-and-speakers",
-				},
-				{
-					label: "Микрофоны и аксессуары",
-					href: "/microphones-and-accessories",
+					label: "Моноблоки",
+					href: "/monoblocks",
 				},
 			],
 		},
@@ -91,16 +83,16 @@ export const electronic = {
 			href: "/computers-and-accessories",
 			categories: [
 				{
-					label: "Наушники и гарнитура",
-					href: "/headphones-and-headset",
+					label: "Системные блоки",
+					href: "/system-blocks",
 				},
 				{
-					label: "Акустика и колонки",
-					href: "/acoustics-and-speakers",
+					label: "Комплектующие для ПК",
+					href: "/komplektuushchie-dlya-pk",
 				},
 				{
-					label: "Микрофоны и аксессуары",
-					href: "/microphones-and-accessories",
+					label: "Периферия для компьютеров",
+					href: "/computer-peripherals",
 				},
 			],
 		},
@@ -109,16 +101,16 @@ export const electronic = {
 			href: "/laptops-tablets-and-e-books",
 			categories: [
 				{
-					label: "Наушники и гарнитура",
-					href: "/headphones-and-headset",
+					label: "Ноутбуки",
+					href: "/laptops",
 				},
 				{
-					label: "Акустика и колонки",
-					href: "/acoustics-and-speakers",
+					label: "Планшеты",
+					href: "/tablets",
 				},
 				{
-					label: "Микрофоны и аксессуары",
-					href: "/microphones-and-accessories",
+					label: "Электронные книги",
+					href: "/e-books",
 				},
 			],
 		},
@@ -132,110 +124,110 @@ export const beaty = {
 	href: "/beaty",
 	categories: [
 		{
-			label: "тест",
-			href: "/test1",
+			label: "Макияж",
+			href: "/makeup",
 			categories: [
 				{
-					label: "Смартфоны",
-					href: "/asd",
+					label: "Тени",
+					href: "/eye-shadow",
 				},
 				{
-					label: "dfsdsfds",
-					href: "/asdasd",
+					label: "Глаза",
+					href: "/glaza",
 				},
 				{
-					label: "asd",
-					href: "/vbelectricsada",
+					label: "Брови",
+					href: "/brovi",
 				},
 			],
 		},
 		{
-			label: "Аудиотехника",
-			href: "/electric",
+			label: "Уход за лицом",
+			href: "/face1",
 			categories: [
 				{
-					label: "Наушники и гарнитура",
-					href: "/electric",
+					label: "Косметические массажеры",
+					href: "/cosmetic-massagers",
 				},
 				{
-					label: "Акустика и колонки",
-					href: "/electric",
+					label: "Патчи",
+					href: "/patchi",
 				},
 				{
-					label: "Микрофоны и аксессуары",
-					href: "/electric",
+					label: "Сыворотки для лица",
+					href: "/face_serums",
 				},
 			],
 		},
 		{
-			label: "Фото и видеокамеры",
-			href: "/electric",
+			label: "Уход за волосами",
+			href: "/uhod-za-volosami-krasota",
 			categories: [
 				{
-					label: "Экшн-камеры",
-					href: "/electric",
+					label: "Шампуни и кондиционеры",
+					href: "/hair-shampoos",
 				},
 				{
-					label: "Объективы",
-					href: "/electric",
+					label: "Маски и сыворотки",
+					href: "/maski-i-syvorotki",
 				},
 				{
-					label: "Видеокамеры и аксессуары",
-					href: "/electric",
+					label: "Средства для укладки",
+					href: "/sredstva-dlya-ukladki",
 				},
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Уход за телом",
+			href: "/body-care",
 			categories: [
 				{
-					label: "Смартфоны",
-					href: "/electric",
+					label: "Гели для душа",
+					href: "/geli-dlya-dusha",
 				},
 				{
-					label: "Смарт-часы и фитнес-браслеты",
-					href: "/electric",
+					label: "Мыло",
+					href: "/mylo",
 				},
 				{
-					label: "Аксессуары для смартфонов и телефонов",
-					href: "/electric",
+					label: "Крема",
+					href: "/kremy",
 				},
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Парфюмерия",
+			href: "/parfumeriya",
 			categories: [
 				{
-					label: "Смартфоны",
-					href: "/electric",
+					label: "Парфюмерная вода",
+					href: "/parfumernaya-voda",
 				},
 				{
-					label: "Смарт-часы и фитнес-браслеты",
-					href: "/electric",
+					label: "Одеколоны",
+					href: "/odekolony",
 				},
 				{
-					label: "Аксессуары для смартфонов и телефонов",
-					href: "/electric",
+					label: "Духи",
+					href: "/duhi",
 				},
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Аппаратная косметология",
+			href: "/hardware-cosmetology",
 			categories: [
 				{
-					label: "Смартфоны",
-					href: "/electric",
+					label: "Косметологические аппараты",
+					href: "/kosmetologicheskie-apparaty",
 				},
 				{
-					label: "Смарт-часы и фитнес-браслеты",
-					href: "/electric",
+					label: "Массажеры",
+					href: "/massajery",
 				},
 				{
-					label: "Аксессуары для смартфонов и телефонов",
-					href: "/electric",
+					label: "Контактные гели",
+					href: "/kontaktnye-geli",
 				},
 			],
 		},
@@ -250,109 +242,109 @@ export const sport = {
 	categories: [
 		{
 			label: "Велоспорт",
-			href: "/electric",
+			href: "/velosport",
 			categories: [
 				{
 					label: "BMX",
-					href: "/electric",
+					href: "/bmx",
 				},
 				{
 					label: "Детские велосипеды",
-					href: "/electric",
+					href: "/childrens_bicycles",
 				},
 				{
 					label: "Подростковые велосипеды",
-					href: "/electric",
+					href: "/teen_bikes",
 				},
 			],
 		},
 		{
-			label: "Самокаты, скейтборды и эклектротранспорт",
-			href: "/hgfhfghf",
+			label: "Самокаты, скейтборды и электротранспорт",
+			href: "/samokaty-skeitbordy-i-eklektrotransport",
 			categories: [
 				{
-					label: "Наушники и гарнитура",
-					href: "/sport1231231",
+					label: "Самокаты",
+					href: "/samokaty",
 				},
 				{
-					label: "Акустика и колонки",
-					href: "/electric",
+					label: "Скейтборды",
+					href: "/skeitbordy",
 				},
 				{
-					label: "Микрофоны и аксессуары",
-					href: "/electric",
+					label: "Электросамокаты",
+					href: "/elektrosamokaty",
 				},
 			],
 		},
 		{
 			label: "Бег",
-			href: "/electric",
+			href: "/run",
 			categories: [
 				{
-					label: "Экшн-камеры",
-					href: "/electric",
+					label: "Обувь и аксессуары для бега",
+					href: "/obuv-i-aksessuary-dlya-bega",
 				},
 				{
-					label: "Объективы",
-					href: "/electric",
+					label: "Одежда для бега",
+					href: "/odejda-dlya-bega",
 				},
 				{
-					label: "Видеокамеры и аксессуары",
-					href: "/electric",
+					label: "Поясные сумки и рюкзаки-гидраторы для бега",
+					href: "/poyasnye-sumki-i-rukzaki-gidratory-dlya-bega",
 				},
 			],
 		},
 		{
 			label: "Бокс и боевые искусства",
-			href: "/electric",
+			href: "/boks-i-boevye-iskusstva",
 			categories: [
 				{
-					label: "Смартфоны",
-					href: "/electric",
+					label: "Боксерские груши, мешки и манекены",
+					href: "/bokserskie-grushi-meshki-i-manekeny",
 				},
 				{
-					label: "Смарт-часы и фитнес-браслеты",
-					href: "/electric",
+					label: "Боксерские лапы, макивары и ракетки",
+					href: "/bokserskie-lapy-makivary-i-raketki",
 				},
 				{
-					label: "Аксессуары для смартфонов и телефонов",
-					href: "/electric",
+					label: "Защита для единоборств",
+					href: "/zashchita-dlya-edinoborstv",
 				},
 			],
 		},
 		{
 			label: "Тренажеры и фитнес",
-			href: "/electric",
+			href: "/exercise-equipment-fitness",
 			categories: [
 				{
-					label: "Смартфоны",
-					href: "/electric",
+					label: "Кардиотренажеры",
+					href: "/kardiotrenajery",
 				},
 				{
-					label: "Смарт-часы и фитнес-браслеты",
-					href: "/electric",
+					label: "Оборудование для фитнеса",
+					href: "/oborudovanie-dlya-fitnesa",
 				},
 				{
-					label: "Аксессуары для смартфонов и телефонов",
-					href: "/electric",
+					label: "Силовые тренажеры",
+					href: "/silovye-trenajery",
 				},
 			],
 		},
 		{
 			label: "Водные виды спорта",
-			href: "/electric",
+			href: "/vodnye-vidy-sporta",
 			categories: [
 				{
-					label: "Смартфоны",
-					href: "/electric",
+					label: "SUP-серфинг",
+					href: "/sup-serfing",
 				},
 				{
-					label: "Смарт-часы и фитнес-браслеты",
-					href: "/electric",
+					label: "Виндсерфинг",
+					href: "/vindserfing",
 				},
 				{
-					label: "Аксессуары для смартфонов и телефонов",
-					href: "/electric",
+					label: "Водное поло",
+					href: "/vodnoe-polo",
 				},
 			],
 		},
@@ -366,8 +358,8 @@ export const clothes = {
 	href: "/clothes",
 	categories: [
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Женщинам",
+			href: "/jenshchinam",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -384,8 +376,8 @@ export const clothes = {
 			],
 		},
 		{
-			label: "Аудиотехника",
-			href: "/electric",
+			label: "Мужчинам",
+			href: "/mujchinam",
 			categories: [
 				{
 					label: "Наушники и гарнитура",
@@ -402,8 +394,8 @@ export const clothes = {
 			],
 		},
 		{
-			label: "Фото и видеокамеры",
-			href: "/electric",
+			label: "Детям",
+			href: "/children-clothes",
 			categories: [
 				{
 					label: "Экшн-камеры",
@@ -420,8 +412,8 @@ export const clothes = {
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Спецодежда",
+			href: "/overalls",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -438,26 +430,8 @@ export const clothes = {
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
-			categories: [
-				{
-					label: "Смартфоны",
-					href: "/electric",
-				},
-				{
-					label: "Смарт-часы и фитнес-браслеты",
-					href: "/electric",
-				},
-				{
-					label: "Аксессуары для смартфонов и телефонов",
-					href: "/electric",
-				},
-			],
-		},
-		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Стоковая одежда",
+			href: "/stokovaya-odejda",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -483,8 +457,8 @@ export const shoes = {
 	href: "/shoes",
 	categories: [
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Женщинам",
+			href: "/jenshchinam-obuv",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -501,26 +475,8 @@ export const shoes = {
 			],
 		},
 		{
-			label: "Аудиотехника",
-			href: "/electric",
-			categories: [
-				{
-					label: "Наушники и гарнитура",
-					href: "/electric",
-				},
-				{
-					label: "Акустика и колонки",
-					href: "/electric",
-				},
-				{
-					label: "Микрофоны и аксессуары",
-					href: "/electric",
-				},
-			],
-		},
-		{
-			label: "Фото и видеокамеры",
-			href: "/electric",
+			label: "Мужчинам",
+			href: "/mujchinam-obuv",
 			categories: [
 				{
 					label: "Экшн-камеры",
@@ -537,8 +493,8 @@ export const shoes = {
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Детям",
+			href: "/detyam-obuv",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -555,8 +511,8 @@ export const shoes = {
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Уход и аксессуары",
+			href: "/uhod-i-aksessuary",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -573,8 +529,8 @@ export const shoes = {
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Стоковая обувь",
+			href: "/stokovaya-obuv",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -600,8 +556,8 @@ export const bytovia = {
 	href: "/bytovia",
 	categories: [
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Крупная бытовая техника",
+			href: "/large-home-appliances",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -618,8 +574,8 @@ export const bytovia = {
 			],
 		},
 		{
-			label: "Аудиотехника",
-			href: "/electric",
+			label: "Техника для дома",
+			href: "/home-appliances",
 			categories: [
 				{
 					label: "Наушники и гарнитура",
@@ -636,8 +592,8 @@ export const bytovia = {
 			],
 		},
 		{
-			label: "Фото и видеокамеры",
-			href: "/electric",
+			label: "Техника для общепита",
+			href: "/catering-equipment",
 			categories: [
 				{
 					label: "Экшн-камеры",
@@ -654,8 +610,8 @@ export const bytovia = {
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Техника для кухни",
+			href: "/kitchen-appliances",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -672,8 +628,8 @@ export const bytovia = {
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Техника для красоты и здоровья",
+			href: "/equipment-for-beauty-and-health",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -690,8 +646,8 @@ export const bytovia = {
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Климатическая техника",
+			href: "/air-conditioning-equipment",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -717,8 +673,8 @@ export const house = {
 	href: "/house",
 	categories: [
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Текстиль для дома",
+			href: "/tekstil-dlya-doma",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -735,8 +691,8 @@ export const house = {
 			],
 		},
 		{
-			label: "Аудиотехника",
-			href: "/electric",
+			label: "Освещение",
+			href: "/lighting",
 			categories: [
 				{
 					label: "Наушники и гарнитура",
@@ -753,8 +709,8 @@ export const house = {
 			],
 		},
 		{
-			label: "Фото и видеокамеры",
-			href: "/electric",
+			label: "Хозяйственные товары",
+			href: "/household-goods",
 			categories: [
 				{
 					label: "Экшн-камеры",
@@ -771,8 +727,8 @@ export const house = {
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Запчасти для бытовой техники",
+			href: "/appliances-parts",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -789,8 +745,8 @@ export const house = {
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Техника для красоты и здоровья",
+			href: "/equipment-for-beauty-and-health",
 			categories: [
 				{
 					label: "Смартфоны",
@@ -807,8 +763,8 @@ export const house = {
 			],
 		},
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "Техника для общепита",
+			href: "/catering-equipment",
 			categories: [
 				{
 					label: "Смартфоны",

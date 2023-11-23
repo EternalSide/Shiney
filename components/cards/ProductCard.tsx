@@ -66,12 +66,16 @@ const ProductCard = ({
 				className='block relative w-full h-64'
 				href={`/${id}`}
 			>
-				<Image
+				<img
+					className='h-64 object-cover rounded-xl w-full'
+					src={imgSrc}
+				/>
+				{/* <Image
 					className='h-64 object-cover rounded-xl'
 					src={imgSrc}
 					alt={title}
 					fill
-				/>
+				/> */}
 			</Link>
 
 			<div className='flex justify-between w-full items-center mt-2.5'>

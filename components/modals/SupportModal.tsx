@@ -32,7 +32,7 @@ const SupportModal = () => {
 		>
 			<DialogContent className='bg-white'>
 				<DialogHeader>
-					<DialogTitle className='text-center mb-3'>
+					<DialogTitle className='text-center'>
 						Контактная информация
 					</DialogTitle>
 				</DialogHeader>

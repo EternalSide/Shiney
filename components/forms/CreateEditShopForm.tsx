@@ -136,7 +136,9 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 					name='name'
 					render={({field}) => (
 						<FormItem>
-							<FormLabel className='font-semibold'>Название</FormLabel>
+							<FormLabel className='font-semibold'>
+								Название <span className='text-orange-500'>*</span>
+							</FormLabel>
 							<FormControl>
 								<Input
 									className='border-none bg-[#f4f5fa]'
@@ -156,7 +158,9 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 					name='link'
 					render={({field}) => (
 						<FormItem>
-							<FormLabel className='font-semibold'>Ссылка на магазин</FormLabel>
+							<FormLabel className='font-semibold'>
+								Ссылка на магазин <span className='text-orange-500'>*</span>
+							</FormLabel>
 							<FormControl>
 								<Input
 									className='border-none bg-[#f4f5fa]'
@@ -179,7 +183,9 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 					name='description'
 					render={({field}) => (
 						<FormItem>
-							<FormLabel className='font-semibold'>Описание</FormLabel>
+							<FormLabel className='font-semibold'>
+								Описание <span className='text-orange-500'>*</span>
+							</FormLabel>
 							<FormControl>
 								<Input
 									className='border-none bg-[#f4f5fa]'

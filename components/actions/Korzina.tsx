@@ -106,17 +106,19 @@ const Korzina = ({open, setOpen}: Props) => {
 								</div>
 							) : (
 								products?.map((item: any) => (
-									<KorzinaCard
-										id={item.id}
-										key={item.id}
-										image={item.picture}
-										title={item.title}
-										description={item.description}
-										quantity={item.quantity}
-										price={item.price}
-										removeProduct={removeProduct}
-										updateProduct={updateProduct}
-									/>
+									<>
+										<KorzinaCard
+											id={item.id}
+											key={item.id}
+											image={item.picture}
+											title={item.title}
+											description={item.description}
+											quantity={item.quantity}
+											price={item.price}
+											removeProduct={removeProduct}
+											updateProduct={updateProduct}
+										/>{" "}
+									</>
 								))
 							)}
 						</div>

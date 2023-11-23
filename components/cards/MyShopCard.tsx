@@ -50,7 +50,7 @@ const MyShopCard = ({
 					</div>
 
 					<Link
-						className='flex gap-2 items-center'
+						className='flex gap-3 items-center'
 						href={`/shop/${link}`}
 					>
 						<p className='text-[#223bdd] font-semibold'>{`shiney.ru/shop/${link}`}</p>

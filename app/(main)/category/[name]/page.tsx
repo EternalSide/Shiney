@@ -1,4 +1,3 @@
-// @ts-nocheck
 import ProductCard from "@/components/cards/ProductCard";
 import CategoriesMenu from "@/components/shared/CategoriesMenu";
 import {
@@ -7,11 +6,11 @@ import {
 	mainCategories,
 	recursiveSearch,
 } from "@/lib/allCategories";
-import {ChevronRight} from "lucide-react";
 import Link from "next/link";
-import {redirect} from "next/navigation";
 import {Suspense} from "react";
 import Loading from "./loading";
+
+import {faker} from "@faker-js/faker";
 
 interface Props {
 	params: {
@@ -22,7 +21,7 @@ interface Props {
 const CategoryPage = ({params}: Props) => {
 	const categoryHref = params.name;
 
-	let accumulator = [];
+	let accumulator: any = [];
 
 	// Главная категория
 	const isMainCategory = detectIfMainCategory(mainCategories, categoryHref);
@@ -56,14 +55,12 @@ const CategoryPage = ({params}: Props) => {
 		return (
 			<>
 				<Link
-					className='flex items-center gap-2'
+					className='mt-2 flex items-center gap-2'
 					href='/'
 				>
 					<p className='text-[#626d7a] font-medium text-sm hover:text-sky-500 transition'>
-						Главная
+						Перейти на главную
 					</p>
-					<ChevronRight className='h-4 w-4' />
-					<p className='text-[#626d7a] font-medium text-sm'>404</p>
 				</Link>
 				<h1 className='base-title mt-12'>
 					Категории <span className='text-blue-500'>{params.name}</span> не
@@ -95,7 +92,7 @@ const CategoryPage = ({params}: Props) => {
 									key={i}
 									title='Часы Peppe LUX'
 									id={0}
-									imgSrc='https://i.pinimg.com/736x/34/83/27/348327ebf09db5e14fb15274b9cc3503.jpg'
+									imgSrc={faker.image.url()}
 									price={66666}
 									ratingNumber={5.0}
 									ratingCounter={666}

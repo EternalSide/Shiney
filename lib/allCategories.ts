@@ -8,6 +8,7 @@ import {
 	house,
 } from "./categories";
 
+// Для меню и ссылок. можно переделать под allCategoriesDetection
 export const allCategories = [
 	{
 		data: electronic,
@@ -62,16 +63,18 @@ export const detectIfMainCategory = (array: any, targetValue: string) => {
 	}
 };
 
+// Для detectIfMainCategory();
 export const mainCategories = [
 	{href: "/electric", label: "Электроника"},
 	{href: "/beaty", label: "Красота и здоровье"},
-	{href: "/sport", label: "Спорт"},
+	{href: "/sport", label: "Спорт и отдых"},
 	{href: "/clothes", label: "Одежда"},
-	{href: "/shoes", label: "Тапки"},
+	{href: "/shoes", label: "Обувь"},
 	{href: "/bytovia", label: "Бытовая техника"},
 	{href: "/house", label: "Дом и сад"},
 ];
 
+// Для recursiveSearch();
 export const allCategoriesDetection = [
 	electronic,
 	beaty,
@@ -81,46 +84,6 @@ export const allCategoriesDetection = [
 	bytovia,
 	house,
 ];
-
-// export const recursiveSearch = (
-// 	array: any,
-// 	targetValue: string,
-// 	accumulator: any
-// ) => {
-// 	let currentCategory;
-
-// 	for (const item of array) {
-// 		accumulator = [];
-
-// 		accumulator.push({
-// 			label: item.label,
-// 			href: item.href,
-// 		});
-
-// 		// 2 lvl
-
-// 		const categories = item.categories;
-
-// 		categories.forEach((category: any) => {
-// 			if (category.href === `/${targetValue}`) {
-// 				console.log(category);
-// 				return (currentCategory = category);
-// 			}
-// 		});
-// 		for (const zxc of categories) {
-// 			const currentCategories = zxc.categories;
-
-// 			// 3 lvl
-// 			currentCategories.forEach((category: any) => {
-// 				if (category.href === `/${targetValue}`) {
-// 					return (currentCategory = category);
-// 				}
-// 			});
-// 		}
-// 	}
-
-// 	return {currentCategory, accumulator};
-// };
 
 export const recursiveSearch = (
 	array: any,

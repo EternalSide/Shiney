@@ -4,7 +4,7 @@ import {ChevronRight} from "lucide-react";
 const Loading = () => {
 	return (
 		<>
-			<div className='flex items-center gap-2'>
+			<div className='mt-2 flex items-center gap-2'>
 				<p className='text-[#626d7a] font-medium text-sm hover:text-sky-500 transition'>
 					Главная
 				</p>
