@@ -12,27 +12,27 @@ const ShopAdminPage = async ({params}: AdminParams) => {
 		{
 			label: "Добавить товар",
 			href: `/shop/${data?.shop.link}/admin/add`,
-			gif: "https://media.tenor.com/zi5awiBippkAAAAC/cxyduck-cxydck.gif",
+			gif: "add-product.gif",
 		},
 		{
 			label: "Управление товарами",
 			href: `/shop/${data?.shop.link}/admin/products`,
-			gif: "https://askstroy.od.ua/images/gif/develop.gif",
+			gif: "upravlenie.gif",
 		},
 		{
 			label: "Заказы",
 			href: `/shop/${data?.shop.link}/admin/orders`,
-			gif: "https://media.tenor.com/MxAltJxjlL8AAAAC/utya-duck.gif",
+			gif: "zakazi.gif",
 		},
 		{
 			label: "Редактировать",
 			href: `/shop/${data?.shop.link}/admin/edit`,
-			gif: "https://media.tenor.com/eXZyHOtNs7gAAAAC/cxyduck-cxydck.gif",
+			gif: "edit.gif",
 		},
 		{
 			label: "Оформление",
 			href: `/shop/${data?.shop.link}/admin/view`,
-			gif: "https://octogram.site/assets/animations/wallpaperAnimation.gif",
+			gif: "view.gif",
 		},
 	];
 
@@ -82,10 +82,15 @@ const ShopAdminPage = async ({params}: AdminParams) => {
 							href={item.href}
 						>
 							<button className='admin-shop-card'>
-								<img
-									className='h-28 w-28'
-									src={item.gif}
-								/>
+								<div className='relative h-28 w-28'>
+									<Image
+										fill
+										className='object-cover'
+										src={`/ducks/${item.gif}`}
+										alt={item.label}
+									/>
+								</div>
+
 								<p className='group-hover:text-white transition'>
 									{item.label}
 								</p>
@@ -93,6 +98,7 @@ const ShopAdminPage = async ({params}: AdminParams) => {
 						</Link>
 					))}
 					<DeleteShopAction
+						shopId={data?.shop._id.toString()}
 						shopLink={data?.shop.link!}
 						shopAvatar={data?.shop.avatar!}
 						adminPage={true}

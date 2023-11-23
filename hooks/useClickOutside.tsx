@@ -1,14 +1,13 @@
 import {useEffect} from "react";
 
 interface Props {
-	ref: any;
+	ref: React.RefObject<any>;
 	setOpen: (action: boolean) => void;
-	pathname: string;
 	open: boolean;
 	korzina?: boolean;
 }
 
-const useClickOutside = ({ref, open, setOpen, pathname, korzina}: Props) => {
+const useClickOutside = ({ref, open, setOpen, korzina}: Props) => {
 	useEffect(() => {
 		const handleOutsideClick = (e: MouseEvent) => {
 			if (ref && ref.current && !ref.current.contains(e.target)) {
@@ -34,7 +33,7 @@ const useClickOutside = ({ref, open, setOpen, pathname, korzina}: Props) => {
 			document.removeEventListener("scroll", handleScroll);
 			document.removeEventListener("keydown", handleEscClick);
 		};
-	}, [ref, ref.current, pathname, open, setOpen]);
+	}, [ref, ref.current, open, setOpen]);
 };
 
 export default useClickOutside;

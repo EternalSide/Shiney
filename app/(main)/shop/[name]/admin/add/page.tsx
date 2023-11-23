@@ -1,4 +1,3 @@
-import CreateEditProductForm from "@/components/forms/CreateEditProductForm";
 import checkAdmin from "@/actions/checkAdmin";
 import {AdminParams} from "@/types";
 
@@ -10,7 +9,7 @@ const AddProductPage = async ({params}: AdminParams) => {
 			<h1 className='base-title'>Магазин Peppe</h1>
 			<div className='base-block mt-4'>
 				<h3 className='base-title'>Добавить товар</h3>
-				<CreateEditProductForm clerkId={data?.clerkId!} />
+				{/* <CreateEditProductForm clerkId={data?.clerkId!} /> */}
 			</div>
 		</>
 	);

@@ -13,7 +13,7 @@ export interface CreateShopParams extends ShopName {
 export interface GetShopInfoParams extends ShopName {}
 
 export interface DeleteShopParams {
-	shopLink: string;
+	shopId: string;
 	path: string;
 }
 

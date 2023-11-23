@@ -16,11 +16,11 @@ import {useEdgeStore} from "@/lib/edgestore";
 const DeleteShopModal = () => {
 	const {isOpen, onClose, type, data} = useModal();
 
-	let shopLink: string;
+	let shopId: string;
 	let shopAvatar: string;
 
 	if (data !== null) {
-		shopLink = data.shopLink;
+		shopId = data.shopId;
 		shopAvatar = data.shopAvatar;
 	}
 
@@ -37,7 +37,7 @@ const DeleteShopModal = () => {
 
 			onClose();
 
-			await deleteShopAction({shopLink, path});
+			await deleteShopAction({shopId, path});
 
 			await edgestore.shopImage.delete({
 				url: shopAvatar,

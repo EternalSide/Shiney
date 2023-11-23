@@ -21,6 +21,7 @@ const ShopsPage = async () => {
 					{shops.map((shop: IShop) => (
 						<MyShopCard
 							key={shop._id}
+							id={shop._id.toString()}
 							name={shop.name}
 							description={shop.description}
 							link={shop.link}

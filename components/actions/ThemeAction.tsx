@@ -25,7 +25,6 @@ const ThemeAction = () => {
 			) : (
 				<Moon className='h-4 w-4 text-indigo-500' />
 			)}
-
 			<p className='text-xs font-semibold'>
 				{theme === "light" ? "Светлая" : "Темная"}
 			</p>

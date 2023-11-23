@@ -7,7 +7,7 @@ const Header = () => {
 	return (
 		<header className='bg-white'>
 			<HeaderTopContent />
-			<div className={`header__container max-w-[1420px]`}>
+			<div className='header__container'>
 				<div className='flex items-center gap-1 max-lg:hidden'>
 					<HeaderCategories />
 				</div>

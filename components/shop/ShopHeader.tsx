@@ -40,7 +40,6 @@ const ShopHeader = ({
 }: Props) => {
 	const {onOpen} = useModal();
 	const path = usePathname();
-
 	const openAvatar = () => onOpen("shopAvatar", shopImage || "/no-photo.jpg");
 
 	const followShop = async () => {

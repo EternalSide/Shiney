@@ -1,5 +1,5 @@
 "use client";
-import Korzina from "@/components/actions/Korzina";
+import Korzina from "@/components/shared/Korzina";
 import {Button} from "@/components/ui/button";
 import {headerLinks} from "@/constants";
 import {HeaderLinkType} from "@/constants/types";
@@ -9,8 +9,11 @@ import {usePathname} from "next/navigation";
 import {useState} from "react";
 
 const HeaderRightLinks = () => {
+	// Управление корзиной.
 	const [korzinaOpen, setKorzinaOpen] = useState(false);
+
 	const pathname = usePathname();
+
 	return (
 		<div className='flex gap-3 max-lg:hidden'>
 			{headerLinks.map((item: HeaderLinkType) => {
@@ -36,7 +39,6 @@ const HeaderRightLinks = () => {
 				open={korzinaOpen}
 				setOpen={setKorzinaOpen}
 			/>
-
 			<SignedIn>
 				<UserButton
 					appearance={{

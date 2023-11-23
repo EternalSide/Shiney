@@ -2,8 +2,7 @@
 import {ShoppingCart} from "lucide-react";
 import {Button} from "../ui/button";
 import {useEffect, useRef, useState} from "react";
-import {usePathname} from "next/navigation";
-import OverlayMain from "../shared/OverlayMain";
+import OverlayMain from "./OverlayMain";
 import KorzinaCard from "../cards/KorzinaCard";
 import useClickOutside from "@/hooks/useClickOutside";
 import {useKorzina} from "@/hooks/useKorzina";
@@ -25,11 +24,6 @@ export interface ILocalProduct {
 }
 
 const KorzinaButton = ({setOpen, productsLength}: any) => {
-	// const open = () => {
-	// 	setOpen(true);
-	// 	onOpen('z-[50]');
-	// };
-
 	return (
 		<Button
 			onClick={() => (setOpen ? setOpen(true) : () => {})}
@@ -54,7 +48,6 @@ const Korzina = ({open, setOpen}: Props) => {
 	}, []);
 
 	const korzinaRef = useRef<HTMLDivElement>(null);
-	const pathname = usePathname();
 
 	const {products, removeProduct, updateProduct, clearAllProducts} =
 		useKorzina();
@@ -62,7 +55,6 @@ const Korzina = ({open, setOpen}: Props) => {
 	useClickOutside({
 		ref: korzinaRef,
 		setOpen,
-		pathname,
 		open,
 		korzina: true,
 	});
@@ -106,19 +98,17 @@ const Korzina = ({open, setOpen}: Props) => {
 								</div>
 							) : (
 								products?.map((item: any) => (
-									<>
-										<KorzinaCard
-											id={item.id}
-											key={item.id}
-											image={item.picture}
-											title={item.title}
-											description={item.description}
-											quantity={item.quantity}
-											price={item.price}
-											removeProduct={removeProduct}
-											updateProduct={updateProduct}
-										/>{" "}
-									</>
+									<KorzinaCard
+										id={item.id}
+										key={item.id}
+										image={item.picture}
+										title={item.title}
+										description={item.description}
+										quantity={item.quantity}
+										price={item.price}
+										removeProduct={removeProduct}
+										updateProduct={updateProduct}
+									/>
 								))
 							)}
 						</div>

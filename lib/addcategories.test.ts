@@ -21,10 +21,11 @@ export async function addCategories() {
 
 		for (const categoryName of categoriesToAdd) {
 			const category: ICategory = new Category({name: categoryName});
+
 			await category.save();
 		}
-		console.log("All categories added successfully");
+		console.log("Все категории добавлены");
 	} catch (error) {
-		console.error("Error adding categories:", error);
+		console.error("Ошибка в addcategories.test.ts:", error);
 	}
 }

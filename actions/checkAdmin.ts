@@ -6,6 +6,7 @@ import checkOwner from "./checkOwner";
 import {IShop} from "@/database/models/shop.model";
 import {IUser} from "@/database/models/user.model";
 
+// Является ли пользователь администратором магазина
 const checkAdmin = async (shopName: string) => {
 	const {userId} = auth();
 

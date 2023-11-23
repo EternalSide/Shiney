@@ -8,7 +8,6 @@ export const metadata: Metadata = {
 
 const CreateShopPage = async () => {
 	const {userId} = auth();
-
 	if (!userId) redirectToSignIn();
 
 	return (

@@ -3,7 +3,12 @@ import {Button} from "../ui/button";
 import Link from "next/link";
 import {LayoutList, X} from "lucide-react";
 
-const CategoryLogoButton = ({active, setActive}: any) => {
+interface Props {
+	active: boolean;
+	setActive: (action: boolean) => void;
+}
+
+const CategoryLogoButton = ({active, setActive}: Props) => {
 	return (
 		<div className='!z-[21] flex items-center gap-1 relative h-full'>
 			<Link

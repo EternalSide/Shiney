@@ -2,12 +2,6 @@
 import Image from "next/image";
 
 const CountryAction = () => {
-	// const {onOpen} = useModal();
-
-	// const message = "На данный момент смена страны не доступна 😔";
-
-	// const onClick = () => onOpen("development", message);
-
 	return (
 		<div className='z-[20] relative'>
 			<button className='flex items-end gap-1.5 cursor-default'>

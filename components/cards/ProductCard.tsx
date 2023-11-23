@@ -1,7 +1,6 @@
 "use client";
 import {useKorzina} from "@/hooks/useKorzina";
 import {Heart, ShoppingCart, Star} from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import {useToast} from "../ui/use-toast";
 
@@ -55,7 +54,6 @@ const ProductCard = ({
 
 	const handleLikeProduct = async () => {
 		// TODO: server action add to likes.
-
 		return toast({
 			title: "Товар добавлен в избранное!",
 		});

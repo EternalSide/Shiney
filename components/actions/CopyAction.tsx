@@ -5,7 +5,7 @@ import {useState} from "react";
 const CopyAction = ({text}: {text: string}) => {
 	const [copied, setCopied] = useState(false);
 
-	const onClick = (e: React.MouseEvent) => {
+	const copyLink = (e: React.MouseEvent) => {
 		e.preventDefault();
 		navigator.clipboard.writeText(text);
 		setCopied(true);
@@ -15,17 +15,16 @@ const CopyAction = ({text}: {text: string}) => {
 	};
 
 	return (
-		<>
+		<button
+			onClick={(e) => (copied ? () => {} : copyLink(e))}
+			disabled={copied}
+		>
 			{copied ? (
-				<button disabled={copied}>
-					<Check className='h-4 w-4 text-neutral-400' />
-				</button>
+				<Check className='h-4 w-4 text-neutral-400' />
 			) : (
-				<button onClick={onClick}>
-					<Copy className='h-4 w-4 text-neutral-400' />
-				</button>
+				<Copy className='h-4 w-4 text-neutral-400' />
 			)}
-		</>
+		</button>
 	);
 };
 export default CopyAction;

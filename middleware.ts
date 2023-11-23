@@ -1,5 +1,6 @@
 import {authMiddleware} from "@clerk/nextjs";
 
+// publicRoutes - не защищены авторизацией
 export default authMiddleware({
 	publicRoutes: [
 		"/",

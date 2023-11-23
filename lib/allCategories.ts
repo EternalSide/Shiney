@@ -1,3 +1,4 @@
+import {AccumulatorItem, RecursiveData} from "@/types";
 import {
 	electronic,
 	beaty,
@@ -86,10 +87,10 @@ export const allCategoriesDetection = [
 ];
 
 export const recursiveSearch = (
-	array: any,
+	array: any[],
 	targetValue: string,
-	accumulator: any
-): any => {
+	accumulator: AccumulatorItem[]
+): RecursiveData => {
 	for (const item of array) {
 		accumulator.push({
 			label: item.label,

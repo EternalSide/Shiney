@@ -86,9 +86,9 @@ export const deleteShopAction = async (params: DeleteShopParams) => {
 
 		// * TODO: Удалить у пользователя магазин
 
-		const {shopLink: link, path} = params;
+		const {shopId, path} = params;
 
-		await Shop.deleteOne({link});
+		await Shop.deleteOne({_id: shopId});
 
 		// await User.findByIdAndUpdate({link});
 

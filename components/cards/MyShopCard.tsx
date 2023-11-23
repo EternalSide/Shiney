@@ -13,11 +13,13 @@ interface Props {
 	productsCount: number;
 	clerkId: string | null;
 	avatar: string;
+	id: string;
 }
 
 const MyShopCard = ({
 	name,
 	description,
+	id,
 	avatar,
 	link,
 	buyCount,
@@ -70,6 +72,7 @@ const MyShopCard = ({
 					</Link>
 					<DeleteShopAction
 						shopLink={link}
+						shopId={id}
 						clerkId={clerkId}
 						shopAvatar={avatar}
 					/>

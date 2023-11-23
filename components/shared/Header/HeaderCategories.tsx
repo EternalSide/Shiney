@@ -17,7 +17,6 @@ const HeaderCategories = () => {
 	useClickOutside({
 		ref: containerRef,
 		setOpen: setActive,
-		pathname,
 		open: active,
 	});
 

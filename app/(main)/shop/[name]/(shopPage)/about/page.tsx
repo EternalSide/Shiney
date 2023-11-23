@@ -1,8 +1,6 @@
-import checkShop from "@/actions/checkShop";
 import Link from "next/link";
 
 const ShopAboutPage = async ({params}: any) => {
-	const shop = await checkShop(params.name);
 	return (
 		<div className='mt-8'>
 			<h3 className='text-3xl font-bold mt-8'>О нас</h3>
