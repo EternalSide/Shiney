@@ -43,6 +43,22 @@
 }
 
 @layer utilities {
+	.header__container {
+		@apply relative flex items-center justify-between gap-6 w-full mx-auto min-h-[90px] pr-4 pl-4 lg:pl-0 shadow-md shadow-[#00000005];
+	}
+
+	.header__button {
+		@apply w-12 h-12;
+	}
+
+	.clerk__styles {
+		@apply bg-sky-400 hover:bg-sky-500;
+	}
+
+	.grid_new-products {
+		@apply mt-4 grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 !gap-6;
+	}
+
 	.main-title {
 		@apply font-semibold text-3xl;
 	}

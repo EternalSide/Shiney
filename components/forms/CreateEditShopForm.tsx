@@ -19,7 +19,7 @@ import {useToast} from "../ui/use-toast";
 import {createShop, updateShop} from "@/actions/dbActions/shop.action";
 import {useEdgeStore} from "@/lib/edgestore";
 import {useState} from "react";
-import {SingleImageDropzone} from "../SingleImageDropzone";
+import {SingleImageDropzone} from "./SingleImageDropzone";
 
 interface Props {
 	clerkId: string;

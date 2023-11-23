@@ -32,6 +32,96 @@ export const electronic = {
 				},
 			],
 		},
+		{
+			label: "Аудиотехника",
+			href: "/audio-tech",
+			categories: [
+				{
+					label: "Наушники и гарнитура",
+					href: "/headphones-and-headset",
+				},
+				{
+					label: "Акустика и колонки",
+					href: "/acoustics-and-speakers",
+				},
+				{
+					label: "Микрофоны и аксессуары",
+					href: "/microphones-and-accessories",
+				},
+			],
+		},
+		{
+			label: "Фото и видеокамеры",
+			href: "/foto-i-videokamery",
+			categories: [
+				{
+					label: "Наушники и гарнитура",
+					href: "/headphones-and-headset",
+				},
+				{
+					label: "Акустика и колонки",
+					href: "/acoustics-and-speakers",
+				},
+				{
+					label: "Микрофоны и аксессуары",
+					href: "/microphones-and-accessories",
+				},
+			],
+		},
+		{
+			label: "Моноблоки и системные блоки",
+			href: "/monoblocks-and-system-blocks",
+			categories: [
+				{
+					label: "Наушники и гарнитура",
+					href: "/headphones-and-headset",
+				},
+				{
+					label: "Акустика и колонки",
+					href: "/acoustics-and-speakers",
+				},
+				{
+					label: "Микрофоны и аксессуары",
+					href: "/microphones-and-accessories",
+				},
+			],
+		},
+		{
+			label: "Компьютеры и комплектующие",
+			href: "/computers-and-accessories",
+			categories: [
+				{
+					label: "Наушники и гарнитура",
+					href: "/headphones-and-headset",
+				},
+				{
+					label: "Акустика и колонки",
+					href: "/acoustics-and-speakers",
+				},
+				{
+					label: "Микрофоны и аксессуары",
+					href: "/microphones-and-accessories",
+				},
+			],
+		},
+		{
+			label: "Ноутбуки, планшеты и электронные книги",
+			href: "/laptops-tablets-and-e-books",
+			categories: [
+				{
+					label: "Наушники и гарнитура",
+					href: "/headphones-and-headset",
+				},
+				{
+					label: "Акустика и колонки",
+					href: "/acoustics-and-speakers",
+				},
+				{
+					label: "Микрофоны и аксессуары",
+					href: "/microphones-and-accessories",
+				},
+			],
+		},
 	],
 };
 
@@ -42,20 +132,20 @@ export const beaty = {
 	href: "/beaty",
 	categories: [
 		{
-			label: "Телефоны и смарт-часы",
-			href: "/electric",
+			label: "тест",
+			href: "/test1",
 			categories: [
 				{
 					label: "Смартфоны",
-					href: "/electric",
+					href: "/asd",
 				},
 				{
-					label: "Смарт-часы и фитнес-браслеты",
-					href: "/electric",
+					label: "dfsdsfds",
+					href: "/asdasd",
 				},
 				{
-					label: "Аксессуары для смартфонов и телефонов",
-					href: "/electric",
+					label: "asd",
+					href: "/vbelectricsada",
 				},
 			],
 		},
@@ -154,9 +244,9 @@ export const beaty = {
 
 export const sport = {
 	label: "Спорт и отдых",
-	value: "electric",
+	value: "sport",
 	icon: Dumbbell,
-	href: "/electric",
+	href: "/sport",
 	categories: [
 		{
 			label: "Велоспорт",
@@ -178,11 +268,11 @@ export const sport = {
 		},
 		{
 			label: "Самокаты, скейтборды и эклектротранспорт",
-			href: "/electric",
+			href: "/hgfhfghf",
 			categories: [
 				{
 					label: "Наушники и гарнитура",
-					href: "/electric",
+					href: "/sport1231231",
 				},
 				{
 					label: "Акустика и колонки",

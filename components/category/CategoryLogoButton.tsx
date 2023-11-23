@@ -10,7 +10,7 @@ const CategoryLogoButton = ({active, setActive}: any) => {
 				className='flex items-center'
 				href='/'
 			>
-				<div className='relative h-12 w-12 mr-0.5'>
+				<div className='relative header__button mr-0.5'>
 					<Image
 						className='object-cover object-center'
 						src='/logo.png'

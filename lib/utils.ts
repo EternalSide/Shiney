@@ -7,7 +7,6 @@ export function cn(...inputs: ClassValue[]) {
 
 // Форматирование даты на странице магазина.
 export function formatDateString(inputDate: Date): string {
-	// Преобразование строки в объект Date
 	const dateObj = new Date(inputDate);
 
 	// Проверка на корректность даты
@@ -15,7 +14,6 @@ export function formatDateString(inputDate: Date): string {
 		return "Неверный формат даты";
 	}
 
-	// Определение месяца
 	const months = [
 		"января",
 		"февраля",

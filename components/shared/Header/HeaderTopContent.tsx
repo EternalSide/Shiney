@@ -31,6 +31,10 @@ const HeaderTopContent = () => {
 			label: "Помощь",
 			href: "/help",
 		},
+		{
+			label: "Настройки",
+			href: "/settings",
+		},
 	];
 	return (
 		<div className='bg-[#f4f5fa] max-lg:hidden'>

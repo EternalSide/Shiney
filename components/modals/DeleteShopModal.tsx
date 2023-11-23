@@ -70,9 +70,9 @@ const DeleteShopModal = () => {
 					</DialogTitle>
 				</DialogHeader>
 				<DialogDescription className='text-zinc-700 text-center'>
-					После подтверждения, все товары магазина, его информация, статистика,
-					и уникальная ссылка будут удалены. Отменить данное действие
-					невозможно.
+					После подтверждения будут удалены все товары магазина, а также
+					связанная с ним информация. Возможность отмены данного действия
+					отсутствует.
 				</DialogDescription>
 				<div className='flex justify-end items-center gap-3'>
 					<Button

@@ -1,20 +1,16 @@
 "use client";
-import {useModal} from "@/hooks/useModal";
 import Image from "next/image";
 
 const CountryAction = () => {
-	const {onOpen} = useModal();
+	// const {onOpen} = useModal();
 
-	const message = "На данный момент смена страны не доступна 😔";
+	// const message = "На данный момент смена страны не доступна 😔";
 
-	const onClick = () => onOpen("development", message);
+	// const onClick = () => onOpen("development", message);
 
 	return (
 		<div className='z-[20] relative'>
-			<button
-				onClick={onClick}
-				className='flex items-end gap-1.5 cursor-pointer'
-			>
+			<button className='flex items-end gap-1.5 cursor-default'>
 				<Image
 					alt='Россия'
 					src='/russia.svg'

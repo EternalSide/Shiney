@@ -10,11 +10,6 @@ interface KorzinaStore {
 	clearAllProducts: () => void;
 }
 
-// const getInitialProducts = () => {
-// 	const products = JSON.parse(localStorage.getItem("products")!) || [];
-// 	return products;
-// };
-
 // Загрузка данных из куки
 const getInitialProducts = () => {
 	if (typeof window !== "undefined") {
@@ -26,7 +21,7 @@ const getInitialProducts = () => {
 
 // Сохранение данных в куках
 const saveProductsToCookie = (products: any) => {
-	return Cookies.set("products", JSON.stringify(products), {expires: 7}); // Пример: куки будут храниться 7 дней
+	return Cookies.set("products", JSON.stringify(products), {expires: 7}); // 7 дней
 };
 
 export const useKorzina = create<KorzinaStore>((set) => ({
@@ -46,7 +41,6 @@ export const useKorzina = create<KorzinaStore>((set) => ({
 				product.id === productId ? {...product, ...data} : product
 			);
 			saveProductsToCookie(products);
-			// localStorage.setItem("products", JSON.stringify([...products]));
 			return {
 				products,
 			};
@@ -57,9 +51,7 @@ export const useKorzina = create<KorzinaStore>((set) => ({
 			const products = state.products.filter(
 				(product: IProduct) => product.id !== productId
 			);
-			// localStorage.setItem("products", JSON.stringify([...products]));
 			saveProductsToCookie(products);
-
 			return {
 				products,
 			};
@@ -67,7 +59,6 @@ export const useKorzina = create<KorzinaStore>((set) => ({
 	},
 	clearAllProducts: () => {
 		set(() => ({products: []}));
-		// localStorage.removeItem("products");
 		Cookies.remove("products");
 	},
 }));

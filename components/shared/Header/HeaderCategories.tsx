@@ -29,18 +29,16 @@ const HeaderCategories = () => {
 			<div
 				ref={containerRef}
 				className={`relative h-[90px]  bg-white px-4 ${
-					active && "rounded-xl rounded-b-none z-[30] border-b border-sky-200"
+					active && "rounded-xl rounded-b-none z-[30]"
 				}`}
 			>
 				<CategoryLogoButton
 					active={active}
 					setActive={setActive}
 				/>
+
 				{active && (
-					<div className='bg-white mt-[90px] absolute top-0 left-0 h-6 w-full' />
-				)}
-				{active && (
-					<div className='max-[1300px]:min-w-[900px] absolute top-0 left-0 !z-[220] min-w-[1180px] mt-[114px]'>
+					<div className='max-[1300px]:min-w-[900px] absolute top-0 left-0 !z-[220] min-w-[1180px] mt-[90px]'>
 						<div className='flex gap-6 py-8 pl-2.5 rounded-xl rounded-tl-none bg-white w-full'>
 							<CategoryMenu
 								setActive={setActive}

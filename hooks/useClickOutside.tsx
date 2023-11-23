@@ -5,9 +5,10 @@ interface Props {
 	setOpen: (action: boolean) => void;
 	pathname: string;
 	open: boolean;
+	korzina?: boolean;
 }
 
-const useClickOutside = ({ref, open, setOpen, pathname}: Props) => {
+const useClickOutside = ({ref, open, setOpen, pathname, korzina}: Props) => {
 	useEffect(() => {
 		const handleOutsideClick = (e: MouseEvent) => {
 			if (ref && ref.current && !ref.current.contains(e.target)) {
@@ -24,7 +25,7 @@ const useClickOutside = ({ref, open, setOpen, pathname}: Props) => {
 		document.addEventListener("click", handleOutsideClick);
 		document.addEventListener("keydown", handleEscClick);
 
-		if (open) {
+		if (open && !korzina) {
 			document.addEventListener("scroll", handleScroll);
 		}
 

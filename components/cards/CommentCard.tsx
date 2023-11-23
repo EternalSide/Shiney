@@ -18,7 +18,7 @@ const CommentCard = () => {
 					<span className='text-orange-400'>5.00 </span>
 				</p>
 			</div>
-			<div className='flex gap-2 items-center mt-3'>
+			<div className='flex gap-2 items-center mt-6'>
 				<div className='h-12 w-16 relative'>
 					<Image
 						className='rounded-full object-cover object-center'
@@ -27,7 +27,7 @@ const CommentCard = () => {
 						fill
 					/>
 				</div>
-				<p className='mt-4 font-medium'>
+				<p className='font-medium'>
 					Заказывал первый раз, и не зря, супер быстрая доставка, коробка пришла
 					целая , упакована надежно, продавца советую, сам буду брать
 				</p>

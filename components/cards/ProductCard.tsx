@@ -1,12 +1,14 @@
 "use client";
 import {useKorzina} from "@/hooks/useKorzina";
-import {Heart, Star} from "lucide-react";
+import {Heart, ShoppingCart, Star} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import {useToast} from "../ui/use-toast";
 
 interface Props {
-	id: string;
+	id: string | number;
 	title: string;
+	description: string;
 	imgSrc: string;
 	shopName: string;
 	shopLink: string;
@@ -27,9 +29,9 @@ const ProductCard = ({
 	ratingCounter,
 	price,
 	shopLink,
-}: any) => {
+}: Props) => {
 	const {addProduct, products} = useKorzina();
-
+	const {toast} = useToast();
 	const handleKorzina = () => {
 		const alreadyInKorzina = products.some((item: any) => item.id === id);
 
@@ -46,7 +48,17 @@ const ProductCard = ({
 
 		addProduct(product);
 
-		localStorage.setItem("products", JSON.stringify([...products, product]));
+		return toast({
+			title: "Товар добавлен в корзину!",
+		});
+	};
+
+	const handleLikeProduct = async () => {
+		// TODO: server action add to likes.
+
+		return toast({
+			title: "Товар добавлен в избранное!",
+		});
 	};
 	return (
 		<div>
@@ -69,9 +81,18 @@ const ProductCard = ({
 				>
 					<h3 className='text-[#252525] font-semibold'>{title}</h3>
 				</Link>
-				<button onClick={handleKorzina}>
-					<Heart className='h-5 w-5 hover:text-orange-400 transition hover:scale-110' />
-				</button>
+				<div className='flex gap-2 items-center'>
+					<button onClick={handleLikeProduct}>
+						<Heart className='h-5 w-5 hover:text-orange-400 transition hover:scale-110' />
+					</button>
+					<button onClick={handleKorzina}>
+						<ShoppingCart
+							className={
+								"h-5 w-5 hover:text-orange-400 transition hover:scale-110"
+							}
+						/>
+					</button>
+				</div>
 			</div>
 
 			<div className='mt-4 flex items-center justify-between'>

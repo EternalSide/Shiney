@@ -5,7 +5,7 @@ export default function Page() {
 		<SignIn
 			appearance={{
 				elements: {
-					formButtonPrimary: "bg-sky-400 hover:bg-sky-500",
+					formButtonPrimary: "clerk__styles",
 				},
 			}}
 		/>

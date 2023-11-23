@@ -8,6 +8,7 @@ const NewProducts = () => {
 				{Array.from({length: 10}, (_, i) => (
 					<ProductCard
 						key={i}
+						description={"Описание товара"}
 						title='Часы Peppe LUX'
 						id={0}
 						imgSrc='https://i.pinimg.com/736x/34/83/27/348327ebf09db5e14fb15274b9cc3503.jpg'

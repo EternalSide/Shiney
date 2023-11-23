@@ -11,7 +11,7 @@ const CategoryLinks = ({activeCategory, setActive}: Props) => {
 	const currentItem = allCategories?.find((item: any) => {
 		if (activeCategory === item.data.label) return item;
 	});
-
+	console.log(currentItem);
 	return (
 		<div className='w-full'>
 			<h3 className='base-title'>{activeCategory}</h3>

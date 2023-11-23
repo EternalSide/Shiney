@@ -8,6 +8,7 @@ import KorzinaCard from "../cards/KorzinaCard";
 import useClickOutside from "@/hooks/useClickOutside";
 import {useKorzina} from "@/hooks/useKorzina";
 import Link from "next/link";
+import {ScrollArea} from "@/components/ui/scroll-area";
 
 interface Props {
 	open: boolean;
@@ -24,11 +25,16 @@ export interface ILocalProduct {
 }
 
 const KorzinaButton = ({setOpen, productsLength}: any) => {
+	// const open = () => {
+	// 	setOpen(true);
+	// 	onOpen('z-[50]');
+	// };
+
 	return (
 		<Button
 			onClick={() => (setOpen ? setOpen(true) : () => {})}
 			variant='mainPage'
-			className=' hover:border-sky-500 relative p-0 w-12 h-12'
+			className=' hover:border-sky-500 relative p-0 header__button'
 		>
 			{Boolean(productsLength) && (
 				<div className='absolute -top-3 -right-2 px-2 py-0.5 rounded-full bg-sky-500 text-white text-sm'>
@@ -50,7 +56,7 @@ const Korzina = ({open, setOpen}: Props) => {
 	const korzinaRef = useRef<HTMLDivElement>(null);
 	const pathname = usePathname();
 
-	const {products, removeProduct, updateProduct, clearAllProducts, addProduct} =
+	const {products, removeProduct, updateProduct, clearAllProducts} =
 		useKorzina();
 
 	useClickOutside({
@@ -58,11 +64,14 @@ const Korzina = ({open, setOpen}: Props) => {
 		setOpen,
 		pathname,
 		open,
+		korzina: true,
 	});
 
 	const totalPrice = products?.reduce((total: number, product: any) => {
 		return total + product.price * product.quantity;
 	}, 0);
+
+	const zeroProducts = products?.length === 0;
 
 	if (!hydration) return <KorzinaButton setOpen={setOpen} />;
 
@@ -78,26 +87,25 @@ const Korzina = ({open, setOpen}: Props) => {
 		<>
 			<OverlayMain zIndex='z-[50]' />
 			<KorzinaButton productsLength={products?.length} />
-			<div className='z-[60] px-5 py-6 w-[500px] bg-white rounded-lg absolute top-0 right-[52px] mt-[91px]'>
+			<div className='z-[60] w-[500px] bg-white rounded-lg absolute top-0 right-[52px] mt-[91px]'>
 				<div
 					ref={korzinaRef}
-					className='relative'
+					className='relative py-6'
 				>
-					<div className='flex justify-between items-center'>
+					<div className='flex justify-between items-center  px-6'>
 						<h3 className='font-semibold'>Корзина</h3>
 						<button onClick={clearAllProducts}>
 							<p className='font-semibold text-neutral-400 text-sm'>Очистить</p>
 						</button>
 					</div>
-
-					<div className='mt-3 flex flex-col gap-4'>
-						{products?.length === 0 ? (
-							<div className='flex py-6 justify-center items-center text-zinc-400'>
-								Товары отсутствуют...
-							</div>
-						) : (
-							products?.map((item: any) => {
-								return (
+					<ScrollArea className={`${products?.length > 3 && "h-[412px]"}`}>
+						<div className='flex flex-col gap-4 mt-6 px-6'>
+							{zeroProducts ? (
+								<div className='flex py-4 text-center justify-center items-center text-zinc-400'>
+									<p> Товары отсутствуют...</p>
+								</div>
+							) : (
+								products?.map((item: any) => (
 									<KorzinaCard
 										id={item.id}
 										key={item.id}
@@ -109,13 +117,13 @@ const Korzina = ({open, setOpen}: Props) => {
 										removeProduct={removeProduct}
 										updateProduct={updateProduct}
 									/>
-								);
-							})
-						)}
-					</div>
-					<div className='mt-6 flex flex-col items-end gap-3'>
+								))
+							)}
+						</div>
+					</ScrollArea>
+					<div className='mt-6 flex flex-col items-end gap-3 px-6'>
 						<h3 className='font-bold'>Итого: {totalPrice} ₽</h3>
-						{products?.length > 0 && (
+						{!zeroProducts && (
 							<Link href='/'>
 								<Button variant='blue'>В корзину</Button>
 							</Link>

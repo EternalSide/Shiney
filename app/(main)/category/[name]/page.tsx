@@ -1,6 +1,14 @@
 // @ts-nocheck
-import CategoriesMenu from "@/components/CategoriesMenu";
-import {allCategories} from "@/lib/allCategories";
+import ProductCard from "@/components/cards/ProductCard";
+import CategoriesMenu from "@/components/shared/CategoriesMenu";
+import {
+	allCategoriesDetection,
+	detectIfMainCategory,
+	mainCategories,
+	recursiveSearch,
+} from "@/lib/allCategories";
+import {ChevronRight} from "lucide-react";
+import Link from "next/link";
 import {redirect} from "next/navigation";
 
 interface Props {
@@ -9,68 +17,94 @@ interface Props {
 	};
 }
 
-export async function generateMetadata({params}: Props) {
-	return {
-		title: `Shiney`,
-	};
-}
-
 const CategoryPage = ({params}: Props) => {
 	const categoryHref = params.name;
 
 	let accumulator = [];
 
-	const recursiveSearch = (array, targetValue: string) => {
-		for (const item of array) {
-			if (accumulator.length >= 2) {
-				accumulator;
-			} else {
-				accumulator = [
-					...accumulator,
-					{
-						label: item.label,
-						href: item.href,
-					},
-				];
-			}
-			// 1 level
-			if (item.href === `/${targetValue}`) {
-				return item;
-			}
+	// Главная категория
+	const isMainCategory = detectIfMainCategory(mainCategories, categoryHref);
+	if (isMainCategory) {
+		accumulator = [
+			{
+				label: isMainCategory.label,
+				href: isMainCategory.href,
+			},
+		];
+	}
 
-			// 2 level
-			if (item.data?.categories) {
-				const matchedItem = recursiveSearch(item.data.categories, targetValue);
+	let currentCategory;
 
-				if (matchedItem) return matchedItem;
-			}
-			// 3 level
-			else if (item?.categories) {
-				const matchedItem = recursiveSearch(item.categories, targetValue);
-				if (matchedItem) {
-					accumulator = [
-						...accumulator,
-						{
-							label: matchedItem.label,
-							href: matchedItem.href,
-						},
-					];
-					return matchedItem;
-				}
-			}
-		}
+	// Не главная категория
+	if (!isMainCategory) {
+		const data = recursiveSearch(
+			allCategoriesDetection,
+			categoryHref,
+			accumulator
+		);
 
-		// 4 level - no results found
-		return null;
-	};
+		accumulator = data.accumulator;
+		currentCategory = data.currentCategory;
+	}
 
-	const currentCategory = recursiveSearch(allCategories, categoryHref);
+	// Если категории не существует.
+	const noCategory = !currentCategory && !isMainCategory;
 
-	if (!currentCategory) redirect("/");
+	if (noCategory) {
+		return (
+			<>
+				<Link
+					className='flex items-center gap-2'
+					href='/'
+				>
+					<p className='text-[#626d7a] font-medium text-sm hover:text-sky-500 transition'>
+						Главная
+					</p>
+					<ChevronRight className='h-4 w-4' />
+					<p className='text-[#626d7a] font-medium text-sm'>404</p>
+				</Link>
+				<h1 className='base-title mt-12'>
+					Категории <span className='text-blue-500'>{params.name}</span> не
+					существует
+				</h1>
+			</>
+		);
+	}
+
+	const activeTitle = currentCategory?.label || isMainCategory?.label;
 
 	return (
 		<>
-			<CategoriesMenu accumulator={accumulator} />
+			<CategoriesMenu
+				currentCategory={activeTitle}
+				accumulator={accumulator}
+			/>
+			<div className='mt-12'>
+				<div className='flex items-center gap-2.5'>
+					<h1 className='base-title'>{activeTitle}</h1>
+					<p className='text-[#626d7a] font-semibold mt-0.5'>0 Товаров</p>
+				</div>
+				<div className='mt-4 flex items-start'>
+					{/* <div className='w-[260px]'>asd</div> */}
+					<div className='grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 !gap-6 w-full'>
+						{Array.from({length: 20}, (_, i) => (
+							<ProductCard
+								key={i}
+								title='Часы Peppe LUX'
+								id={0}
+								imgSrc='https://i.pinimg.com/736x/34/83/27/348327ebf09db5e14fb15274b9cc3503.jpg'
+								price={66666}
+								ratingNumber={5.0}
+								ratingCounter={666}
+								buyNumber={"1M +"}
+								shopName='Peppe'
+								shopLink='Peppe'
+								description={"Описание товара"}
+							/>
+						))}
+					</div>
+				</div>
+			</div>
 		</>
 	);
 };

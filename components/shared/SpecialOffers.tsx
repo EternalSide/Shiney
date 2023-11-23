@@ -6,6 +6,7 @@ const SpecialOffers = () => {
 			<h3 className='main-title'>Спецпредложения</h3>
 			<div className='mt-4 grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5 !gap-6'>
 				<ProductCard
+					description={"Описание товара"}
 					title='Часы Peppe LUX'
 					id={0}
 					imgSrc='https://i.pinimg.com/736x/35/aa/26/35aa261ed79bfdd34da9b98eb7a1f369.jpg'

@@ -10,6 +10,7 @@ const Trends = () => {
 				<div className='grid grid-cols-3 gap-6 flex-1'>
 					{Array.from({length: 6}, (_, i) => (
 						<ProductCard
+							description={"Описание товара"}
 							key={i}
 							title='Часы Peppe LUX'
 							id={0}

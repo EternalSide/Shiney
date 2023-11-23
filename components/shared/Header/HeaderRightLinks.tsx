@@ -22,7 +22,7 @@ const HeaderRightLinks = () => {
 					>
 						<Button
 							variant='mainPage'
-							className={`w-12 h-12 p-0 ${
+							className={`header__button p-0 ${
 								!isActive && "hover:border-sky-300"
 							} ${isActive && "border-sky-300"}`}
 						>
@@ -41,7 +41,7 @@ const HeaderRightLinks = () => {
 				<UserButton
 					appearance={{
 						elements: {
-							userButtonAvatarBox: "h-12 w-12 no-focus",
+							userButtonAvatarBox: "header__button no-focus",
 						},
 					}}
 					afterSignOutUrl='/'
