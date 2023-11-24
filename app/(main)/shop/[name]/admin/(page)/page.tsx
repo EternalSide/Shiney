@@ -48,7 +48,7 @@ const ShopAdminPage = async ({params}: AdminParams) => {
 							className='rounded-lg'
 							alt={`Изображение магазина ${data?.shop.name}`}
 							fill
-							src={data?.shop.avatar || "/no-photo.jpg"}
+							src={data?.shop.avatar || "/noShopImage.jpg"}
 						/>
 					</Link>
 					<div className='flex flex-col gap-3'>
@@ -99,7 +99,6 @@ const ShopAdminPage = async ({params}: AdminParams) => {
 					))}
 					<DeleteShopAction
 						shopId={data?.shop._id.toString()}
-						shopLink={data?.shop.link!}
 						shopAvatar={data?.shop.avatar!}
 						adminPage={true}
 						clerkId={data?.clerkId!}

@@ -32,3 +32,13 @@ export interface MainCategory {
 		href: string;
 	}[];
 }
+
+export interface ILocalProduct {
+	image: string;
+	id: string;
+	title: string;
+	description: string;
+	quantity: number;
+	price: number;
+	picture?: string;
+}

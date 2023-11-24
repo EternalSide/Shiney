@@ -9,7 +9,7 @@ import {useModal} from "@/hooks/useModal";
 import {DialogDescription} from "@radix-ui/react-dialog";
 import {Button} from "../ui/button";
 import {toast} from "../ui/use-toast";
-import {deleteShopAction} from "@/actions/dbActions/shop.action";
+import {deleteShop} from "@/actions/dbActions/shop.action";
 import {usePathname, useRouter} from "next/navigation";
 import {useEdgeStore} from "@/lib/edgestore";
 
@@ -18,10 +18,12 @@ const DeleteShopModal = () => {
 
 	let shopId: string;
 	let shopAvatar: string;
+	let clerkId: string;
 
 	if (data !== null) {
 		shopId = data.shopId;
 		shopAvatar = data.shopAvatar;
+		clerkId = data.clerkId;
 	}
 
 	const modalOpen = type === "deleteShop" && isOpen;
@@ -29,25 +31,28 @@ const DeleteShopModal = () => {
 	const router = useRouter();
 	const {edgestore} = useEdgeStore();
 
-	const deleteShop = async () => {
+	const onClick = async () => {
 		try {
 			toast({
 				title: "Мы начали удалять ваш магазин..",
 			});
-
+			if (path !== "/shops") {
+				router.push("/shops");
+				console.log("ok");
+			}
 			onClose();
 
-			await deleteShopAction({shopId, path});
+			await deleteShop({shopId, path, clerkId});
 
-			await edgestore.shopImage.delete({
-				url: shopAvatar,
-			});
+			if (shopAvatar) {
+				await edgestore.shopImage.delete({
+					url: shopAvatar,
+				});
+			}
 
 			toast({
 				title: "Магазин удален ✔️",
 			});
-
-			if (path !== "/shops") return router.push("/shops");
 		} catch (e) {
 			toast({
 				title: "Что-то пошло не так...",
@@ -76,13 +81,13 @@ const DeleteShopModal = () => {
 				</DialogDescription>
 				<div className='flex justify-end items-center gap-3'>
 					<Button
-						className='bg-sky-500'
+						className='bg-sky-500 text-white'
 						onClick={() => onClose()}
 					>
 						Отменить
 					</Button>
 					<Button
-						onClick={deleteShop}
+						onClick={onClick}
 						variant='destructive'
 					>
 						Удалить

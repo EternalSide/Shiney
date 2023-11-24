@@ -6,11 +6,11 @@ import {
 	mainCategories,
 	recursiveSearch,
 } from "@/lib/allCategories";
-import Link from "next/link";
 import {Suspense} from "react";
 import Loading from "./loading";
-
 import {faker} from "@faker-js/faker";
+import MainMenuLink from "@/components/shared/MainMenuLink";
+import {AccumulatorItem} from "@/types";
 
 interface Props {
 	params: {
@@ -19,12 +19,15 @@ interface Props {
 }
 
 const CategoryPage = ({params}: Props) => {
-	const categoryHref = params.name;
-
-	let accumulator: any = [];
+	let accumulator: AccumulatorItem[] = [];
+	let currentCategory: AccumulatorItem | null = null;
 
 	// Главная категория
-	const isMainCategory = detectIfMainCategory(mainCategories, categoryHref);
+	const isMainCategory: AccumulatorItem = detectIfMainCategory(
+		mainCategories,
+		params.name
+	);
+
 	if (isMainCategory) {
 		accumulator = [
 			{
@@ -34,13 +37,11 @@ const CategoryPage = ({params}: Props) => {
 		];
 	}
 
-	let currentCategory;
-
 	// Не главная категория
 	if (!isMainCategory) {
 		const data = recursiveSearch(
 			allCategoriesDetection,
-			categoryHref,
+			params.name,
 			accumulator
 		);
 
@@ -54,14 +55,7 @@ const CategoryPage = ({params}: Props) => {
 	if (noCategory) {
 		return (
 			<>
-				<Link
-					className='mt-2 flex items-center gap-2'
-					href='/'
-				>
-					<p className='text-[#626d7a] font-medium text-sm hover:text-sky-500 transition'>
-						Перейти на главную
-					</p>
-				</Link>
+				<MainMenuLink />
 				<h1 className='base-title mt-12'>
 					Категории <span className='text-blue-500'>{params.name}</span> не
 					существует

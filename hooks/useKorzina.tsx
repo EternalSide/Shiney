@@ -1,10 +1,11 @@
+// Управление корзиной пользователя
 import {IProduct} from "@/database/models/product.model";
 import {create} from "zustand";
 import Cookies from "js-cookie";
 
 interface KorzinaStore {
-	products: any;
-	addProduct: (newProduct: any) => void;
+	products: IProduct[];
+	addProduct: (newProduct: IProduct | any) => void;
 	updateProduct: (productId: string, data: any) => void;
 	removeProduct: (productId: string) => void;
 	clearAllProducts: () => void;

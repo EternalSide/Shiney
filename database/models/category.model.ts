@@ -1,5 +1,3 @@
-// Главная категория обьединяющая другие.
-// Например - Электроника.
 import {Schema, models, model, Document} from "mongoose";
 
 export interface ICategory extends Document {

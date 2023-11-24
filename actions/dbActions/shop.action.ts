@@ -27,6 +27,9 @@ export const createShop = async (shopData: CreateShopParams) => {
 			avatar: image,
 		});
 
+		newShop.followers.push(user._id);
+		await newShop.save();
+
 		user.shops.push(newShop._id);
 
 		await user.save();
@@ -80,17 +83,14 @@ export const getShopInfo = async (params: GetShopInfoParams) => {
 	}
 };
 
-export const deleteShopAction = async (params: DeleteShopParams) => {
+export const deleteShop = async (params: DeleteShopParams) => {
 	try {
 		entryDatabase();
 
-		// * TODO: Удалить у пользователя магазин
-
-		const {shopId, path} = params;
+		const {shopId, path, clerkId} = params;
 
 		await Shop.deleteOne({_id: shopId});
-
-		// await User.findByIdAndUpdate({link});
+		await User.findOneAndUpdate({clerkId}, {$pull: {shops: shopId}});
 
 		revalidatePath(path);
 	} catch (e) {

@@ -170,9 +170,7 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 							</FormControl>
 							<FormDescription>
 								Ваш магазин будет располагаться по адресу{" "}
-								{`peppe-blue.vercel.app/shop/${
-									form.getValues().link.trim() || "peppeshop"
-								}`}
+								{`shiney.ru/shop/${form.getValues().link.trim() || ""}`}
 							</FormDescription>
 							<FormMessage />
 						</FormItem>

@@ -4,11 +4,11 @@ import Link from "next/link";
 import {LayoutList, X} from "lucide-react";
 
 interface Props {
-	active: boolean;
-	setActive: (action: boolean) => void;
+	open: boolean;
+	setOpen: (action: boolean) => void;
 }
 
-const CategoryLogoButton = ({active, setActive}: Props) => {
+const CategoryLogoButton = ({open, setOpen}: Props) => {
 	return (
 		<div className='!z-[21] flex items-center gap-1 relative h-full'>
 			<Link
@@ -25,11 +25,11 @@ const CategoryLogoButton = ({active, setActive}: Props) => {
 				</div>
 			</Link>
 			<Button
-				onClick={() => (active ? setActive(false) : setActive(true))}
+				onClick={() => (open ? setOpen(false) : setOpen(true))}
 				className='bg-[#f4f5fa] hover:[#f2f5fa] py-0 no-focus h-12 gap-1'
 			>
 				<div className='w-[30px] relative flex justify-center items-center h-8'>
-					{active ? (
+					{open ? (
 						<X className='text-sky-500 h-6 w-6' />
 					) : (
 						<LayoutList className='text-sky-500 h-5 w-5' />

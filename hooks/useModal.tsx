@@ -1,5 +1,6 @@
 import {create} from "zustand";
 
+// Модалки, которые открываются хуком.
 export type ModalType = "deleteShop" | "help" | "shopAvatar" | "development";
 
 interface ModalStore {

@@ -9,9 +9,7 @@ const CopyAction = ({text}: {text: string}) => {
 		e.preventDefault();
 		navigator.clipboard.writeText(text);
 		setCopied(true);
-		setTimeout(() => {
-			setCopied(false);
-		}, 1500);
+		setTimeout(() => setCopied(false), 1500);
 	};
 
 	return (

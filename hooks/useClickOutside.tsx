@@ -1,3 +1,4 @@
+// Хук закрывает ref, если клик был вне его + запрещает скролл
 import {useEffect} from "react";
 
 interface Props {
@@ -15,7 +16,7 @@ const useClickOutside = ({ref, open, setOpen, korzina}: Props) => {
 			}
 		};
 
-		const handleScroll = (e: Event) => window.scrollTo(0, 0);
+		const handleScroll = () => window.scrollTo(0, 0);
 
 		const handleEscClick = (e: KeyboardEvent) => {
 			if (e.key === "Escape") return setOpen(false);
@@ -24,6 +25,7 @@ const useClickOutside = ({ref, open, setOpen, korzina}: Props) => {
 		document.addEventListener("click", handleOutsideClick);
 		document.addEventListener("keydown", handleEscClick);
 
+		// Скролл разрешен на корзине.
 		if (open && !korzina) {
 			document.addEventListener("scroll", handleScroll);
 		}

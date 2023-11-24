@@ -3,6 +3,7 @@ import {UploadCloudIcon, X} from "lucide-react";
 import * as React from "react";
 import {useDropzone, type DropzoneOptions} from "react-dropzone";
 import {twMerge} from "tailwind-merge";
+
 const variants = {
 	base: "relative rounded-md flex justify-center items-center flex-col cursor-pointer min-h-[150px] min-w-[200px] border border-dashed border-gray-400 dark:border-gray-300 transition-colors duration-200 ease-in-out",
 	image:
@@ -13,6 +14,7 @@ const variants = {
 	accept: "border border-blue-500 bg-blue-500 bg-opacity-10",
 	reject: "border border-red-700 bg-red-700 bg-opacity-10",
 };
+
 type InputProps = {
 	width: number;
 	height: number;
@@ -22,6 +24,7 @@ type InputProps = {
 	disabled?: boolean;
 	dropzoneOptions?: Omit<DropzoneOptions, "disabled">;
 };
+
 const ERROR_MESSAGES = {
 	fileTooLarge(maxSize: number) {
 		return `The file is too large. Max size is ${formatFileSize(maxSize)}.`;
@@ -36,6 +39,7 @@ const ERROR_MESSAGES = {
 		return "The file is not supported.";
 	},
 };
+
 const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
 	(
 		{dropzoneOptions, width, height, value, className, disabled, onChange},
@@ -175,7 +179,9 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
 		);
 	}
 );
+
 SingleImageDropzone.displayName = "SingleImageDropzone";
+
 const Button = React.forwardRef<
 	HTMLButtonElement,
 	React.ButtonHTMLAttributes<HTMLButtonElement>
@@ -196,7 +202,9 @@ const Button = React.forwardRef<
 		/>
 	);
 });
+
 Button.displayName = "Button";
+
 function formatFileSize(bytes?: number) {
 	if (!bytes) {
 		return "0 Bytes";

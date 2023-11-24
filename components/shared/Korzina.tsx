@@ -1,5 +1,4 @@
 "use client";
-import {ShoppingCart} from "lucide-react";
 import {Button} from "../ui/button";
 import {useEffect, useRef, useState} from "react";
 import OverlayMain from "./OverlayMain";
@@ -8,47 +7,18 @@ import useClickOutside from "@/hooks/useClickOutside";
 import {useKorzina} from "@/hooks/useKorzina";
 import Link from "next/link";
 import {ScrollArea} from "@/components/ui/scroll-area";
+import {ILocalProduct} from "@/types";
+import KorzinaButton from "./KorzinaButton";
 
-interface Props {
-	open: boolean;
-	setOpen: (action: boolean) => void;
-}
-
-export interface ILocalProduct {
-	image: string;
-	id: string;
-	title: string;
-	description: string;
-	quantity: number;
-	price: number;
-}
-
-const KorzinaButton = ({setOpen, productsLength}: any) => {
-	return (
-		<Button
-			onClick={() => (setOpen ? setOpen(true) : () => {})}
-			variant='mainPage'
-			className=' hover:border-sky-500 relative p-0 header__button'
-		>
-			{Boolean(productsLength) && (
-				<div className='absolute -top-3 -right-2 px-2 py-0.5 rounded-full bg-sky-500 text-white text-sm'>
-					{productsLength}
-				</div>
-			)}
-			<ShoppingCart className='text-[#252525] h-5 w-5' />
-		</Button>
-	);
-};
-
-const Korzina = ({open, setOpen}: Props) => {
+const Korzina = () => {
 	const [hydration, setHydration] = useState(false);
+	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
 		setHydration(true);
 	}, []);
 
 	const korzinaRef = useRef<HTMLDivElement>(null);
-
 	const {products, removeProduct, updateProduct, clearAllProducts} =
 		useKorzina();
 
@@ -97,11 +67,11 @@ const Korzina = ({open, setOpen}: Props) => {
 									<p> Товары отсутствуют...</p>
 								</div>
 							) : (
-								products?.map((item: any) => (
+								products?.map((item: ILocalProduct) => (
 									<KorzinaCard
 										id={item.id}
 										key={item.id}
-										image={item.picture}
+										image={item.picture!}
 										title={item.title}
 										description={item.description}
 										quantity={item.quantity}

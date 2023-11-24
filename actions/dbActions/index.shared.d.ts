@@ -15,6 +15,7 @@ export interface GetShopInfoParams extends ShopName {}
 export interface DeleteShopParams {
 	shopId: string;
 	path: string;
+	clerkId: string;
 }
 
 export interface FollowShopParams {

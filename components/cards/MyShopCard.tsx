@@ -37,7 +37,7 @@ const MyShopCard = ({
 						className='rounded-lg'
 						alt={`Изображение магазина ${name}`}
 						fill
-						src={avatar || "/no-photo.jpg"}
+						src={avatar || "/noShopImage.jpg"}
 					/>
 				</Link>
 				<div className='flex flex-col gap-3'>
@@ -71,7 +71,6 @@ const MyShopCard = ({
 						</button>
 					</Link>
 					<DeleteShopAction
-						shopLink={link}
 						shopId={id}
 						clerkId={clerkId}
 						shopAvatar={avatar}

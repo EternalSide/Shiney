@@ -6,14 +6,14 @@ export interface IShop extends Document {
 	avatar: string;
 	banner: string;
 	description: string;
+	rating: string;
+	buyCount: number;
+	verified: boolean;
 	creator: Schema.Types.ObjectId;
 	products: Schema.Types.ObjectId[];
 	followers: Schema.Types.ObjectId[];
 	comments: Schema.Types.ObjectId[];
-	buyCount: number;
-	verified: boolean;
 	createdOn: Date;
-	rating: string;
 }
 
 const ShopSchema = new Schema<IShop>(

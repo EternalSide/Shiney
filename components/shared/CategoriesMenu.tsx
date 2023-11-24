@@ -1,25 +1,22 @@
+import {AccumulatorItem} from "@/types";
 import {ChevronRight} from "lucide-react";
 import Link from "next/link";
+import MainMenuLink from "./MainMenuLink";
 
 const CategoriesMenu = ({accumulator, currentCategory}: any) => {
 	const activeCategory = accumulator?.find(
-		(item: any) => item.label === currentCategory
+		(item: AccumulatorItem) => item.label === currentCategory
 	);
 
 	return (
 		<div className='mt-2 flex items-start gap-1'>
-			<Link href='/'>
-				<p className='text-[#626d7a] font-medium text-[14px]  hover:text-sky-500 transition'>
-					Главная
-				</p>
-			</Link>
-
-			{accumulator?.map((item: any) => {
+			<MainMenuLink />
+			{accumulator?.map((item: AccumulatorItem) => {
 				const isActive = item.label === activeCategory.label;
 				return (
 					<Link
-						className='flex items-center gap-1'
 						key={item.href}
+						className='flex items-center gap-1'
 						href={`/category/${item.href}`}
 					>
 						<ChevronRight className='h-4 w-4' />

@@ -4,26 +4,20 @@ import {X} from "lucide-react";
 import Image from "next/image";
 
 interface Props {
-	shopLink: string;
 	shopId: string;
 	shopAvatar: string;
 	adminPage?: boolean;
 	clerkId: string | null;
 }
 
-const DeleteShopAction = ({
-	shopLink,
-	shopId,
-	shopAvatar,
-	adminPage,
-	clerkId,
-}: Props) => {
+const DeleteShopAction = ({shopId, shopAvatar, adminPage, clerkId}: Props) => {
 	const {onOpen} = useModal();
-	// Добавить clerkId и передать его, + shopLink сменить на shopId
+	// Добавить clerkId и передать его,
 	const openDeleteModal = () => {
 		onOpen("deleteShop", {
 			shopId,
 			shopAvatar,
+			clerkId,
 		});
 	};
 

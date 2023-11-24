@@ -3,15 +3,15 @@ import Link from "next/link";
 
 interface Props {
 	setActiveCategory: (value: string) => void;
-	setActive: (action: boolean) => void;
+	setOpen: (action: boolean) => void;
 }
 
-const CategoryMenu = ({setActiveCategory, setActive}: Props) => {
+const CategoryMenu = ({setActiveCategory, setOpen}: Props) => {
 	return (
 		<div className='flex flex-col gap-3'>
 			{allCategories.map((item: any) => (
 				<Link
-					onClick={() => setActive(false)}
+					onClick={() => setOpen(false)}
 					href={`/category/${item.data.href}`}
 					key={item.value}
 					className='flex items-center gap-5 hover:bg-[#e0f2fe] p-3 rounded-md w-64 cursor-pointer'

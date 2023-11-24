@@ -6,12 +6,8 @@ import {HeaderLinkType} from "@/constants/types";
 import {SignedIn, UserButton} from "@clerk/nextjs";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {useState} from "react";
 
 const HeaderRightLinks = () => {
-	// Управление корзиной.
-	const [korzinaOpen, setKorzinaOpen] = useState(false);
-
 	const pathname = usePathname();
 
 	return (
@@ -25,20 +21,15 @@ const HeaderRightLinks = () => {
 					>
 						<Button
 							variant='mainPage'
-							className={`header__button p-0 ${
-								!isActive && "hover:border-sky-300"
-							} ${isActive && "border-sky-300"}`}
+							className={`header__button p-0 hover:border-sky-300
+							 ${isActive && "border-sky-300"}`}
 						>
 							<item.icon className='text-[#252525] h-5 w-5' />
 						</Button>
 					</Link>
 				);
 			})}
-
-			<Korzina
-				open={korzinaOpen}
-				setOpen={setKorzinaOpen}
-			/>
+			<Korzina />
 			<SignedIn>
 				<UserButton
 					appearance={{

@@ -40,7 +40,8 @@ const ShopHeader = ({
 }: Props) => {
 	const {onOpen} = useModal();
 	const path = usePathname();
-	const openAvatar = () => onOpen("shopAvatar", shopImage || "/no-photo.jpg");
+	const openAvatar = () =>
+		onOpen("shopAvatar", shopImage || "/noShopImage.jpg");
 
 	const followShop = async () => {
 		try {
@@ -63,7 +64,7 @@ const ShopHeader = ({
 				>
 					<Image
 						className='rounded-full object-cover object-center hover:scale-105 transition'
-						src={shopImage || "/no-photo.jpg"}
+						src={shopImage || "/noShopImage.jpg"}
 						alt={`${shopName}`}
 						fill
 					/>

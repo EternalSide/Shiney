@@ -43,7 +43,7 @@ const KorzinaCard = ({
 							fill
 							alt={title}
 							className='object-cover object-center rounded-lg'
-							src={image}
+							src={image || ""}
 						/>
 					</div>
 				</Link>
