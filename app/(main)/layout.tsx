@@ -7,7 +7,9 @@ const MainLayout = ({children}: ReactChildren) => {
 	return (
 		<>
 			<Header />
-			<div className='max-w-[1420px] w-full mx-auto p-6'>{children}</div>
+			<div className='max-w-[1420px] w-full mx-auto p-6 max-lg:px-4 max-lg:pb-[88px]'>
+				{children}
+			</div>
 			<MobileNavigation />
 			<ModalProvider />
 			<Toaster />

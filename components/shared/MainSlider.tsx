@@ -27,7 +27,7 @@ const MainSlider = () => {
 	return (
 		<Swiper
 			modules={[Autoplay]}
-			className='mySwiper'
+			className='mySwiper px-0'
 			autoplay={{delay: 5000}}
 		>
 			{sliders.map((item: ISliderItem) => (

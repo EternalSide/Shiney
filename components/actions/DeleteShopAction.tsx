@@ -6,17 +6,25 @@ import Image from "next/image";
 interface Props {
 	shopId: string;
 	shopAvatar: string;
+	shopBanner: string;
 	adminPage?: boolean;
-	clerkId: string | null;
+	clerkId: string;
 }
 
-const DeleteShopAction = ({shopId, shopAvatar, adminPage, clerkId}: Props) => {
+const DeleteShopAction = ({
+	shopId,
+	shopAvatar,
+	shopBanner,
+	adminPage,
+	clerkId,
+}: Props) => {
 	const {onOpen} = useModal();
-	// Добавить clerkId и передать его,
+
 	const openDeleteModal = () => {
 		onOpen("deleteShop", {
 			shopId,
 			shopAvatar,
+			shopBanner,
 			clerkId,
 		});
 	};

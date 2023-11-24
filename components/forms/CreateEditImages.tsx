@@ -3,9 +3,10 @@ import {Button} from "@/components/ui/button";
 import {usePathname, useRouter} from "next/navigation";
 import {useToast} from "../ui/use-toast";
 import {useEdgeStore} from "@/lib/edgestore";
-import {useState} from "react";
+import {FormEvent, useState} from "react";
 import {SingleImageDropzone} from "./SingleImageDropzone";
 import {updateShopImages} from "@/actions/dbActions/shop.action";
+import {noShopBanner} from "@/constants";
 
 interface Props {
 	shopData?: any;
@@ -16,16 +17,14 @@ const CreateEditImages = ({shopData}: Props) => {
 
 	const [shopImage, setShopImage] = useState<File>();
 	const [shopBanner, setShopBanner] = useState<File>();
-
 	const [isLoading, setIsLoading] = useState(false);
 
 	const {edgestore} = useEdgeStore();
-
 	const router = useRouter();
 	const {toast} = useToast();
 	const path = usePathname();
 
-	const onSubmit = async (e: any) => {
+	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 		setIsLoading(true);
 		try {
@@ -110,7 +109,7 @@ const CreateEditImages = ({shopData}: Props) => {
 				<SingleImageDropzone
 					className='w-full'
 					height={256}
-					value={shopBanner || shop?.banner || "/defaultBg.jfif"}
+					value={shopBanner || shop?.banner || noShopBanner}
 					onChange={(file) => {
 						setShopBanner(file);
 					}}

@@ -1,5 +1,5 @@
 import CreateEditShopForm from "@/components/forms/CreateEditShopForm";
-import {auth, redirectToSignIn} from "@clerk/nextjs";
+import {auth} from "@clerk/nextjs";
 import {Metadata} from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +8,6 @@ export const metadata: Metadata = {
 
 const CreateShopPage = async () => {
 	const {userId} = auth();
-	if (!userId) redirectToSignIn();
 
 	return (
 		<div className='base-block'>

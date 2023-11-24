@@ -1,4 +1,5 @@
 "use client";
+import {noShopBanner} from "@/constants";
 import {useModal} from "@/hooks/useModal";
 import Image from "next/image";
 
@@ -12,11 +13,9 @@ const ShopBanner = ({alt, shopBanner}: Props) => {
 	return (
 		<div className='h-64 w-full relative'>
 			<Image
-				onClick={() =>
-					onOpen("shopAvatar", shopBanner || "/defaultBg.jfif", true)
-				}
+				onClick={() => onOpen("shopAvatar", shopBanner || noShopBanner, true)}
 				className='rounded-lg object-cover object-center rounded-br-none rounded-bl-none'
-				src={shopBanner || "/defaultBg.jfif"}
+				src={shopBanner || noShopBanner}
 				alt={alt || ""}
 				fill
 			/>

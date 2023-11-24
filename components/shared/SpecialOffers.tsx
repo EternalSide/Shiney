@@ -4,7 +4,7 @@ const SpecialOffers = () => {
 	return (
 		<div className='mt-10'>
 			<h3 className='main-title'>Спецпредложения</h3>
-			<div className='mt-4 grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5 !gap-6'>
+			<div className='mt-4 grid max-md:grid-cols-2 max-md:gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
 				<ProductCard
 					description={"Описание товара"}
 					title='Часы Peppe LUX'

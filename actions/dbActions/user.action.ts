@@ -46,6 +46,8 @@ export const getUserInfo = async (params: {clerkId: string}) => {
 
 		const user = await User.findOne({clerkId});
 
+		if (!user) return null;
+
 		return user;
 	} catch (e) {
 		console.log(e);

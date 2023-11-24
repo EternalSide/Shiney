@@ -28,6 +28,7 @@ export const createShop = async (shopData: CreateShopParams) => {
 		});
 
 		newShop.followers.push(user._id);
+
 		await newShop.save();
 
 		user.shops.push(newShop._id);
@@ -125,7 +126,7 @@ export const followShopAction = async (params: FollowShopParams) => {
 	try {
 		entryDatabase();
 
-		const {shopLink, path, clerkId, isFollowing} = params;
+		const {shopLink: link, path, clerkId, isFollowing} = params;
 
 		let updateQuery = {};
 		let updateUserQuery = {};
@@ -157,7 +158,7 @@ export const followShopAction = async (params: FollowShopParams) => {
 		}
 
 		await User.findOneAndUpdate({clerkId}, updateUserQuery);
-		await Shop.findOneAndUpdate({link: shopLink}, updateQuery);
+		await Shop.findOneAndUpdate({link}, updateQuery);
 
 		revalidatePath(path);
 	} catch (e) {

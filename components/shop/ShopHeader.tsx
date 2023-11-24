@@ -8,20 +8,22 @@ import {formatDateString} from "@/lib/utils";
 import {toast} from "../ui/use-toast";
 import {usePathname} from "next/navigation";
 import {followShopAction} from "@/actions/dbActions/shop.action";
+import {useOptimistic} from "react";
+import {noShopImage} from "@/constants";
 
 interface Props {
 	shopName: string;
 	shopImage: string;
+	shopDescription: string;
+	ratingNumber: string;
+	shopLink: string;
+	clerkId: string | null;
+	verified: boolean;
+	isFollowing: boolean;
 	followersLength: number;
 	buyCount: number;
 	commentsLength: number;
-	ratingNumber: string;
 	createdOn: Date;
-	verified: boolean;
-	clerkId: string | null;
-	shopLink: string;
-	isFollowing: boolean;
-	shopDescription: string;
 }
 
 const ShopHeader = ({
@@ -40,11 +42,42 @@ const ShopHeader = ({
 }: Props) => {
 	const {onOpen} = useModal();
 	const path = usePathname();
+
+	// Открыть аватар
 	const openAvatar = () =>
 		onOpen("shopAvatar", shopImage || "/noShopImage.jpg");
 
+	// Optimistic Change Follow UI (Моментально меняет инфо подписки)
+	const [optimisticState, addOptimistic] = useOptimistic(
+		isFollowing,
+		(currentState: boolean, optimisticValue: boolean) => {
+			return (currentState = optimisticValue);
+		}
+	);
+	const [optimisticFollowers, addOptimisticFollowers] = useOptimistic(
+		followersLength,
+		(currentState: number, optimisticValue: number) => {
+			return (currentState = optimisticValue);
+		}
+	);
+
+	// Подписаться на магазин
 	const followShop = async () => {
 		try {
+			if (!clerkId) {
+				return toast({
+					title: "Вы не авторизованы",
+					description: "Войдите, чтобы подписаться на магазин",
+					variant: "destructive",
+				});
+			}
+
+			addOptimisticFollowers(
+				optimisticState ? optimisticFollowers - 1 : optimisticFollowers + 1
+			);
+
+			addOptimistic(!optimisticState);
+
 			await followShopAction({clerkId, path, shopLink, isFollowing});
 		} catch (e) {
 			toast({
@@ -57,25 +90,27 @@ const ShopHeader = ({
 
 	return (
 		<div className='p-6 flex justify-between items-start  max-lg:flex-col max-lg:gap-6 bg-white rounded-tr-none rounded-tl-none'>
-			<div className='flex items-center gap-3 '>
+			<div className='flex items-center gap-3'>
 				<button
 					onClick={openAvatar}
 					className='h-28 w-28 relative -mt-24 border-[4px] border-white rounded-full'
 				>
 					<Image
 						className='rounded-full object-cover object-center hover:scale-105 transition'
-						src={shopImage || "/noShopImage.jpg"}
-						alt={`${shopName}`}
+						src={shopImage || noShopImage}
+						alt={shopName}
 						fill
 					/>
 				</button>
 
 				<div className='flex flex-col gap-2'>
-					<div className='flex items-center gap-1'>
-						<h1 className='font-bold text-2xl'>{shopName}</h1>
-						{verified && <Check className='text-blue-500' />}
+					<div>
+						<div className='flex items-center gap-1'>
+							<h1 className='font-bold text-2xl'>{shopName}</h1>
+							{verified && <Check className='text-blue-500' />}
+						</div>
+						<p>{shopDescription}</p>
 					</div>
-					<p>{shopDescription}</p>
 					<div className='flex items-center gap-1.5'>
 						<Star
 							className='h-4 w-4 text-orange-400 '
@@ -106,7 +141,7 @@ const ShopHeader = ({
 						<p className='text-zinc-600 text-xs font-semibold mt-1'>Покупок</p>
 					</div>
 					<div className='text-center  mt-1'>
-						<h3 className='font-bold'>{followersLength}</h3>
+						<h3 className='font-bold'>{optimisticFollowers}</h3>
 						<p className='text-zinc-600 text-xs font-semibold mt-1'>
 							Подписчиков
 						</p>
@@ -115,9 +150,9 @@ const ShopHeader = ({
 				<Button
 					onClick={followShop}
 					variant='blue'
-					className='!px-10'
+					className='!px-10 min-w-[210px]'
 				>
-					{isFollowing ? "Вы подписаны  ✓" : "Подписаться"}
+					{optimisticState ? "Вы подписаны  ✓" : "Подписаться"}
 				</Button>
 			</div>
 		</div>

@@ -25,12 +25,12 @@ const ShopLinks = ({shopLink}: {shopLink: string}) => {
 			value: "about",
 		},
 	];
-
+	type ShopLink = (typeof links)[0];
 	const pathname = usePathname();
 
 	return (
 		<div className='flex gap-3'>
-			{links.map((link: any) => {
+			{links.map((link: ShopLink) => {
 				const isActive = () => {
 					let status;
 					if (link.value === "about" || link.value === "reviews") {

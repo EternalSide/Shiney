@@ -1,9 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
 import {FileSignature} from "lucide-react";
-import CopyAction from "../actions/CopyAction";
 import DeleteShopAction from "../actions/DeleteShopAction";
 import {Button} from "../ui/button";
+import MyShopInfoBlock from "../shop/MyShopInfoBlock";
 
 interface Props {
 	name: string;
@@ -11,9 +10,10 @@ interface Props {
 	link: string;
 	buyCount: number;
 	productsCount: number;
-	clerkId: string | null;
+	clerkId: string;
 	avatar: string;
 	id: string;
+	shopBanner: string;
 }
 
 const MyShopCard = ({
@@ -23,43 +23,21 @@ const MyShopCard = ({
 	avatar,
 	link,
 	buyCount,
+	shopBanner,
 	productsCount,
 	clerkId,
 }: Props) => {
 	return (
 		<div className='flex items-start justify-between relative py-3 max-sm:pb-20'>
-			<div className='flex items-start gap-3'>
-				<Link
-					href={`/shop/${link}`}
-					className='relative h-32 w-32 mt-1'
-				>
-					<Image
-						className='rounded-lg'
-						alt={`Изображение магазина ${name}`}
-						fill
-						src={avatar || "/noShopImage.jpg"}
-					/>
-				</Link>
-				<div className='flex flex-col gap-3'>
-					<Link href={`/shop/${link}`}>
-						<h3 className='font-bold text-xl'>{name}</h3>
-					</Link>
-					<p className=''>{description}</p>
-
-					<div className='flex items-center gap-3'>
-						<p>Товаров: {productsCount}</p>
-						<p>Покупок: {buyCount}</p>
-					</div>
-
-					<Link
-						className='flex gap-3 items-center'
-						href={`/shop/${link}`}
-					>
-						<p className='text-[#223bdd] font-semibold'>{`shiney.ru/shop/${link}`}</p>
-						<CopyAction text={`https:/shiney.ru/shop/${link}`} />
-					</Link>
-				</div>
-			</div>
+			<MyShopInfoBlock
+				avatar={avatar}
+				buyCount={buyCount}
+				description={description}
+				link={link}
+				productsCount={productsCount}
+				name={name}
+				headerText={name}
+			/>
 			<div className='flex flex-col items-end'>
 				<div className='flex items-center gap-2'>
 					<Link
@@ -72,6 +50,7 @@ const MyShopCard = ({
 					</Link>
 					<DeleteShopAction
 						shopId={id}
+						shopBanner={shopBanner}
 						clerkId={clerkId}
 						shopAvatar={avatar}
 					/>

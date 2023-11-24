@@ -27,8 +27,9 @@ const ShopsPage = async () => {
 							link={shop.link}
 							buyCount={shop.buyCount}
 							productsCount={shop.products.length}
-							clerkId={userId}
 							avatar={shop.avatar}
+							shopBanner={shop.banner}
+							clerkId={userId!}
 						/>
 					))}
 				</div>

@@ -15,17 +15,6 @@ import {useEdgeStore} from "@/lib/edgestore";
 
 const DeleteShopModal = () => {
 	const {isOpen, onClose, type, data} = useModal();
-
-	let shopId: string;
-	let shopAvatar: string;
-	let clerkId: string;
-
-	if (data !== null) {
-		shopId = data.shopId;
-		shopAvatar = data.shopAvatar;
-		clerkId = data.clerkId;
-	}
-
 	const modalOpen = type === "deleteShop" && isOpen;
 	const path = usePathname();
 	const router = useRouter();
@@ -36,17 +25,24 @@ const DeleteShopModal = () => {
 			toast({
 				title: "Мы начали удалять ваш магазин..",
 			});
+
 			if (path !== "/shops") {
 				router.push("/shops");
-				console.log("ok");
 			}
+
 			onClose();
 
-			await deleteShop({shopId, path, clerkId});
+			await deleteShop({shopId: data.shopId, path, clerkId: data.clerkId});
 
-			if (shopAvatar) {
+			if (data.shopAvatar) {
 				await edgestore.shopImage.delete({
-					url: shopAvatar,
+					url: data.shopAvatar,
+				});
+			}
+
+			if (data.shopBanner) {
+				await edgestore.shopBanner.delete({
+					url: data.shopBanner,
 				});
 			}
 
@@ -66,7 +62,7 @@ const DeleteShopModal = () => {
 	return (
 		<Dialog
 			open={modalOpen}
-			onOpenChange={() => onClose()}
+			onOpenChange={onClose}
 		>
 			<DialogContent className='bg-white'>
 				<DialogHeader>
@@ -82,7 +78,7 @@ const DeleteShopModal = () => {
 				<div className='flex justify-end items-center gap-3'>
 					<Button
 						className='bg-sky-500 text-white'
-						onClick={() => onClose()}
+						onClick={onClose}
 					>
 						Отменить
 					</Button>

@@ -8,8 +8,6 @@ import {
 } from "@/lib/allCategories";
 import {Suspense} from "react";
 import Loading from "./loading";
-import {faker} from "@faker-js/faker";
-import MainMenuLink from "@/components/shared/MainMenuLink";
 import {AccumulatorItem} from "@/types";
 
 interface Props {
@@ -54,13 +52,10 @@ const CategoryPage = ({params}: Props) => {
 
 	if (noCategory) {
 		return (
-			<>
-				<MainMenuLink />
-				<h1 className='base-title mt-12'>
-					Категории <span className='text-blue-500'>{params.name}</span> не
-					существует
-				</h1>
-			</>
+			<h1 className='base-title'>
+				Категории <span className='text-blue-500'>{params.name}</span> не
+				существует
+			</h1>
 		);
 	}
 
@@ -78,7 +73,6 @@ const CategoryPage = ({params}: Props) => {
 					<p className='text-[#626d7a] font-semibold mt-0.5'>0 Товаров</p>
 				</div>
 				<div className='mt-4 flex items-start'>
-					{/* <div className='w-[260px]'>asd</div> */}
 					<Suspense fallback={<Loading />}>
 						<div className='grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 !gap-6 w-full'>
 							{Array.from({length: 20}, (_, i) => (
@@ -86,7 +80,9 @@ const CategoryPage = ({params}: Props) => {
 									key={i}
 									title='Часы Peppe LUX'
 									id={0}
-									imgSrc={faker.image.url()}
+									imgSrc={
+										"https://i.pinimg.com/736x/34/83/27/348327ebf09db5e14fb15274b9cc3503.jpg"
+									}
 									price={66666}
 									ratingNumber={5.0}
 									ratingCounter={666}
