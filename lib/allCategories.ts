@@ -9,7 +9,7 @@ import {
 	house,
 } from "./categories";
 
-// Для меню и ссылок. можно переделать под allCategoriesDetection
+// Для меню и ссылок.
 export const allCategories = [
 	{
 		data: electronic,
@@ -55,16 +55,17 @@ export const allCategories = [
 	},
 ];
 
-// Если категория главная.
-export const detectIfMainCategory = (array: any, targetValue: string) => {
+// Определить на главной ли мы категории
+export const detectIfMainCategory = (
+	array: typeof mainCategories,
+	targetValue: string
+) => {
 	for (const item of array) {
-		if (item.href === `/${targetValue}`) {
-			return item;
-		}
+		if (item.href === `/${targetValue}`) return item;
 	}
 };
 
-// Для detectIfMainCategory();
+// Главные категории, Для detectIfMainCategory();
 export const mainCategories = [
 	{href: "/electric", label: "Электроника"},
 	{href: "/beaty", label: "Красота и здоровье"},
@@ -127,4 +128,47 @@ export const recursiveSearch = (
 
 	// Значение не найдено
 	return {currentCategory: null, accumulator};
+};
+
+export const getCategory = (categoryName: string) => {
+	let accumulator: AccumulatorItem[] = [];
+	let currentCategory: AccumulatorItem | null = null;
+
+	// Главная категория
+	const isMainCategory: AccumulatorItem | undefined = detectIfMainCategory(
+		mainCategories,
+		categoryName
+	);
+
+	if (isMainCategory) {
+		accumulator = [
+			{
+				label: isMainCategory.label,
+				href: isMainCategory.href,
+			},
+		];
+	}
+
+	// Не главная категория
+	if (!isMainCategory) {
+		const data = recursiveSearch(
+			allCategoriesDetection,
+			categoryName,
+			accumulator
+		);
+
+		accumulator = data.accumulator;
+		currentCategory = data.currentCategory;
+	}
+
+	const noCategory = !currentCategory && !isMainCategory;
+	const activeTitle = currentCategory?.label || isMainCategory?.label;
+
+	return {
+		noCategory,
+		accumulator,
+		currentCategory,
+		isMainCategory,
+		activeTitle,
+	};
 };

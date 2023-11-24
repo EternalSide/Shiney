@@ -1,54 +1,20 @@
 import ProductCard from "@/components/cards/ProductCard";
 import CategoriesMenu from "@/components/shared/CategoriesMenu";
-import {
-	allCategoriesDetection,
-	detectIfMainCategory,
-	mainCategories,
-	recursiveSearch,
-} from "@/lib/allCategories";
+import {getCategory} from "@/lib/allCategories";
 import {Suspense} from "react";
 import Loading from "./loading";
-import {AccumulatorItem} from "@/types";
+import {ParamsName} from "@/types";
 
-interface Props {
-	params: {
-		name: string;
-	};
-}
+const CategoryPage = async ({params}: ParamsName) => {
+	const {
+		accumulator,
+		noCategory,
+		activeTitle,
+		currentCategory,
+		isMainCategory,
+	} = getCategory(params.name);
 
-const CategoryPage = ({params}: Props) => {
-	let accumulator: AccumulatorItem[] = [];
-	let currentCategory: AccumulatorItem | null = null;
-
-	// Главная категория
-	const isMainCategory: AccumulatorItem = detectIfMainCategory(
-		mainCategories,
-		params.name
-	);
-
-	if (isMainCategory) {
-		accumulator = [
-			{
-				label: isMainCategory.label,
-				href: isMainCategory.href,
-			},
-		];
-	}
-
-	// Не главная категория
-	if (!isMainCategory) {
-		const data = recursiveSearch(
-			allCategoriesDetection,
-			params.name,
-			accumulator
-		);
-
-		accumulator = data.accumulator;
-		currentCategory = data.currentCategory;
-	}
-
-	// Если категории не существует.
-	const noCategory = !currentCategory && !isMainCategory;
+	// const categoryProducts = await getCategoryProducts(currentCategory?.href)
 
 	if (noCategory) {
 		return (
@@ -58,8 +24,6 @@ const CategoryPage = ({params}: Props) => {
 			</h1>
 		);
 	}
-
-	const activeTitle = currentCategory?.label || isMainCategory?.label;
 
 	return (
 		<>
@@ -74,7 +38,7 @@ const CategoryPage = ({params}: Props) => {
 				</div>
 				<div className='mt-4 flex items-start'>
 					<Suspense fallback={<Loading />}>
-						<div className='grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 !gap-6 w-full'>
+						<div className='grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 w-full'>
 							{Array.from({length: 20}, (_, i) => (
 								<ProductCard
 									key={i}

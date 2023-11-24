@@ -1,26 +1,33 @@
 "use server";
 import Category, {ICategory} from "@/database/models/category.model";
 import entryDatabase from "./mongoose";
+import {allCategoriesDetection} from "./allCategories";
 
 export async function addCategories() {
-	const categoriesToAdd: string[] = [
-		"Electronics",
-		"Clothing",
-		"Shoes",
-		"Beauty and Health",
-		"Sports and Recreation",
-		"Home and Garden",
-		"Toys and Hobbies",
-		"Books and Education",
-		"Kitchen Appliances",
-		"Automotive",
-	];
+	const categoriesToAdd: any = [];
+	console.log(categoriesToAdd.length);
+	const extractCategories = (category: any) => {
+		categoriesToAdd.push({href: category.href, label: category.label});
+
+		if (category.categories) {
+			category.categories.forEach((subCategory: any) => {
+				extractCategories(subCategory);
+			});
+		}
+	};
+
+	allCategoriesDetection.forEach((item: any) => {
+		extractCategories(item);
+	});
 
 	try {
 		await entryDatabase();
 
-		for (const categoryName of categoriesToAdd) {
-			const category: ICategory = new Category({name: categoryName});
+		for (const categoryItem of categoriesToAdd) {
+			const category: ICategory = new Category({
+				label: categoryItem.label,
+				href: categoryItem.href,
+			});
 
 			await category.save();
 		}

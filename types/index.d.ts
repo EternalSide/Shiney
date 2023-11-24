@@ -42,3 +42,9 @@ export interface ILocalProduct {
 	price: number;
 	picture?: string;
 }
+
+export interface ParamsName {
+	params: {
+		name: string;
+	};
+}

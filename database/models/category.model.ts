@@ -1,13 +1,19 @@
 import {Schema, models, model, Document} from "mongoose";
 
 export interface ICategory extends Document {
-	name: string;
+	label: string;
+	href: string;
 	products: Schema.Types.ObjectId[];
 }
 
 const CategorySchema = new Schema<ICategory>(
 	{
-		name: {
+		href: {
+			type: String,
+			required: true,
+			unique: true,
+		},
+		label: {
 			type: String,
 			required: true,
 			unique: true,
