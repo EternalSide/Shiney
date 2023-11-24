@@ -66,6 +66,28 @@ export const updateShop = async (params: UpdateShopParams) => {
 	}
 };
 
+export const updateShopImages = async (params: any) => {
+	try {
+		entryDatabase();
+
+		const {shopId, shopImage, path, shopBanner} = params;
+
+		const shop = await Shop.findOneAndUpdate(
+			{_id: shopId},
+			{avatar: shopImage, banner: shopBanner}
+		);
+
+		revalidatePath(path);
+
+		const shopLink = shop.link;
+
+		return shopLink;
+	} catch (e) {
+		console.log(e);
+		throw e;
+	}
+};
+
 export const getShopInfo = async (params: GetShopInfoParams) => {
 	try {
 		entryDatabase();

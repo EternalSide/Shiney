@@ -1,5 +1,12 @@
 "use client";
-import {Home, ShoppingBag, Sparkles, User} from "lucide-react";
+import {
+	Home,
+	ShoppingBag,
+	ShoppingCart,
+	Sparkles,
+	Store,
+	User,
+} from "lucide-react";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 
@@ -10,25 +17,21 @@ const MobileNavigation = () => {
 			icon: Home,
 			href: "/",
 		},
+
 		{
-			icon: Sparkles,
-			href: "/asd",
+			icon: Store,
+			href: "/shops",
 		},
 		{
-			icon: ShoppingBag,
-			href: "/asd",
-		},
-		{
-			icon: User,
-			href: "/asd",
+			icon: ShoppingCart,
+			href: "/korzina",
 		},
 	];
 	return (
 		<div className='hidden max-lg:flex bg-white w-full h-16 fixed bottom-0  justify-center items-center'>
-			<div className='flex items-center justify-between w-full px-24'>
+			<div className='flex items-center justify-between w-full px-20'>
 				{mobileLinks.map((item: any) => {
-					const isActive =
-						pathname === item.href || pathname.includes(item.href);
+					const isActive = pathname === item.href;
 					return (
 						<Link
 							key={item.href}

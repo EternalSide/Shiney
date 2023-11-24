@@ -123,13 +123,11 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 
 	const {isLoading, isDirty} = form.formState;
 
-	const cancelButton = () => (type === "Edit" ? form.reset() : router.back());
-
 	return (
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className='space-y-8 mt-4'
+				className='space-y-8 mt-8'
 			>
 				<FormField
 					control={form.control}
@@ -199,35 +197,37 @@ const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
 					)}
 				/>
 
-				<FormField
-					control={form.control}
-					// @ts-ignore
-					name='image'
-					render={({field}) => (
-						<FormItem>
-							<FormLabel className='font-semibold'>Изображение</FormLabel>
-							<FormControl>
-								<SingleImageDropzone
-									width={300}
-									height={300}
-									value={shopImage || shop?.avatar}
-									onChange={(file) => {
-										setShopImage(file);
-									}}
-								/>
-							</FormControl>
-							<FormDescription>Изображение вашего магазина.</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+				{type !== "Edit" && (
+					<FormField
+						control={form.control}
+						// @ts-ignore
+						name='image'
+						render={({field}) => (
+							<FormItem>
+								<FormLabel className='font-semibold'>Изображение</FormLabel>
+								<FormControl>
+									<SingleImageDropzone
+										width={300}
+										height={300}
+										value={shopImage}
+										onChange={(file) => {
+											setShopImage(file);
+										}}
+									/>
+								</FormControl>
+								<FormDescription>Изображение вашего магазина.</FormDescription>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				)}
 				<div className='flex justify-end items-center gap-6'>
 					<Button
-						onClick={cancelButton}
+						onClick={() => router.back()}
 						className='bg-[#edeefb] font-semibold text-sky-500  p-6 rounded-lg'
 						type='button'
 					>
-						{type === "Edit" ? "Очистить" : "Отменить"}
+						Отменить
 					</Button>
 					<Button
 						disabled={isLoading || !isDirty}

@@ -37,6 +37,10 @@ export const shopSchema = z.object({
 		}),
 });
 
+export const shopViewSchema = z.object({
+	shopImage: asOptionalField(z.string()),
+});
+
 export const productSchema = z.object({
 	title: z
 		.string()

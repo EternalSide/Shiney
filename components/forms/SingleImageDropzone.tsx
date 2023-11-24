@@ -16,7 +16,7 @@ const variants = {
 };
 
 type InputProps = {
-	width: number;
+	width?: number;
 	height: number;
 	className?: string;
 	value?: File | string;

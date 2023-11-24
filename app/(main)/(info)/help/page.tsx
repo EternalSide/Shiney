@@ -1,7 +1,7 @@
+import MainMenuLink from "@/components/shared/MainMenuLink";
 import {Button} from "@/components/ui/button";
 import {ChevronRight} from "lucide-react";
 import {Metadata} from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
 	title: "Shiney / Помощь ",
@@ -11,11 +11,7 @@ const HelpPage = () => {
 	return (
 		<>
 			<div className='mt-2 flex items-center gap-2'>
-				<Link href='/'>
-					<p className='text-[#626d7a] font-medium text-sm hover:text-blue-600 transition'>
-						Главная
-					</p>
-				</Link>
+				<MainMenuLink />
 				<ChevronRight className='h-4 w-4' />
 
 				<p className='text-blue-600 font-medium text-sm'>Помощь</p>

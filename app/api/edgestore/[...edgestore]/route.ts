@@ -10,6 +10,9 @@ const edgeStoreRouter = es.router({
 	shopImage: es.fileBucket().beforeDelete(({ctx, fileInfo}) => {
 		return true;
 	}),
+	shopBanner: es.fileBucket().beforeDelete(({ctx, fileInfo}) => {
+		return true;
+	}),
 });
 
 const handler = createEdgeStoreNextHandler({

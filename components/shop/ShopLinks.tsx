@@ -48,7 +48,7 @@ const ShopLinks = ({shopLink}: {shopLink: string}) => {
 						href={link.href}
 					>
 						<Button
-							className={`font-semibold text-base bg-sky-100 text-sky-500 gap-2.5 px-6 py-3 ${
+							className={`font-semibold text-base bg-sky-100 text-sky-500 gap-2.5 px-6 py-3 min-w-[150px] ${
 								isActive() && "bg-sky-400 text-white"
 							}`}
 						>

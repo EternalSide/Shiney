@@ -73,7 +73,7 @@ const HeaderSearch = () => {
 				}}
 				value={searchValue}
 				placeholder='Глобальный поиск в Shiney...'
-				className='bg-transparent border-none placeholder:text-zinc-900 font-medium'
+				className='bg-transparent border-none placeholder:text-zinc-900 font-medium max-sm:placeholder:text-[13px]'
 			/>
 			<div className='flex items-center gap-1'>
 				{searchValue ? (

@@ -99,16 +99,18 @@ const ShopHeader = ({
 				</div>
 			</div>
 
-			<div className='flex items-start gap-10'>
-				<div className='text-center mt-1'>
-					<h3 className='font-bold'>{buyCount}</h3>
-					<p className='text-zinc-600 text-xs font-semibold mt-1'>Покупок</p>
-				</div>
-				<div className='text-center  mt-1'>
-					<h3 className='font-bold'>{followersLength}</h3>
-					<p className='text-zinc-600 text-xs font-semibold mt-1'>
-						Подписчиков
-					</p>
+			<div className='flex items-start gap-10  max-md:flex-col-reverse max-md:gap-3'>
+				<div className='flex gap-10 items-center'>
+					<div className='text-center mt-1'>
+						<h3 className='font-bold'>{buyCount}</h3>
+						<p className='text-zinc-600 text-xs font-semibold mt-1'>Покупок</p>
+					</div>
+					<div className='text-center  mt-1'>
+						<h3 className='font-bold'>{followersLength}</h3>
+						<p className='text-zinc-600 text-xs font-semibold mt-1'>
+							Подписчиков
+						</p>
+					</div>
 				</div>
 				<Button
 					onClick={followShop}

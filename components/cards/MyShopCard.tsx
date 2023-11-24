@@ -27,7 +27,7 @@ const MyShopCard = ({
 	clerkId,
 }: Props) => {
 	return (
-		<div className='flex items-start justify-between relative py-3'>
+		<div className='flex items-start justify-between relative py-3 max-sm:pb-20'>
 			<div className='flex items-start gap-3'>
 				<Link
 					href={`/shop/${link}`}
@@ -78,7 +78,7 @@ const MyShopCard = ({
 				</div>
 				<Link
 					href={`/shop/${link}/admin`}
-					className='absolute bottom-0 right-0'
+					className='absolute bottom-0 right-0 max-sm:left-0 max-sm:-bottom-0'
 				>
 					<Button
 						variant='blue'

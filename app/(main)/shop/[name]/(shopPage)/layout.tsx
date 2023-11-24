@@ -21,7 +21,10 @@ const ShopPageLayout = async ({params, children}: Props) => {
 
 	return (
 		<div className='rounded-lg'>
-			<ShopBanner alt={`Баннер магазина ${shop.name}`} />
+			<ShopBanner
+				alt={`Баннер магазина ${shop.name}`}
+				shopBanner={shop?.banner}
+			/>
 			<ShopHeader
 				shopName={shop.name}
 				shopImage={shop.avatar}
