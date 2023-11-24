@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {Input} from "../ui/input";
 import {useState} from "react";
-import {ILocalProduct} from "../shared/Korzina";
+import {ILocalProduct} from "@/types";
 
 interface Props extends ILocalProduct {
 	removeProduct: (id: string) => void;

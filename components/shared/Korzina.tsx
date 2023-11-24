@@ -67,7 +67,7 @@ const Korzina = () => {
 									<p> Товары отсутствуют...</p>
 								</div>
 							) : (
-								products?.map((item: ILocalProduct) => (
+								products?.map((item: ILocalProduct | any) => (
 									<KorzinaCard
 										id={item.id}
 										key={item.id}
