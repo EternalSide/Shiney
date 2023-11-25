@@ -1,38 +1,38 @@
-"use server";
-import Category, {ICategory} from "@/database/models/category.model";
-import entryDatabase from "./mongoose";
-import {allCategoriesDetection} from "./allCategories";
+// "use server";
+// import Category, {ICategory} from "@/database/models/category.model";
+// import entryDatabase from "./mongoose";
+// import {allCategoriesDetection} from "./allCategories";
 
-export async function addCategories() {
-	const categoriesToAdd: any = [];
-	console.log(categoriesToAdd.length);
-	const extractCategories = (category: any) => {
-		categoriesToAdd.push({href: category.href, label: category.label});
+// export async function addCategories() {
+// 	const categoriesToAdd: any = [];
 
-		if (category.categories) {
-			category.categories.forEach((subCategory: any) => {
-				extractCategories(subCategory);
-			});
-		}
-	};
+// 	const extractCategories = (category: any) => {
+// 		categoriesToAdd.push({href: category.href, label: category.label});
 
-	allCategoriesDetection.forEach((item: any) => {
-		extractCategories(item);
-	});
+// 		if (category.categories) {
+// 			category.categories.forEach((subCategory: any) => {
+// 				extractCategories(subCategory);
+// 			});
+// 		}
+// 	};
 
-	try {
-		await entryDatabase();
+// 	allCategoriesDetection.forEach((item: any) => {
+// 		extractCategories(item);
+// 	});
 
-		for (const categoryItem of categoriesToAdd) {
-			const category: ICategory = new Category({
-				label: categoryItem.label,
-				href: categoryItem.href,
-			});
+// 	try {
+// 		await entryDatabase();
 
-			await category.save();
-		}
-		console.log("Все категории добавлены");
-	} catch (error) {
-		console.error("Ошибка в addcategories.test.ts:", error);
-	}
-}
+// 		for (const categoryItem of categoriesToAdd) {
+// 			const category: ICategory = new Category({
+// 				label: categoryItem.label,
+// 				href: categoryItem.href,
+// 			});
+
+// 			await category.save();
+// 		}
+// 		console.log("Все категории добавлены");
+// 	} catch (error) {
+// 		console.error("Ошибка в addcategories.test.ts:", error);
+// 	}
+// }

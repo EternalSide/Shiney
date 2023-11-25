@@ -14,14 +14,17 @@ const checkAdmin = async (shopName: string) => {
 
 	const user: IUser = await getUserInfo({clerkId: userId});
 
+	// Пользователя нет.
 	if (!user) return redirect("/");
 
 	const shop: IShop = await getShopInfo({name: shopName});
 
+	// Нет такого магазина
 	if (!shop) return redirect("/");
 
 	const isOwner = checkOwner(user, shop._id.toString());
 
+	// Пользователь не администратор
 	if (!isOwner) return redirect("/");
 
 	return {clerkId: userId, user, shop, isOwner};

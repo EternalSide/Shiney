@@ -5,15 +5,16 @@ import {
 	sport,
 	clothes,
 	shoes,
-	bytovia,
-	house,
+	build,
+	autoproducts,
+	others,
 } from "./categories";
 
 // Для меню и ссылок.
 export const allCategories = [
 	{
 		data: electronic,
-		value: "electronic",
+		value: "electric",
 		href: "/electric",
 		label: "Электроника",
 	},
@@ -27,31 +28,37 @@ export const allCategories = [
 		data: sport,
 		value: "sport",
 		href: "/sport",
-		label: "Спорорт",
+		label: "Спорт и отдых",
 	},
 	{
 		data: clothes,
-		value: "beaty",
-		href: "/beaty",
-		label: "Красота и здоровье",
+		value: "clothes",
+		href: "/clothes",
+		label: "Одежда",
 	},
 	{
 		data: shoes,
-		value: "beaty",
-		href: "/beaty",
-		label: "Красота и здоровье",
+		value: "shoes",
+		href: "/shoes",
+		label: "Обувь",
 	},
 	{
-		data: bytovia,
-		value: "beaty",
-		href: "/beaty",
-		label: "Красота и здоровье",
+		data: autoproducts,
+		value: "autoproducts",
+		href: "/autoproducts",
+		label: "Автотовары",
 	},
 	{
-		data: house,
-		value: "house",
-		href: "/house",
-		label: "Красота и здоровье",
+		data: build,
+		value: "build",
+		href: "/build",
+		label: "Строительство",
+	},
+	{
+		data: others,
+		value: "others",
+		href: "/others",
+		label: "Аксессуары",
 	},
 ];
 
@@ -72,8 +79,9 @@ export const mainCategories = [
 	{href: "/sport", label: "Спорт и отдых"},
 	{href: "/clothes", label: "Одежда"},
 	{href: "/shoes", label: "Обувь"},
-	{href: "/bytovia", label: "Бытовая техника"},
-	{href: "/house", label: "Дом и сад"},
+	{href: "/autoproducts", label: "Автотовары"},
+	{href: "/build", label: "Строительство"},
+	{href: "/others", label: "Аксессуары"},
 ];
 
 // Для recursiveSearch();
@@ -83,8 +91,9 @@ export const allCategoriesDetection = [
 	sport,
 	clothes,
 	shoes,
-	bytovia,
-	house,
+	autoproducts,
+	build,
+	others,
 ];
 
 export const recursiveSearch = (

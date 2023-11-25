@@ -10,6 +10,7 @@ import {
 	GetShopInfoParams,
 	UpdateShopParams,
 } from "./index.shared";
+import Product from "@/database/models/product.model";
 
 export const createShop = async (shopData: CreateShopParams) => {
 	try {
@@ -100,6 +101,31 @@ export const getShopInfo = async (params: GetShopInfoParams) => {
 		if (!shop) return null;
 
 		return shop;
+	} catch (e) {
+		console.log(e);
+		throw e;
+	}
+};
+
+export const getShopProducts = async (params: GetShopInfoParams) => {
+	try {
+		entryDatabase();
+
+		const {name} = params;
+
+		const shop = await Shop.findOne({name}).populate({
+			path: "products",
+			model: Product,
+			options: {
+				populate: {
+					path: "shop",
+				},
+			},
+		});
+
+		if (!shop) return null;
+
+		return shop.products;
 	} catch (e) {
 		console.log(e);
 		throw e;

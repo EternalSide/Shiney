@@ -4,8 +4,15 @@ import {getCategory} from "@/lib/allCategories";
 import {Suspense} from "react";
 import Loading from "./loading";
 import {ParamsName} from "@/types";
+import {getCategoryProducts} from "@/actions/dbActions/category.action";
+import {noShopImage} from "@/constants";
+import {auth} from "@clerk/nextjs";
+import {getUserInfo, getUserProducts} from "@/actions/dbActions/user.action";
 
 const CategoryPage = async ({params}: ParamsName) => {
+	const {userId} = auth();
+	const userProducts = await getUserProducts({clerkId: userId});
+
 	const {
 		accumulator,
 		noCategory,
@@ -14,7 +21,9 @@ const CategoryPage = async ({params}: ParamsName) => {
 		isMainCategory,
 	} = getCategory(params.name);
 
-	// const categoryProducts = await getCategoryProducts(currentCategory?.href)
+	const categoryProducts = await getCategoryProducts(
+		currentCategory?.href || isMainCategory?.href
+	);
 
 	if (noCategory) {
 		return (
@@ -34,29 +43,42 @@ const CategoryPage = async ({params}: ParamsName) => {
 			<div className='mt-12'>
 				<div className='flex items-center gap-2.5'>
 					<h1 className='base-title'>{activeTitle}</h1>
-					<p className='text-[#626d7a] font-semibold mt-0.5'>0 Товаров</p>
+					<p className='text-[#626d7a] font-semibold mt-0.5'>
+						{categoryProducts.length} Товаров
+					</p>
 				</div>
-				<div className='mt-4 flex items-start'>
+				<div className='mt-4 flex items-start h-full'>
 					<Suspense fallback={<Loading />}>
-						<div className='grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 w-full'>
-							{Array.from({length: 20}, (_, i) => (
-								<ProductCard
-									key={i}
-									title='Часы Peppe LUX'
-									id={0}
-									imgSrc={
-										"https://i.pinimg.com/736x/34/83/27/348327ebf09db5e14fb15274b9cc3503.jpg"
-									}
-									price={66666}
-									ratingNumber={5.0}
-									ratingCounter={666}
-									buyNumber={"1M +"}
-									shopName='Peppe'
-									shopLink='Peppe'
-									description={"Описание товара"}
-								/>
-							))}
-						</div>
+						{categoryProducts?.length > 0 ? (
+							<div className='grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 w-full'>
+								{categoryProducts.map((item: any) => (
+									<ProductCard
+										key={item._id}
+										title={item.title}
+										id={item._id.toString()}
+										imgSrc={item?.image || noShopImage}
+										price={Number(item.price)}
+										ratingNumber={5.0}
+										ratingCounter={item.comments.length}
+										buyNumber={item.shop.buyCount}
+										shopName={item.shop.name}
+										shopLink={item.shop.link}
+										description={item.description}
+										clerkId={userId!}
+										inFav={userProducts.some(
+											(product: any) =>
+												product._id.toString() === item._id.toString()
+										)}
+									/>
+								))}
+							</div>
+						) : (
+							<div className='flex justify-center items-center mt-10 w-full'>
+								<h1 className='text-[#626d7a] font-semibold text-2xl'>
+									Ничего не найдено
+								</h1>
+							</div>
+						)}
 					</Suspense>
 				</div>
 			</div>

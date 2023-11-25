@@ -58,12 +58,13 @@ export const productSchema = z.object({
 		.max(1000, {
 			message: FIELD_MAX_ERROR,
 		}),
-	picture: z
+	price: z
 		.string()
 		.min(2, {
-			message: "Изображение не добавлено",
+			message: "Цена не может быть меньше 10 ₽",
 		})
-		.max(100, {
-			message: FIELD_MAX_ERROR,
+		.max(7, {
+			message: "Цена не может быть больше 1000000 ₽",
 		}),
+	categoryHref: z.string(),
 });

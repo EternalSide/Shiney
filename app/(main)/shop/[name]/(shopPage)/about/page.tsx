@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const ShopAboutPage = async ({params}: any) => {
+	let about = [];
 	return (
 		<div className='mt-8'>
 			<h3 className='text-3xl font-bold mt-8'>О нас</h3>

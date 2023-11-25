@@ -138,7 +138,7 @@ const ShopHeader = ({
 				<div className='flex gap-10 items-center'>
 					<div className='text-center mt-1'>
 						<h3 className='font-bold'>{buyCount}</h3>
-						<p className='text-zinc-600 text-xs font-semibold mt-1'>Покупок</p>
+						<p className='text-zinc-600 text-xs font-semibold mt-1'>Продаж</p>
 					</div>
 					<div className='text-center  mt-1'>
 						<h3 className='font-bold'>{optimisticFollowers}</h3>

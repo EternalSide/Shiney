@@ -1,20 +1,49 @@
 "use client";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
+import useClickOutside from "@/hooks/useClickOutside";
 import {Search, ChevronRight, X} from "lucide-react";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import {usePathname, useRouter} from "next/navigation";
+import {useEffect, useRef, useState} from "react";
+import SearchResults from "./SearchResults";
 
 const HeaderSearch = () => {
 	const [searchValue, setSearchValue] = useState("");
 	const router = useRouter();
 	const [isFocused, setIsFocused] = useState(false);
-	const [results, setResults] = useState(false);
+	const [results, setResults] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const [isFinishedTyping, setIsFinishedTyping] = useState(false);
+	const searchResultsRef = useRef(null);
+	const pathname = usePathname();
+
+	useClickOutside({
+		ref: searchResultsRef,
+		setOpen: setIsFinishedTyping,
+		open: isFinishedTyping,
+	});
+
+	useEffect(() => {
+		setIsFinishedTyping(false);
+	}, [pathname]);
 
 	// Обращение в дб и выдача результатов.
-	useEffect(() => {}, [searchValue]);
+	useEffect(() => {
+		if (!searchValue) return;
+		const debounce = setTimeout(() => {
+			setIsFinishedTyping(true);
+			setIsLoading(true);
+			setResults("asdsadas");
+		}, 500);
+
+		// эмуляция работы
+		const asdasd = setTimeout(() => {
+			setIsLoading(false);
+		}, 1500);
+
+		return () => clearTimeout(debounce);
+	}, [searchValue]);
 
 	// Нажатие на кнопку поиска.
 	const handleSearch = () => {
@@ -28,6 +57,7 @@ const HeaderSearch = () => {
 		const handleEnter = (e: KeyboardEvent) => {
 			if (e.key === "Enter" && isFocused && searchValue.trim()) {
 				router.push(`/search?q=${searchValue.trim()}`);
+				setIsFinishedTyping(false);
 			}
 		};
 
@@ -39,6 +69,7 @@ const HeaderSearch = () => {
 	// Поиск на enter работает только при фокусе на Div
 	const handleFocus = () => {
 		setIsFocused(true);
+		if (results) setIsFinishedTyping(true);
 	};
 
 	const handleBlur = () => {
@@ -47,10 +78,11 @@ const HeaderSearch = () => {
 
 	return (
 		<div
+			ref={searchResultsRef}
 			onFocus={handleFocus}
 			onBlur={handleBlur}
 			className={`flex-1 bg-[#f4f5fa] relative rounded-xl flex items-center justify-between lg:mr-4 ${
-				searchValue && " z-[32]"
+				isFinishedTyping && "rounded-b-none"
 			}`}
 		>
 			<Button
@@ -68,9 +100,7 @@ const HeaderSearch = () => {
 				<ChevronRight className='text-neutral-700 h-4 w-4' />
 			</Button>
 			<Input
-				onChange={(e) => {
-					setSearchValue(e.target.value);
-				}}
+				onChange={(e) => setSearchValue(e.target.value)}
 				value={searchValue}
 				placeholder='Глобальный поиск в Shiney...'
 				className='bg-transparent border-none placeholder:text-zinc-900 font-medium max-sm:placeholder:text-[13px]'
@@ -78,7 +108,11 @@ const HeaderSearch = () => {
 			<div className='flex items-center gap-1'>
 				{searchValue ? (
 					<Button
-						onClick={() => setSearchValue("")}
+						onClick={() => {
+							setSearchValue("");
+							setIsFinishedTyping(false);
+							setResults("");
+						}}
 						variant='mainPage'
 						className='mr-1 border-transparent'
 					>
@@ -95,6 +129,12 @@ const HeaderSearch = () => {
 					<Search className='text-sky-500 h-4 w-4' />
 				</Button>
 			</div>
+			{isFinishedTyping && (
+				<SearchResults
+					results={results}
+					isLoading={isLoading}
+				/>
+			)}
 		</div>
 	);
 };

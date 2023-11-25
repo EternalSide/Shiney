@@ -16,7 +16,6 @@ const CategorySchema = new Schema<ICategory>(
 		label: {
 			type: String,
 			required: true,
-			unique: true,
 		},
 		products: [
 			{

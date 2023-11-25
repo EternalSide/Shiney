@@ -3,9 +3,10 @@ import {Schema, models, model, Document} from "mongoose";
 export interface IProduct extends Document {
 	title: string;
 	description: string;
-	picture: string;
+	picture?: string;
 	price: string;
-	category: Schema.Types.ObjectId[];
+
+	categories: Schema.Types.ObjectId[];
 	shop: Schema.Types.ObjectId;
 	comments: Schema.Types.ObjectId[];
 	createdAt: Date;
@@ -27,7 +28,7 @@ const ProductSchema = new Schema<IProduct>(
 		price: {
 			type: String,
 		},
-		category: [
+		categories: [
 			{
 				type: Schema.Types.ObjectId,
 				ref: "Category",
@@ -53,6 +54,6 @@ const ProductSchema = new Schema<IProduct>(
 	}
 );
 
-const Product = models?.Product || model<IProduct>("Post", ProductSchema);
+const Product = models?.Product || model<IProduct>("Product", ProductSchema);
 
 export default Product;

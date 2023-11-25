@@ -1,30 +1,44 @@
+import {getUserInfo, getUserProducts} from "@/actions/dbActions/user.action";
 import ProductCard from "@/components/cards/ProductCard";
+import {noShopImage} from "@/constants";
+import {auth} from "@clerk/nextjs";
 import {Metadata} from "next";
 
 export const metadata: Metadata = {
 	title: "Shiney / Избранное ",
 };
 
-const WishListPage = () => {
+const WishListPage = async () => {
+	const {userId} = auth();
+	const userProducts = await getUserProducts({clerkId: userId});
+
 	return (
 		<>
 			<h1 className='base-title'>Избранное</h1>
 			<div className='mt-4 grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5 !gap-6'>
-				{Array.from({length: 1}, (_, i) => (
-					<ProductCard
-						key={i}
-						description='Описание товара'
-						title='Часы Peppe LUX'
-						id={"0"}
-						imgSrc='https://i.pinimg.com/736x/34/83/27/348327ebf09db5e14fb15274b9cc3503.jpg'
-						price={66666}
-						ratingNumber={5.0}
-						ratingCounter={666}
-						buyNumber={"1M +"}
-						shopName='Peppe'
-						shopLink='Peppe'
-					/>
-				))}
+				{userProducts?.length > 0 ? (
+					userProducts.map((item: any) => (
+						<ProductCard
+							key={item._id}
+							title={item.title}
+							id={item._id.toString()}
+							imgSrc={item?.image || noShopImage}
+							price={Number(item.price)}
+							ratingNumber={5.0}
+							ratingCounter={item.comments.length}
+							buyNumber={item.shop.buyCount}
+							shopName={item.shop.name}
+							shopLink={item.shop.link}
+							description={item.description}
+							clerkId={userId!}
+							inFav={userProducts.some(
+								(product: any) => product._id.toString() === item._id.toString()
+							)}
+						/>
+					))
+				) : (
+					<div>Ничего не найдено</div>
+				)}
 			</div>
 		</>
 	);

@@ -3,6 +3,9 @@ import {useKorzina} from "@/hooks/useKorzina";
 import {Heart, ShoppingCart, Star} from "lucide-react";
 import Link from "next/link";
 import {useToast} from "../ui/use-toast";
+import {addProductToUserFav} from "@/actions/dbActions/product.action";
+import {usePathname} from "next/navigation";
+import {useOptimistic} from "react";
 
 interface Props {
 	id: string | number;
@@ -15,10 +18,13 @@ interface Props {
 	ratingNumber: number;
 	ratingCounter: number;
 	price: number;
+	clerkId?: string | undefined | null;
+	inFav?: boolean;
 }
 
 const ProductCard = ({
 	id,
+	inFav,
 	title,
 	description,
 	imgSrc,
@@ -27,10 +33,20 @@ const ProductCard = ({
 	ratingNumber,
 	ratingCounter,
 	price,
+	clerkId,
 	shopLink,
 }: Props) => {
 	const {addProduct, products} = useKorzina();
 	const {toast} = useToast();
+	const path = usePathname();
+	// Optimistic UI
+	const [optimisticState, addOptimistic] = useOptimistic(
+		inFav,
+		(currentState: boolean | undefined, optimisticValue: boolean) => {
+			return (currentState = optimisticValue);
+		}
+	);
+
 	const handleKorzina = () => {
 		const alreadyInKorzina = products.some((item: any) => item.id === id);
 
@@ -53,9 +69,27 @@ const ProductCard = ({
 	};
 
 	const handleLikeProduct = async () => {
-		// TODO: server action add to likes.
-		return toast({
-			title: "Товар добавлен в избранное!",
+		if (!clerkId) {
+			return toast({
+				title: "Вы не авторизованы!",
+				description: "Войдите, чтобы добавить товар в избранное",
+				variant: "destructive",
+			});
+		}
+
+		addOptimistic(!optimisticState);
+
+		toast({
+			title: optimisticState
+				? "Товар удален из избранного"
+				: "Товар добавлен в избранное!",
+		});
+
+		await addProductToUserFav({
+			productId: id,
+			userId: clerkId,
+			path,
+			inFav,
 		});
 	};
 	return (
@@ -85,7 +119,11 @@ const ProductCard = ({
 				</Link>
 				<div className='flex gap-2 items-center'>
 					<button onClick={handleLikeProduct}>
-						<Heart className='h-5 w-5 hover:text-orange-400 transition hover:scale-110' />
+						<Heart
+							className={`h-5 w-5 hover:text-sky-400 transition hover:scale-110 ${
+								optimisticState && "text-sky-400"
+							}`}
+						/>
 					</button>
 					<button onClick={handleKorzina}>
 						<ShoppingCart
