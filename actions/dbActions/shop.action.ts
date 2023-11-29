@@ -113,7 +113,7 @@ export const getShopProducts = async (params: GetShopInfoParams) => {
 
 		const {name} = params;
 
-		const shop = await Shop.findOne({name}).populate({
+		const shop = await Shop.findOne({link: name}).populate({
 			path: "products",
 			model: Product,
 			options: {
@@ -122,10 +122,40 @@ export const getShopProducts = async (params: GetShopInfoParams) => {
 				},
 			},
 		});
-
+		console.log(shop);
 		if (!shop) return null;
 
 		return shop.products;
+	} catch (e) {
+		console.log(e);
+		throw e;
+	}
+};
+
+export const getNewProducts = async (params: {page: number}) => {
+	try {
+		entryDatabase();
+		const {page} = params;
+
+		if (page === 0) return {newProducts: [], isNextPage: false};
+
+		const pageSize = 20;
+
+		const skipAmount = (page - 1) * pageSize;
+
+		const newProducts = await Product.find({})
+			.populate({
+				path: "shop",
+				model: Shop,
+			})
+			.sort({createdAt: -1})
+			.limit(pageSize)
+			.skip(skipAmount);
+
+		const totalNewProducts = await Product.countDocuments();
+
+		const isNextPage = totalNewProducts > skipAmount + newProducts.length;
+		return {newProducts, isNextPage};
 	} catch (e) {
 		console.log(e);
 		throw e;

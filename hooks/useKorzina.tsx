@@ -2,6 +2,7 @@
 import {IProduct} from "@/database/models/product.model";
 import {create} from "zustand";
 import Cookies from "js-cookie";
+import {preconnect} from "react-dom"
 
 interface KorzinaStore {
 	products: IProduct[];

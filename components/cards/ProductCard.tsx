@@ -6,6 +6,7 @@ import {useToast} from "../ui/use-toast";
 import {addProductToUserFav} from "@/actions/dbActions/product.action";
 import {usePathname} from "next/navigation";
 import {useOptimistic} from "react";
+import {MotionDiv} from "../shared/MotionDiv";
 
 interface Props {
 	id: string | number;
@@ -14,13 +15,18 @@ interface Props {
 	imgSrc: string;
 	shopName: string;
 	shopLink: string;
-	buyNumber: string;
+	buyNumber: number | string;
 	ratingNumber: number;
 	ratingCounter: number;
 	price: number;
 	clerkId?: string | undefined | null;
 	inFav?: boolean;
 }
+
+const variants = {
+	hidden: {opacity: 0},
+	visible: {opacity: 1},
+};
 
 const ProductCard = ({
 	id,
@@ -92,8 +98,20 @@ const ProductCard = ({
 			inFav,
 		});
 	};
+
 	return (
-		<div>
+		<MotionDiv
+			variants={variants}
+			initial='hidden'
+			animate='visible'
+			transition={{
+				delay: 0,
+				ease: "easeInOut",
+				duration: 0.5,
+			}}
+			viewport={{amount: 0}}
+			className='max-w-sm rounded relative w-full'
+		>
 			<Link
 				className='block relative w-full h-64'
 				href={`/${id}`}
@@ -159,7 +177,7 @@ const ProductCard = ({
 					Покупок: <span className='text-gray-400'>{buyNumber}</span>
 				</p>
 			</div>
-		</div>
+		</MotionDiv>
 	);
 };
 export default ProductCard;

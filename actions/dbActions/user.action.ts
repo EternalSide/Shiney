@@ -18,7 +18,7 @@ export const createUser = async (userData: CreateUserParams) => {
 	}
 };
 
-export const getUserShops = async (params: {clerkId: string | null}) => {
+export const getUserShops = async (params: {clerkId: string}) => {
 	try {
 		entryDatabase();
 
@@ -48,7 +48,13 @@ export const getUserProducts = async (params: {clerkId: string | null}) => {
 		const user = await User.findOne({clerkId}).populate({
 			path: "savedProducts",
 			model: Product,
-			options: {sort: {createdOn: -1}},
+			options: {
+				sort: {createdOn: -1},
+				populate: {
+					path: "shop",
+					select: "name _id buyCount rating link",
+				},
+			},
 		});
 
 		return user.savedProducts;

@@ -1,12 +1,10 @@
-"use server";
-
 import entryDatabase from "@/lib/mongoose";
-
 import Product from "@/database/models/product.model";
 import Category from "@/database/models/category.model";
 import Shop from "@/database/models/shop.model";
+import {AccumulatorItem} from "@/types";
 
-export const getCategoryProducts = async (categoryHref: any) => {
+export const getCategoryProducts = async (categoryHref: string | undefined) => {
 	try {
 		entryDatabase();
 

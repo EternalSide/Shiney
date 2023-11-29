@@ -5,10 +5,12 @@ import {LayoutList, X} from "lucide-react";
 
 interface Props {
 	open: boolean;
-	setOpen: (action: boolean) => void;
+	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CategoryLogoButton = ({open, setOpen}: Props) => {
+	const onClick = () => (open ? setOpen(false) : setOpen(true));
+
 	return (
 		<div className='!z-[21] flex items-center gap-1 relative h-full'>
 			<Link
@@ -25,8 +27,8 @@ const CategoryLogoButton = ({open, setOpen}: Props) => {
 				</div>
 			</Link>
 			<Button
-				onClick={() => (open ? setOpen(false) : setOpen(true))}
 				className='bg-[#f4f5fa] hover:[#f2f5fa] py-0 no-focus h-12 gap-1'
+				onClick={onClick}
 			>
 				<div className='w-[30px] relative flex justify-center items-center h-8'>
 					{open ? (

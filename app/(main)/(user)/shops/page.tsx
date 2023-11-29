@@ -1,7 +1,7 @@
 import MyShopCard from "@/components/cards/MyShopCard";
 import {IShop} from "@/database/models/shop.model";
 import {getUserShops} from "@/actions/dbActions/user.action";
-import {auth} from "@clerk/nextjs";
+import {auth, redirectToSignIn} from "@clerk/nextjs";
 import {Metadata} from "next";
 
 export const metadata: Metadata = {
@@ -10,8 +10,9 @@ export const metadata: Metadata = {
 
 const ShopsPage = async () => {
 	const {userId} = auth();
+	if (!userId) redirectToSignIn();
 
-	const {shops} = await getUserShops({clerkId: userId});
+	const {shops} = await getUserShops({clerkId: userId!});
 
 	return (
 		<div className='base-block'>

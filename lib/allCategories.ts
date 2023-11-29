@@ -62,6 +62,8 @@ export const allCategories = [
 	},
 ];
 
+export type AllCategoryItem = (typeof allCategories)[0];
+
 // Определить на главной ли мы категории
 export const detectIfMainCategory = (
 	array: typeof mainCategories,

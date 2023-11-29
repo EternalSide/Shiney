@@ -7,7 +7,7 @@ import {ParamsName} from "@/types";
 import {getCategoryProducts} from "@/actions/dbActions/category.action";
 import {noShopImage} from "@/constants";
 import {auth} from "@clerk/nextjs";
-import {getUserInfo, getUserProducts} from "@/actions/dbActions/user.action";
+import {getUserProducts} from "@/actions/dbActions/user.action";
 
 const CategoryPage = async ({params}: ParamsName) => {
 	const {userId} = auth();

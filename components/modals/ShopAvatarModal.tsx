@@ -11,26 +11,23 @@ const ShopAvatarModal = () => {
 	if (!modalOpen) return null;
 
 	return (
-		<>
-			<Dialog
-				open={modalOpen}
-				onOpenChange={() => onClose()}
+		<Dialog
+			open={modalOpen}
+			onOpenChange={onClose}
+		>
+			<DialogContent
+				className={cn("border-none", banner && "w-full max-w-[1420px] h-64")}
 			>
-				<DialogContent
-					className={cn("border-none", banner && "w-full max-w-[1420px] h-64")}
-				>
-					<div className={cn(banner ? "h-64 w-full" : "w-64 min-h-[500px]")}>
-						<Image
-							className='object-cover object-center'
-							alt='Изображение магазина'
-							fill
-							src={data}
-						/>
-					</div>
-				</DialogContent>
-			</Dialog>
-			<div className='z-[900] fixed bottom-2 right-3 text-lg font-bold text-sky-400'></div>
-		</>
+				<div className={cn(banner ? "h-64 w-full" : "w-64 min-h-[500px]")}>
+					<Image
+						className='object-cover object-center'
+						alt='Изображение магазина'
+						fill
+						src={data}
+					/>
+				</div>
+			</DialogContent>
+		</Dialog>
 	);
 };
 export default ShopAvatarModal;

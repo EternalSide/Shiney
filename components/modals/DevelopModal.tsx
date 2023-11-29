@@ -14,7 +14,7 @@ const DevelopModal = () => {
 	return (
 		<Dialog
 			open={modalOpen}
-			onOpenChange={() => onClose()}
+			onOpenChange={onClose}
 		>
 			<DialogContent className='bg-white'>
 				<DialogHeader>

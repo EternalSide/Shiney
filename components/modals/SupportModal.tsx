@@ -7,12 +7,13 @@ import {
 import {Github, Navigation} from "lucide-react";
 import {useModal} from "@/hooks/useModal";
 import Link from "next/link";
+import {HeaderSupportLink} from "@/constants/types";
 
 const SupportModal = () => {
 	const {isOpen, onClose, type} = useModal();
 	const modalOpen = type === "help" && isOpen;
 
-	const supportLinks = [
+	const supportLinks: HeaderSupportLink[] = [
 		{
 			label: "Telegram",
 			href: "https://t.me/J_Eternal",
@@ -28,7 +29,7 @@ const SupportModal = () => {
 	return (
 		<Dialog
 			open={modalOpen}
-			onOpenChange={() => onClose()}
+			onOpenChange={onClose}
 		>
 			<DialogContent className='bg-white'>
 				<DialogHeader>
@@ -37,7 +38,7 @@ const SupportModal = () => {
 					</DialogTitle>
 				</DialogHeader>
 				<div className='flex flex-col gap-4'>
-					{supportLinks.map((item: any) => (
+					{supportLinks.map((item: HeaderSupportLink) => (
 						<Link
 							key={item.href}
 							target='_blank'

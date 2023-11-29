@@ -5,6 +5,10 @@ export type HeaderTopLinkType = {
 	href: string;
 };
 
+export interface HeaderSupportLink extends HeaderTopLinkType {
+	icon: LucideIcon;
+}
+
 export type HeaderLinkType = {
 	href: string;
 	icon: LucideIcon;

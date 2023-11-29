@@ -25,7 +25,7 @@ import {usePathname, useRouter} from "next/navigation";
 import {productSchema} from "@/lib/validations";
 import {useToast} from "../ui/use-toast";
 import {ScrollArea} from "../ui/scroll-area";
-import {allCategories} from "@/lib/allCategories";
+import {AllCategoryItem, allCategories} from "@/lib/allCategories";
 import {useState} from "react";
 import {AccumulatorItem, MainCategory} from "@/types";
 import {addProductToShop} from "@/actions/dbActions/product.action";
@@ -48,9 +48,10 @@ const CreateEditProductForm = ({userId, shopId}: Props) => {
 	const router = useRouter();
 	const {toast} = useToast();
 	const path = usePathname();
-	const [mainCategory, setMainCategory] = useState("");
 
+	const [mainCategory, setMainCategory] = useState("");
 	const [currentCategory, setCurrentCategory] = useState(null);
+
 	const onSubmit = async (values: z.infer<typeof productSchema>) => {
 		try {
 			const product = await addProductToShop({
@@ -105,7 +106,7 @@ const CreateEditProductForm = ({userId, shopId}: Props) => {
 											<SelectValue placeholder='Выберите категорию' />
 										</SelectTrigger>
 										<SelectContent className='bg-[#f4f5fa]'>
-											{allCategories.map((item: any) => (
+											{allCategories.map((item: AllCategoryItem) => (
 												<div className='flex flex-col items-start'>
 													<SelectItem
 														value={item.value}
@@ -155,8 +156,8 @@ const CreateEditProductForm = ({userId, shopId}: Props) => {
 							<FormLabel className='font-semibold'>Описание</FormLabel>
 							<FormControl>
 								<Input
-									placeholder='Введите описание товара'
 									className='border-none bg-[#f4f5fa]'
+									placeholder='Введите описание товара'
 									{...field}
 								/>
 							</FormControl>

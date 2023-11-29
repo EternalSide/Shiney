@@ -11,16 +11,16 @@ interface ShopPageProps {
 }
 
 const ShopProductsPage = async ({params}: ShopPageProps) => {
-	// const shop = await checkShop(params.name);
-
 	const {userId} = auth();
 
 	const shopProducts = await getShopProducts({name: params.name});
 	const userProducts = await getUserProducts({clerkId: userId});
+
 	return (
 		<>
 			<h3 className='text-3xl font-bold mt-8 '>
-				Товары <span className='text-zinc-500'>{shopProducts.length}</span>
+				Товары{" "}
+				<span className='text-zinc-500'>{shopProducts?.length || 0}</span>
 			</h3>
 			<div>
 				{shopProducts?.length > 0 ? (

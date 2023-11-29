@@ -20,6 +20,9 @@ export const shopSchema = z.object({
 		}),
 	link: z
 		.string()
+		.regex(/^[a-zA-Z0-9]+$/, {
+			message: "Допустимый формат адреса магазина A-Z",
+		})
 		.min(2, {
 			message: FIELD_MIN_ERROR,
 		})

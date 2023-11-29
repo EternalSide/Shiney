@@ -45,7 +45,7 @@
 	}
 
 	.grid_new-products {
-		@apply mt-4 grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 !gap-6;
+		@apply mt-6 grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 !gap-6;
 	}
 
 	.main-title {

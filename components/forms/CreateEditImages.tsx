@@ -13,7 +13,7 @@ interface Props {
 }
 
 const CreateEditImages = ({shopData}: Props) => {
-	const shop = JSON.parse(shopData);
+	const shop = shopData && JSON.parse(shopData);
 
 	const [shopImage, setShopImage] = useState<File>();
 	const [shopBanner, setShopBanner] = useState<File>();
@@ -28,16 +28,16 @@ const CreateEditImages = ({shopData}: Props) => {
 		e.preventDefault();
 		setIsLoading(true);
 		try {
+			let shop_image = shop?.avatar;
+			let shop_banner = shop?.banner;
+
 			toast({
 				title: "Обновляем внешний вид магазина..",
 			});
 
-			let shop_image = shop?.avatar;
-			let shop_banner = shop?.banner;
-
+			// Если есть фото
 			if (shopImage) {
 				const res = await edgestore.shopImage.upload({
-					onProgressChange: (progress) => {},
 					file: shopImage!,
 					options: {
 						replaceTargetUrl: shop?.avatar,
@@ -45,10 +45,9 @@ const CreateEditImages = ({shopData}: Props) => {
 				});
 				shop_image = res.url;
 			}
-
+			// Если есть Баннер
 			if (shopBanner) {
 				const res = await edgestore.shopBanner.upload({
-					onProgressChange: (progress) => {},
 					file: shopBanner!,
 					options: {
 						replaceTargetUrl: shop?.banner,
@@ -94,9 +93,7 @@ const CreateEditImages = ({shopData}: Props) => {
 					width={300}
 					height={300}
 					value={shopImage || shop?.avatar}
-					onChange={(file) => {
-						setShopImage(file);
-					}}
+					onChange={(file) => setShopImage(file)}
 				/>
 				<p className='mt-2 text-sm text-muted-foreground'>
 					Изображение вашего магазина.
@@ -110,9 +107,7 @@ const CreateEditImages = ({shopData}: Props) => {
 					className='w-full'
 					height={256}
 					value={shopBanner || shop?.banner || noShopBanner}
-					onChange={(file) => {
-						setShopBanner(file);
-					}}
+					onChange={(file) => setShopBanner(file)}
 				/>
 				<p className='mt-2 text-sm text-muted-foreground'>
 					Баннер вашего магазина.
