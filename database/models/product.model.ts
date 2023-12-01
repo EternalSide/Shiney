@@ -5,11 +5,11 @@ export interface IProduct extends Document {
 	description: string;
 	picture?: string;
 	price: string;
+	buyNumber?: number;
 	categories: Schema.Types.ObjectId[];
 	shop: Schema.Types.ObjectId;
 	comments: Schema.Types.ObjectId[];
 	createdAt: Date;
-	buyNumber?: number;
 }
 
 const ProductSchema = new Schema<IProduct>(

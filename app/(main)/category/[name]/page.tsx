@@ -3,16 +3,17 @@ import CategoriesMenu from "@/components/shared/CategoriesMenu";
 import {getCategory} from "@/lib/allCategories";
 import {Suspense} from "react";
 import Loading from "./loading";
-import {ParamsName} from "@/types";
 import {getCategoryProducts} from "@/actions/dbActions/category.action";
 import {noShopImage} from "@/constants";
 import {auth} from "@clerk/nextjs";
 import {getUserProducts} from "@/actions/dbActions/user.action";
+import Pagination from "@/components/shared/Pagination";
 
-const CategoryPage = async ({params}: ParamsName) => {
+const CategoryPage = async ({params, searchParams}: any) => {
 	const {userId} = auth();
 	const userProducts = await getUserProducts({clerkId: userId});
 
+	// Управление категорией, активная, главная ли категория, меню.
 	const {
 		accumulator,
 		noCategory,
@@ -21,9 +22,13 @@ const CategoryPage = async ({params}: ParamsName) => {
 		isMainCategory,
 	} = getCategory(params.name);
 
-	const categoryProducts = await getCategoryProducts(
-		currentCategory?.href || isMainCategory?.href
-	);
+	// Текущая страница
+	const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
+
+	const {isNextPage, products, totalLength} = await getCategoryProducts({
+		categoryHref: currentCategory?.href || isMainCategory?.href,
+		page: currentPage,
+	});
 
 	if (noCategory) {
 		return (
@@ -44,14 +49,14 @@ const CategoryPage = async ({params}: ParamsName) => {
 				<div className='flex items-center gap-2.5'>
 					<h1 className='base-title'>{activeTitle}</h1>
 					<p className='text-[#626d7a] font-semibold mt-0.5'>
-						{categoryProducts.length} Товаров
+						{totalLength} Товаров
 					</p>
 				</div>
-				<div className='mt-4 flex items-start h-full'>
+				<div className='mt-2 flex items-start h-full'>
 					<Suspense fallback={<Loading />}>
-						{categoryProducts?.length > 0 ? (
+						{products?.length > 0 ? (
 							<div className='grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 w-full'>
-								{categoryProducts.map((item: any) => (
+								{products.map((item: any) => (
 									<ProductCard
 										key={item._id}
 										title={item.title}
@@ -81,6 +86,12 @@ const CategoryPage = async ({params}: ParamsName) => {
 						)}
 					</Suspense>
 				</div>
+				{products?.length > 0 && (
+					<Pagination
+						currentPage={currentPage}
+						isNextPage={isNextPage}
+					/>
+				)}
 			</div>
 		</>
 	);

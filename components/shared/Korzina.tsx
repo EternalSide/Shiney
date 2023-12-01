@@ -9,6 +9,7 @@ import Link from "next/link";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {ILocalProduct} from "@/types";
 import KorzinaButton from "./KorzinaButton";
+import {usePathname} from "next/navigation";
 
 const Korzina = () => {
 	const [hydration, setHydration] = useState(false);
@@ -19,6 +20,7 @@ const Korzina = () => {
 	}, []);
 
 	const korzinaRef = useRef<HTMLDivElement>(null);
+	const pathname = usePathname();
 	const {products, removeProduct, updateProduct, clearAllProducts} =
 		useKorzina();
 
@@ -28,6 +30,10 @@ const Korzina = () => {
 		open,
 		korzina: true,
 	});
+
+	useEffect(() => {
+		setOpen(false);
+	}, [pathname]);
 
 	const totalPrice = products?.reduce((total: number, product: any) => {
 		return total + product.price * product.quantity;
@@ -86,7 +92,7 @@ const Korzina = () => {
 					<div className='mt-6 flex flex-col items-end gap-3 px-6'>
 						<h3 className='font-bold'>Итого: {totalPrice} ₽</h3>
 						{!zeroProducts && (
-							<Link href='/'>
+							<Link href='/cart'>
 								<Button variant='blue'>В корзину</Button>
 							</Link>
 						)}

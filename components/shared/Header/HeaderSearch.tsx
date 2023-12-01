@@ -29,21 +29,22 @@ const HeaderSearch = () => {
 	}, [pathname]);
 
 	// Обращение в дб и выдача результатов.
-	useEffect(() => {
-		if (!searchValue) return;
-		const debounce = setTimeout(() => {
-			setIsFinishedTyping(true);
-			setIsLoading(true);
-			setResults("asdsadas");
-		}, 500);
+	// live - реузльатыт
+	// useEffect(() => {
+	// 	if (!searchValue) return;
+	// 	const debounce = setTimeout(() => {
+	// 		setIsFinishedTyping(true);
+	// 		setIsLoading(true);
+	// 		setResults("asdsadas");
+	// 	}, 500);
 
-		// эмуляция работы
-		const asdasd = setTimeout(() => {
-			setIsLoading(false);
-		}, 1500);
+	// 	// эмуляция работы
+	// 	const asdasd = setTimeout(() => {
+	// 		setIsLoading(false);
+	// 	}, 1500);
 
-		return () => clearTimeout(debounce);
-	}, [searchValue]);
+	// 	return () => clearTimeout(debounce);
+	// }, [searchValue]);
 
 	// Нажатие на кнопку поиска.
 	const handleSearch = () => {
@@ -72,9 +73,7 @@ const HeaderSearch = () => {
 		if (results) setIsFinishedTyping(true);
 	};
 
-	const handleBlur = () => {
-		setIsFocused(false);
-	};
+	const handleBlur = () => setIsFocused(false);
 
 	return (
 		<div
