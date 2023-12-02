@@ -1,37 +1,41 @@
 "use server";
-import entryDatabase from "@/lib/mongoose";
-import Product from "@/database/models/product.model";
-import Category from "@/database/models/category.model";
-import Shop from "@/database/models/shop.model";
+
 import { GetCategoryProductsParams } from "./index.shared";
+import { prisma } from "@/lib/prisma";
 
 export const getCategoryProducts = async (params: GetCategoryProductsParams) => {
       try {
-            entryDatabase();
-
             const { categoryHref, page } = params;
 
             let pageSize = 10;
 
             const skipAmount = (page - 1) * pageSize;
 
-            const category = await Category.findOne({
-                  href: categoryHref,
-            }).populate({
-                  path: "products",
-                  model: Product,
-                  options: {
-                        populate: {
-                              path: "shop",
-                              model: Shop,
-                              select: "_id name link buyCount",
+            if (!categoryHref) return { products: [], isNextPage: false, totalLength: 0 };
+
+            const category = await prisma.category.findFirst({
+                  where: { href: categoryHref },
+                  include: {
+                        products: {
+                              include: {
+                                    Shop: {
+                                          select: {
+                                                id: true,
+                                                name: true,
+                                                link: true,
+                                                buyCount: true,
+                                          },
+                                    },
+                              },
+                              take: pageSize,
+                              skip: skipAmount,
                         },
-                        skip: skipAmount,
-                        limit: pageSize,
                   },
             });
 
-            const totalLength = await Product.countDocuments({ category: category._id });
+            if (!category) return { products: [], isNextPage: false, totalLength: 0 };
+
+            const totalLength = await prisma.product.count({ where: { categoryId: category.id } });
 
             const isNextPage = totalLength > category.products.length + skipAmount;
 

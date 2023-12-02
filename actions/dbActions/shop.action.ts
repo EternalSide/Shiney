@@ -1,40 +1,30 @@
 "use server";
-import Shop from "@/database/models/shop.model";
-import User from "@/database/models/user.model";
-import entryDatabase from "@/lib/mongoose";
 import { revalidatePath } from "next/cache";
 import {
       CreateShopParams,
       DeleteShopParams,
-      FollowShopParams,
       GetNewProductsParams,
       GetShopInfoParams,
       UpdateShopImages,
       UpdateShopParams,
 } from "./index.shared";
-import Product from "@/database/models/product.model";
+import { prisma } from "@/lib/prisma";
 
 export const createShop = async (shopData: CreateShopParams) => {
       try {
-            entryDatabase();
-
             const { name, link, description, clerkId, image, path } = shopData;
 
-            const user = await User.findOne({ clerkId });
+            const user = await prisma.user.findFirst({ where: { clerkId } });
 
-            const newShop = await Shop.create({
-                  name,
-                  link,
-                  description,
-                  creator: user._id,
-                  avatar: image,
+            const newShop = await prisma.shop.create({
+                  data: {
+                        name,
+                        link,
+                        description,
+                        avatar: image,
+                        creatorId: user?.id!,
+                  },
             });
-
-            newShop.followers.push(user._id);
-            user.shops.push(newShop._id);
-
-            await newShop.save();
-            await user.save();
 
             revalidatePath(path);
 
@@ -49,16 +39,19 @@ export const createShop = async (shopData: CreateShopParams) => {
 
 export const updateShop = async (params: UpdateShopParams) => {
       try {
-            entryDatabase();
-
             const { shopLink, name, link, description, path, avatar } = params;
 
-            const shop = await Shop.findOneAndUpdate({ link: shopLink }, { name, link, description, avatar });
+            await prisma.shop.update({
+                  where: { link: shopLink },
+                  data: {
+                        name,
+                        link,
+                        description,
+                        avatar,
+                  },
+            });
 
-            revalidatePath(path);
-
-            // Без JSON будет ошибка.
-            return JSON.parse(JSON.stringify(shop));
+            return revalidatePath(path);
       } catch (e) {
             console.log(e);
             throw e;
@@ -67,11 +60,15 @@ export const updateShop = async (params: UpdateShopParams) => {
 
 export const updateShopImages = async (params: UpdateShopImages) => {
       try {
-            entryDatabase();
-
             const { shopId, shopImage, path, shopBanner } = params;
 
-            const shop = await Shop.findOneAndUpdate({ _id: shopId }, { avatar: shopImage, banner: shopBanner });
+            const shop = await prisma.shop.update({
+                  where: { id: shopId },
+                  data: {
+                        avatar: shopImage,
+                        banner: shopBanner,
+                  },
+            });
 
             revalidatePath(path);
 
@@ -84,12 +81,15 @@ export const updateShopImages = async (params: UpdateShopImages) => {
 
 export const getShopInfo = async (params: GetShopInfoParams) => {
       try {
-            entryDatabase();
-
             const { name: link } = params;
 
-            const shop = await Shop.findOne({ link });
-
+            const shop = await prisma.shop.findUnique({
+                  where: { link },
+                  include: {
+                        products: true,
+                  },
+            });
+            console.log(shop);
             if (!shop) return null;
 
             return shop;
@@ -99,36 +99,8 @@ export const getShopInfo = async (params: GetShopInfoParams) => {
       }
 };
 
-export const getShopProducts = async (params: GetShopInfoParams) => {
-      try {
-            entryDatabase();
-
-            const { name } = params;
-
-            const shop = await Shop.findOne({ link: name }).populate({
-                  path: "products",
-                  model: Product,
-                  options: {
-                        populate: {
-                              path: "shop",
-                              model: Shop,
-                        },
-                  },
-            });
-
-            if (!shop) return null;
-
-            return shop.products;
-      } catch (e) {
-            console.log(e);
-            throw e;
-      }
-};
-
 export const getNewProducts = async (params: GetNewProductsParams) => {
       try {
-            entryDatabase();
-
             const { page } = params;
 
             if (page === 0) return { newProducts: [], isNextPage: false };
@@ -137,16 +109,16 @@ export const getNewProducts = async (params: GetNewProductsParams) => {
 
             const skipAmount = (page - 1) * pageSize;
 
-            const newProducts = await Product.find({})
-                  .populate({
-                        path: "shop",
-                        model: Shop,
-                  })
-                  .sort({ createdAt: -1 })
-                  .limit(pageSize)
-                  .skip(skipAmount);
+            const newProducts = await prisma.product.findMany({
+                  orderBy: {
+                        createdAt: "desc",
+                  },
+                  skip: skipAmount,
+                  take: pageSize,
+                  include: { Shop: true },
+            });
 
-            const totalNewProducts = await Product.countDocuments();
+            const totalNewProducts = await prisma.product.count();
 
             const isNextPage = totalNewProducts > skipAmount + newProducts.length;
 
@@ -159,62 +131,82 @@ export const getNewProducts = async (params: GetNewProductsParams) => {
 
 export const deleteShop = async (params: DeleteShopParams) => {
       try {
-            entryDatabase();
+            const { shopId, path } = params;
 
-            const { shopId, path, clerkId } = params;
+            await prisma.shop.delete({ where: { id: shopId } });
 
-            await Shop.deleteOne({ _id: shopId });
-
-            await Product.deleteMany({ shop: shopId });
-
-            await User.findOneAndUpdate({ clerkId }, { $pull: { shops: shopId } });
-
-            revalidatePath(path);
+            return revalidatePath(path);
       } catch (e) {
             console.log(e);
             throw e;
       }
 };
 
-export const followShopAction = async (params: FollowShopParams) => {
+// export const followShopAction = async (params: FollowShopParams) => {
+//       try {
+//
+
+//             const { shopLink: link, path, clerkId, isFollowing } = params;
+
+//             let updateQuery = {};
+//             let updateUserQuery = {};
+
+//             const updatedUser = await User.findOne({ clerkId });
+
+//             if (isFollowing) {
+//                   updateQuery = {
+//                         $pull: {
+//                               followers: updatedUser._id,
+//                         },
+//                   };
+//                   updateUserQuery = {
+//                         $pull: {
+//                               followingShops: updatedUser._id,
+//                         },
+//                   };
+//             } else {
+//                   updateQuery = {
+//                         $addToSet: {
+//                               followers: updatedUser._id,
+//                         },
+//                   };
+//                   updateUserQuery = {
+//                         $push: {
+//                               followingShops: updatedUser._id,
+//                         },
+//                   };
+//             }
+
+//             await User.findOneAndUpdate({ clerkId }, updateUserQuery);
+//             await Shop.findOneAndUpdate({ link }, updateQuery);
+
+//             revalidatePath(path);
+//       } catch (e) {
+//             console.log(e);
+//             throw e;
+//       }
+// };
+
+export const getShopProducts = async (params: GetShopInfoParams) => {
       try {
-            entryDatabase();
+            const { name: link } = params;
 
-            const { shopLink: link, path, clerkId, isFollowing } = params;
-
-            let updateQuery = {};
-            let updateUserQuery = {};
-
-            const updatedUser = await User.findOne({ clerkId });
-
-            if (isFollowing) {
-                  updateQuery = {
-                        $pull: {
-                              followers: updatedUser._id,
+            const shop = await prisma.shop.findUnique({
+                  where: {
+                        link,
+                  },
+                  select: {
+                        products: {
+                              include: {
+                                    Shop: true,
+                              },
                         },
-                  };
-                  updateUserQuery = {
-                        $pull: {
-                              followingShops: updatedUser._id,
-                        },
-                  };
-            } else {
-                  updateQuery = {
-                        $addToSet: {
-                              followers: updatedUser._id,
-                        },
-                  };
-                  updateUserQuery = {
-                        $push: {
-                              followingShops: updatedUser._id,
-                        },
-                  };
-            }
+                  },
+            });
 
-            await User.findOneAndUpdate({ clerkId }, updateUserQuery);
-            await Shop.findOneAndUpdate({ link }, updateQuery);
+            if (!shop) return null;
 
-            revalidatePath(path);
+            return shop.products;
       } catch (e) {
             console.log(e);
             throw e;

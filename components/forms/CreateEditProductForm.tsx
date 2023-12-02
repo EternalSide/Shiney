@@ -9,10 +9,8 @@ import { Input } from "@/components/ui/input";
 import { usePathname, useRouter } from "next/navigation";
 import { productSchema } from "@/lib/validations";
 import { useToast } from "../ui/use-toast";
-import { ScrollArea } from "../ui/scroll-area";
 import { AllCategoryItem, allCategories } from "@/lib/allCategories";
 import { useState } from "react";
-import { AccumulatorItem, MainCategory } from "@/types";
 import { addProductToShop } from "@/actions/dbActions/product.action";
 
 interface Props {

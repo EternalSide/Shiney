@@ -1,244 +1,212 @@
 "use client";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {useForm} from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
-import {Button} from "@/components/ui/button";
-import {
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
-import {Input} from "@/components/ui/input";
-import {usePathname, useRouter} from "next/navigation";
-import {shopSchema} from "@/lib/validations";
-import {useToast} from "../ui/use-toast";
-import {createShop, updateShop} from "@/actions/dbActions/shop.action";
-import {useEdgeStore} from "@/lib/edgestore";
-import {useState} from "react";
-import {SingleImageDropzone} from "./SingleImageDropzone";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { usePathname, useRouter } from "next/navigation";
+import { shopSchema } from "@/lib/validations";
+import { useToast } from "../ui/use-toast";
+import { createShop, updateShop } from "@/actions/dbActions/shop.action";
+import { useEdgeStore } from "@/lib/edgestore";
+import { useState } from "react";
+import { SingleImageDropzone } from "./SingleImageDropzone";
 
 interface Props {
-	clerkId: string;
-	type?: string;
-	shopData?: any;
+      clerkId: string;
+      type?: string;
+      shopData?: any;
 }
 
-const CreateEditShopForm = ({clerkId, type, shopData}: Props) => {
-	const shop = shopData && type === "Edit" && JSON.parse(shopData);
+const CreateEditShopForm = ({ clerkId, type, shopData }: Props) => {
+      const shop = shopData && type === "Edit" && JSON.parse(shopData);
 
-	const form = useForm<z.infer<typeof shopSchema>>({
-		resolver: zodResolver(shopSchema),
-		defaultValues: {
-			name: shop?.name ? shop.name : "",
-			link: shop?.link ? shop.link : "",
-			description: shop?.description ? shop.description : "",
-		},
-	});
+      const form = useForm<z.infer<typeof shopSchema>>({
+            resolver: zodResolver(shopSchema),
+            defaultValues: {
+                  name: shop?.name ? shop.name : "",
+                  link: shop?.link ? shop.link : "",
+                  description: shop?.description ? shop.description : "",
+            },
+      });
 
-	const [shopImage, setShopImage] = useState<File>();
+      const [shopImage, setShopImage] = useState<File>();
 
-	const {edgestore} = useEdgeStore();
+      const { edgestore } = useEdgeStore();
 
-	const router = useRouter();
-	const {toast} = useToast();
-	const path = usePathname();
+      const router = useRouter();
+      const { toast } = useToast();
+      const path = usePathname();
 
-	const onSubmit = async (values: z.infer<typeof shopSchema>) => {
-		try {
-			if (type !== "Edit") {
-				toast({
-					title: "Ваш магазин создается.. 🏪",
-					description:
-						"Через несколько секунд вы будете перенаправлены на его страницу.",
-				});
+      const onSubmit = async (values: z.infer<typeof shopSchema>) => {
+            try {
+                  if (type !== "Edit") {
+                        toast({
+                              title: "Ваш магазин создается.. 🏪",
+                              description: "Через несколько секунд вы будете перенаправлены на его страницу.",
+                        });
 
-				let shop_image = "";
+                        let shop_image = "";
 
-				if (shopImage) {
-					const res = await edgestore.shopImage.upload({
-						onProgressChange: (progress) => {},
-						file: shopImage,
-					});
-					shop_image = res.url;
-				}
+                        if (shopImage) {
+                              const res = await edgestore.shopImage.upload({
+                                    file: shopImage,
+                              });
 
-				const {shopLink} = await createShop({
-					...values,
-					clerkId,
-					path,
-					image: shop_image,
-				});
+                              shop_image = res.url;
+                        }
 
-				toast({
-					title: "Магазин успешно создан ✔️",
-				});
+                        const { shopLink } = await createShop({
+                              ...values,
+                              clerkId,
+                              path,
+                              image: shop_image,
+                        });
 
-				router.push(`/shop/${shopLink}`);
-			} else {
-				toast({
-					title: "Обновляем информацию..",
-				});
+                        toast({
+                              title: "Магазин успешно создан ✔️",
+                        });
 
-				let updated_shop_avatar = shop?.avatar || "";
+                        router.push(`/shop/${shopLink}`);
+                  } else {
+                        toast({
+                              title: "Обновляем информацию..",
+                        });
 
-				if (shopImage) {
-					// Загрузить новую
-					const res = await edgestore.shopImage.upload({
-						onProgressChange: (progress) => {},
-						file: shopImage,
-						options: {
-							replaceTargetUrl: shop?.avatar,
-						},
-					});
+                        let updated_shop_avatar = shop?.avatar || "";
 
-					updated_shop_avatar = res.url;
-				}
+                        if (shopImage) {
+                              // Загрузить новую
+                              const res = await edgestore.shopImage.upload({
+                                    onProgressChange: (progress) => {},
+                                    file: shopImage,
+                                    options: {
+                                          replaceTargetUrl: shop?.avatar,
+                                    },
+                              });
 
-				await updateShop({
-					...values,
-					path,
-					avatar: updated_shop_avatar,
-					shopLink: shop.link.trim(),
-				});
+                              updated_shop_avatar = res.url;
+                        }
 
-				toast({
-					title: "Изменения сохранены ✔️",
-				});
+                        await updateShop({
+                              ...values,
+                              path,
+                              avatar: updated_shop_avatar,
+                              shopLink: shop.link.trim(),
+                        });
 
-				router.push(`/shops`);
-			}
-		} catch (e) {
-			toast({
-				title: "Что-то пошло не так...",
-				description: "Попробуйте еще раз",
-				variant: "destructive",
-			});
-			console.log(e);
-		}
-	};
+                        toast({
+                              title: "Изменения сохранены ✔️",
+                        });
 
-	const {isLoading, isDirty} = form.formState;
+                        router.push(`/shops`);
+                  }
+            } catch (e) {
+                  toast({
+                        title: "Что-то пошло не так...",
+                        description: "Попробуйте еще раз",
+                        variant: "destructive",
+                  });
+                  console.log(e);
+            }
+      };
 
-	return (
-		<Form {...form}>
-			<form
-				onSubmit={form.handleSubmit(onSubmit)}
-				className='space-y-8 mt-8'
-			>
-				<FormField
-					control={form.control}
-					name='name'
-					render={({field}) => (
-						<FormItem>
-							<FormLabel className='font-semibold'>
-								Название <span className='text-orange-500'>*</span>
-							</FormLabel>
-							<FormControl>
-								<Input
-									className='border-none bg-[#f4f5fa]'
-									placeholder='Peppe Shop'
-									{...field}
-								/>
-							</FormControl>
-							<FormDescription>
-								Введите название дла вашего магазина.
-							</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name='link'
-					render={({field}) => (
-						<FormItem>
-							<FormLabel className='font-semibold'>
-								Ссылка на магазин <span className='text-orange-500'>*</span>
-							</FormLabel>
-							<FormControl>
-								<Input
-									className='border-none bg-[#f4f5fa]'
-									placeholder='PeppeShop'
-									{...field}
-								/>
-							</FormControl>
-							<FormDescription>
-								Ваш магазин будет располагаться по адресу{" "}
-								{`shiney.ru/shop/${form.getValues().link.trim() || ""}`}
-							</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name='description'
-					render={({field}) => (
-						<FormItem>
-							<FormLabel className='font-semibold'>
-								Описание <span className='text-orange-500'>*</span>
-							</FormLabel>
-							<FormControl>
-								<Input
-									className='border-none bg-[#f4f5fa]'
-									placeholder='Продаем лягушек'
-									{...field}
-								/>
-							</FormControl>
-							<FormDescription>
-								Введите описание дла вашего магазина.
-							</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+      const { isLoading, isDirty } = form.formState;
 
-				{type !== "Edit" && (
-					<FormField
-						control={form.control}
-						// @ts-ignore
-						name='image'
-						render={({field}) => (
-							<FormItem>
-								<FormLabel className='font-semibold'>Изображение</FormLabel>
-								<FormControl>
-									<SingleImageDropzone
-										width={300}
-										height={300}
-										value={shopImage}
-										onChange={(file) => {
-											setShopImage(file);
-										}}
-									/>
-								</FormControl>
-								<FormDescription>Изображение вашего магазина.</FormDescription>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-				)}
-				<div className='flex justify-end items-center gap-6'>
-					<Button
-						onClick={() => router.back()}
-						className='bg-[#edeefb] font-semibold text-sky-500  p-6 rounded-lg'
-						type='button'
-					>
-						Отменить
-					</Button>
-					<Button
-						disabled={isLoading || !isDirty}
-						variant='blue'
-						type='submit'
-					>
-						{type === "Edit" ? "Сохранить изменения" : "Создать магазин"}
-					</Button>
-				</div>
-			</form>
-		</Form>
-	);
+      return (
+            <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-8">
+                        <FormField
+                              control={form.control}
+                              name="name"
+                              render={({ field }) => (
+                                    <FormItem>
+                                          <FormLabel className="font-semibold">
+                                                Название <span className="text-orange-500">*</span>
+                                          </FormLabel>
+                                          <FormControl>
+                                                <Input className="border-none bg-[#f4f5fa]" placeholder="Peppe Shop" {...field} />
+                                          </FormControl>
+                                          <FormDescription>Введите название дла вашего магазина.</FormDescription>
+                                          <FormMessage />
+                                    </FormItem>
+                              )}
+                        />
+                        <FormField
+                              control={form.control}
+                              name="link"
+                              render={({ field }) => (
+                                    <FormItem>
+                                          <FormLabel className="font-semibold">
+                                                Ссылка на магазин <span className="text-orange-500">*</span>
+                                          </FormLabel>
+                                          <FormControl>
+                                                <Input className="border-none bg-[#f4f5fa]" placeholder="PeppeShop" {...field} />
+                                          </FormControl>
+                                          <FormDescription>
+                                                Ваш магазин будет располагаться по адресу{" "}
+                                                {`shiney.ru/shop/${form.getValues().link.trim() || ""}`}
+                                          </FormDescription>
+                                          <FormMessage />
+                                    </FormItem>
+                              )}
+                        />
+                        <FormField
+                              control={form.control}
+                              name="description"
+                              render={({ field }) => (
+                                    <FormItem>
+                                          <FormLabel className="font-semibold">
+                                                Описание <span className="text-orange-500">*</span>
+                                          </FormLabel>
+                                          <FormControl>
+                                                <Input className="border-none bg-[#f4f5fa]" placeholder="Продаем лягушек" {...field} />
+                                          </FormControl>
+                                          <FormDescription>Введите описание дла вашего магазина.</FormDescription>
+                                          <FormMessage />
+                                    </FormItem>
+                              )}
+                        />
+
+                        {type !== "Edit" && (
+                              <FormField
+                                    control={form.control}
+                                    // @ts-ignore
+                                    name="image"
+                                    render={({ field }) => (
+                                          <FormItem>
+                                                <FormLabel className="font-semibold">Изображение</FormLabel>
+                                                <FormControl>
+                                                      <SingleImageDropzone
+                                                            width={300}
+                                                            height={300}
+                                                            value={shopImage}
+                                                            onChange={(file) => {
+                                                                  setShopImage(file);
+                                                            }}
+                                                      />
+                                                </FormControl>
+                                                <FormDescription>Изображение вашего магазина.</FormDescription>
+                                                <FormMessage />
+                                          </FormItem>
+                                    )}
+                              />
+                        )}
+                        <div className="flex justify-end items-center gap-6">
+                              <Button
+                                    onClick={() => router.back()}
+                                    className="bg-[#edeefb] font-semibold text-sky-500  p-6 rounded-lg"
+                                    type="button"
+                              >
+                                    Отменить
+                              </Button>
+                              <Button disabled={isLoading || !isDirty} variant="blue" type="submit">
+                                    {type === "Edit" ? "Сохранить изменения" : "Создать магазин"}
+                              </Button>
+                        </div>
+                  </form>
+            </Form>
+      );
 };
 export default CreateEditShopForm;

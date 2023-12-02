@@ -56,7 +56,7 @@ const SearchPage = async ({ searchParams }: Props) => {
                                           shopLink={item.shop.link}
                                           description={item.description}
                                           clerkId={userId!}
-                                          inFav={userProducts.some((product: any) => product._id.toString() === item._id.toString())}
+                                          inFav={userProducts?.some((product: any) => product._id.toString() === item._id.toString())}
                                     />
                               ))}
                   </div>

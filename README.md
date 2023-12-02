@@ -32,7 +32,7 @@ Shiney — приложение, которое позволяет пользо�
 ### ✈️ Stack
 
 - Next.js 14 & SSR
-- MongoDB & mongoose
+- MySQL & Prisma
 - TailwindCSS
 - Clerk
 - edgestore

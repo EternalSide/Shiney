@@ -1,21 +1,13 @@
 import { getUserProducts } from "@/actions/dbActions/user.action";
 import ProductCard from "@/components/cards/ProductCard";
 import { noShopImage } from "@/constants";
-import { IProduct } from "@/database/models/product.model";
 import { auth } from "@clerk/nextjs";
+import { Favorite } from "@prisma/client";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
       title: "Shiney / Избранное ",
 };
-
-interface ItemWishShop {
-      shop: {
-            buyCount: number;
-            name: string;
-            link: string;
-      };
-}
 
 const WishListPage = async () => {
       const { userId } = auth();
@@ -25,22 +17,22 @@ const WishListPage = async () => {
             <>
                   <h1 className="base-title">Избранное</h1>
                   <div className="mt-4 grid max-[520px]:grid-cols-1 max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5 !gap-6">
-                        {userProducts?.length > 0 ? (
-                              userProducts.map((item: IProduct & ItemWishShop) => (
+                        {userProducts && userProducts.length > 0 ? (
+                              userProducts?.map((item: (typeof userProducts)[0]) => (
                                     <ProductCard
-                                          key={item._id}
-                                          title={item.title}
-                                          id={item._id.toString()}
-                                          imgSrc={item?.picture || noShopImage}
-                                          price={Number(item.price)}
+                                          key={item.id}
+                                          title={item.product.title}
+                                          id={item.id}
+                                          imgSrc={item.product.picture || noShopImage}
+                                          price={Number(item.product.price)}
                                           ratingNumber={5.0}
-                                          ratingCounter={item.comments.length}
-                                          buyNumber={item?.shop.buyCount}
-                                          shopName={item?.shop.name}
-                                          shopLink={item?.shop.link}
-                                          description={item.description}
+                                          ratingCounter={0}
+                                          buyNumber={item?.product.Shop.buyCount}
+                                          shopName={item?.product.Shop.name}
+                                          shopLink={item?.product.Shop.link}
+                                          description={item.product.description}
                                           clerkId={userId!}
-                                          inFav={userProducts.some((product: IProduct) => product._id.toString() === item._id.toString())}
+                                          inFav={userProducts.some((product: Favorite) => product.id === item.id)}
                                     />
                               ))
                         ) : (

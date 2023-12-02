@@ -1,31 +1,34 @@
 "use server";
-import Product from "@/database/models/product.model";
-import Shop from "@/database/models/shop.model";
-import entryDatabase from "@/lib/mongoose";
 import { GlobalSearchParams } from "./index.shared";
+import { prisma } from "@/lib/prisma";
 
 export const globalSearch = async (params: GlobalSearchParams) => {
       try {
-            entryDatabase();
-
             const { searchQuery, page } = params;
 
             let pageLimit = 10;
 
             let skipAmount = (page - 1) * pageLimit;
 
-            const regexQuery = { $regex: searchQuery, $options: "i" };
-
-            const products = await Product.find({ title: regexQuery })
-                  .populate({
-                        path: "shop",
-                        model: Shop,
-                        options: {
-                              select: "_id link name buyCount",
+            const products = await prisma.product.findMany({
+                  where: {
+                        title: {
+                              contains: searchQuery,
                         },
-                  })
-                  .skip(skipAmount)
-                  .limit(pageLimit);
+                  },
+                  include: {
+                        Shop: {
+                              select: {
+                                    id: true,
+                                    link: true,
+                                    name: true,
+                                    buyCount: true,
+                              },
+                        },
+                  },
+                  skip: skipAmount,
+                  take: pageLimit,
+            });
 
             const noResultsFound = {
                   products: [],
@@ -35,7 +38,13 @@ export const globalSearch = async (params: GlobalSearchParams) => {
 
             if (!products) return noResultsFound;
 
-            const totalLength = await Product.countDocuments({ title: regexQuery });
+            const totalLength = await prisma.product.count({
+                  where: {
+                        title: {
+                              contains: searchQuery,
+                        },
+                  },
+            });
 
             const isNext = totalLength > products.length + skipAmount;
 

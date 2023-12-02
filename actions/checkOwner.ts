@@ -1,14 +1,10 @@
-import {IUser} from "@/database/models/user.model";
-import {Schema} from "mongoose";
+import { Shop, User } from "@prisma/client";
+import { UserWishShops } from "./checkAdmin";
 
 // Функция проверяет только является ли пользователь владельцем магазина
-const checkOwner = (user: IUser, shopId: string): boolean => {
-	const shopIds = user?.shops.map((id: Schema.Types.ObjectId) => id.toString());
+const checkOwner = (user: UserWishShops, shopId: string): boolean => {
+      const isOwner = user.shops.some((shop: Shop) => shop.id === shopId);
 
-	const isOwner = shopIds.includes(shopId.toString());
-
-	if (!isOwner) return false;
-
-	return true;
+      return isOwner;
 };
 export default checkOwner;

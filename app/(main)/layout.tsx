@@ -3,17 +3,8 @@ import MobileNavigation from "@/components/shared/MobileNavigation";
 import ModalProvider from "@/providers/ModalProvider";
 import { ReactChildren } from "@/types";
 import { Toaster } from "@/components/ui/toaster";
-import { PrismaClient } from "@prisma/client";
 
 const MainLayout = async ({ children }: ReactChildren) => {
-      const prisma = new PrismaClient();
-
-      //   const shop = await prisma.shop.create({
-      //         data: {
-      //               name: "asd",
-      //         },
-      //   });
-      //   console.log(shop);
       return (
             <>
                   <Header />

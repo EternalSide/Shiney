@@ -3,10 +3,10 @@ import { useKorzina } from "@/hooks/useKorzina";
 import { Heart, ShoppingCart, Star } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "../ui/use-toast";
-import { addProductToUserFav } from "@/actions/dbActions/product.action";
 import { usePathname } from "next/navigation";
 import { useOptimistic } from "react";
 import { MotionDiv } from "../shared/MotionDiv";
+import { addProductToUserFav } from "@/actions/dbActions/product.action";
 
 interface Props {
       id: string | number;

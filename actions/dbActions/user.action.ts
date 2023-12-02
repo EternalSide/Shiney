@@ -1,18 +1,10 @@
 "use server";
-import Shop from "@/database/models/shop.model";
-import User from "@/database/models/user.model";
-import entryDatabase from "@/lib/mongoose";
 import { CreateUserParams } from "./index.shared";
-import Product from "@/database/models/product.model";
 import { prisma } from "@/lib/prisma";
 
 export const createUser = async (userData: CreateUserParams) => {
       try {
-            // const user = await User.create(userData);
-
-            // return user;
-
-            const user = prisma.user.create({ data: userData });
+            const user = await prisma.user.create({ data: userData });
 
             return user;
       } catch (e) {
@@ -23,18 +15,24 @@ export const createUser = async (userData: CreateUserParams) => {
 
 export const getUserShops = async (params: { clerkId: string }) => {
       try {
-            entryDatabase();
-
             const { clerkId } = params;
 
-            const user = await User.findOne({ clerkId }).populate({
-                  path: "shops",
-                  model: Shop,
-                  options: { sort: { createdOn: -1 } },
+            const user = await prisma.user.findFirst({
+                  where: {
+                        clerkId,
+                  },
+                  include: {
+                        shops: {
+                              orderBy: { createdOn: "desc" },
+                              include: {
+                                    products: true,
+                              },
+                        },
+                  },
             });
 
             return {
-                  shops: user.shops,
+                  shops: user?.shops!,
             };
       } catch (e) {
             console.log(e);
@@ -44,23 +42,30 @@ export const getUserShops = async (params: { clerkId: string }) => {
 
 export const getUserProducts = async (params: { clerkId: string | null }) => {
       try {
-            entryDatabase();
-
             const { clerkId } = params;
+            if (!clerkId) return [];
 
-            const user = await User.findOne({ clerkId }).populate({
-                  path: "savedProducts",
-                  model: Product,
-                  options: {
-                        sort: { createdOn: -1 },
-                        populate: {
-                              path: "shop",
-                              select: "name _id buyCount rating link",
+            const user = await prisma.user.findFirst({
+                  where: {
+                        clerkId,
+                  },
+                  include: {
+                        favorites: {
+                              orderBy: {
+                                    createdAt: "desc",
+                              },
+                              include: {
+                                    product: {
+                                          include: {
+                                                Shop: true,
+                                          },
+                                    },
+                              },
                         },
                   },
             });
 
-            return user.savedProducts;
+            return user?.favorites;
       } catch (e) {
             console.log(e);
             throw e;
@@ -69,11 +74,14 @@ export const getUserProducts = async (params: { clerkId: string | null }) => {
 
 export const getUserInfo = async (params: { clerkId: string }) => {
       try {
-            entryDatabase();
-
             const { clerkId } = params;
 
-            const user = await User.findOne({ clerkId });
+            const user = await prisma.user.findFirst({
+                  where: {
+                        clerkId,
+                  },
+                  include: { shops: { orderBy: { createdOn: "desc" } } },
+            });
 
             if (!user) return null;
 

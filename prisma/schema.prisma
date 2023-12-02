@@ -19,12 +19,15 @@ model User {
   password String? 
   about String?
   picture String?
-  joinedAt DateTime @default(now())
+  
   role String? 
 
  shops Shop[]
-// savedProducts
-// orderedProducts
+ favorites  Favorite[]
+ follower Follower[]
+
+
+ joinedAt DateTime @default(now())
 }
 
 model Shop {
@@ -33,16 +36,61 @@ model Shop {
   link String          @unique
   avatar String?       @db.Text
   banner String?       @db.Text
-  description String?  @db.Text
+  description String  @db.Text
   buyCount Int         @default(0)
   rating String        @default("0.00")
   verified Boolean     @default(false)
-  createdOn DateTime   @default(now())
 
   creatorId String    
   creator User  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
 
-  // products Product[]   @relation("shopProducts", references: [id])
-  // followers User[]     @relation("shopFollowers", references: [id])
-  // comments Comment[]   @relation("shopComments", references: [id])
+  products Product[]  
+  followers Follower[]
+
+  createdOn DateTime   @default(now())
+}
+
+model Product {
+  id String           @id @default(uuid())
+  title String 
+  buyNumber Int @default(0)
+  description String
+  picture String?
+  price String
+
+
+  shopId String
+  Shop Shop  @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  
+  categoryId String   
+  categories Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  favorites    Favorite[]
+
+  createdAt DateTime @default(now())
+}
+
+model Category {
+ id String    @id @default(uuid())
+ href String @unique
+ label String  
+ products Product[]
+}
+
+model Favorite {
+  id String           @id @default(uuid())
+  userId     String
+  productId  String
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product    Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+   createdAt DateTime @default(now())
+}
+
+model Follower {
+  id String           @id @default(uuid())
+  userId     String
+  shopId  String
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  shop    Shop   @relation(fields: [shopId], references: [id], onDelete: Cascade)
 }
