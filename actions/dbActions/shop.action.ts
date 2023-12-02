@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import {
       CreateShopParams,
       DeleteShopParams,
+      FollowShopParams,
       GetNewProductsParams,
       GetShopInfoParams,
       UpdateShopImages,
@@ -23,6 +24,13 @@ export const createShop = async (shopData: CreateShopParams) => {
                         description,
                         avatar: image,
                         creatorId: user?.id!,
+                  },
+            });
+
+            await prisma.follower.create({
+                  data: {
+                        shopId: newShop.id,
+                        userId: user?.id!,
                   },
             });
 
@@ -87,9 +95,10 @@ export const getShopInfo = async (params: GetShopInfoParams) => {
                   where: { link },
                   include: {
                         products: true,
+                        followers: true,
                   },
             });
-            console.log(shop);
+
             if (!shop) return null;
 
             return shop;
@@ -142,50 +151,52 @@ export const deleteShop = async (params: DeleteShopParams) => {
       }
 };
 
-// export const followShopAction = async (params: FollowShopParams) => {
-//       try {
-//
+export const followShopAction = async (params: FollowShopParams) => {
+      try {
+            const { shopLink: link, path, clerkId, isFollowing } = params;
 
-//             const { shopLink: link, path, clerkId, isFollowing } = params;
+            const updatedUser = await prisma.user.findUnique({
+                  where: {
+                        clerkId,
+                  },
+            });
 
-//             let updateQuery = {};
-//             let updateUserQuery = {};
+            const shop = await prisma.shop.findUnique({
+                  where: { link },
+            });
 
-//             const updatedUser = await User.findOne({ clerkId });
+            if (isFollowing) {
+                  const follow = await prisma.follower.findFirst({
+                        where: {
+                              userId: updatedUser?.id!,
+                              shopId: shop?.id!,
+                        },
+                  });
 
-//             if (isFollowing) {
-//                   updateQuery = {
-//                         $pull: {
-//                               followers: updatedUser._id,
-//                         },
-//                   };
-//                   updateUserQuery = {
-//                         $pull: {
-//                               followingShops: updatedUser._id,
-//                         },
-//                   };
-//             } else {
-//                   updateQuery = {
-//                         $addToSet: {
-//                               followers: updatedUser._id,
-//                         },
-//                   };
-//                   updateUserQuery = {
-//                         $push: {
-//                               followingShops: updatedUser._id,
-//                         },
-//                   };
-//             }
+                  if (follow) {
+                        await prisma.follower.delete({
+                              where: {
+                                    id: follow?.id,
+                                    userId: updatedUser?.id!,
+                                    shopId: shop?.id!,
+                              },
+                        });
+                  }
+            } else {
+                  const t = await prisma.follower.create({
+                        data: {
+                              userId: updatedUser?.id!,
+                              shopId: shop?.id!,
+                        },
+                  });
+            }
 
-//             await User.findOneAndUpdate({ clerkId }, updateUserQuery);
-//             await Shop.findOneAndUpdate({ link }, updateQuery);
-
-//             revalidatePath(path);
-//       } catch (e) {
-//             console.log(e);
-//             throw e;
-//       }
-// };
+            return revalidatePath(path);
+      } catch (e) {
+            console.log(e);
+            throw e;
+      }
+};
 
 export const getShopProducts = async (params: GetShopInfoParams) => {
       try {
@@ -199,6 +210,9 @@ export const getShopProducts = async (params: GetShopInfoParams) => {
                         products: {
                               include: {
                                     Shop: true,
+                              },
+                              orderBy: {
+                                    createdAt: "desc",
                               },
                         },
                   },

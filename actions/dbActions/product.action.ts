@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 
 export const addProductToShop = async (productData: ProductData) => {
       try {
-            const { title, description, price, categories: categoryHref, shopId, path } = productData;
+            const { title, description, price, categories: categoryHref, shopId, path, avatar } = productData;
 
             const category = await prisma.category.findFirst({
                   where: {
@@ -20,6 +20,7 @@ export const addProductToShop = async (productData: ProductData) => {
                         description,
                         price,
                         categoryId: category?.id!,
+                        picture: avatar,
                   },
             });
 
@@ -36,13 +37,23 @@ export const addProductToUserFav = async (data: AddProductToUserFavData) => {
 
             const user = await prisma.user.findFirst({ where: { clerkId: userId } });
 
+            const relation = await prisma.favorite.findFirst({
+                  where: {
+                        productId,
+                        userId: user?.id!,
+                  },
+            });
+
             if (inFav) {
-                  await prisma.favorite.delete({
-                        where: {
-                              id: productId,
-                        },
-                  });
+                  if (relation) {
+                        await prisma.favorite.delete({
+                              where: {
+                                    id: relation?.id!,
+                              },
+                        });
+                  }
             } else {
+                  if (relation) return;
                   await prisma.favorite.create({
                         data: {
                               userId: user?.id!,

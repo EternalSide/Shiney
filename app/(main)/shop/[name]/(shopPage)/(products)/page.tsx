@@ -29,7 +29,7 @@ const ShopProductsPage = async ({ params }: ShopPageProps) => {
                                                 key={item.id}
                                                 title={item.title}
                                                 id={item.id}
-                                                imgSrc={item?.image || noShopImage}
+                                                imgSrc={item?.picture || noShopImage}
                                                 price={Number(item.price)}
                                                 ratingNumber={5.0}
                                                 ratingCounter={0}

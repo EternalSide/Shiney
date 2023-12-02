@@ -20,7 +20,7 @@ export interface DeleteShopParams {
 export interface FollowShopParams {
       shopLink: string;
       path: string;
-      clerkId: string | null;
+      clerkId: string;
       isFollowing: boolean;
 }
 
@@ -58,6 +58,7 @@ export interface ProductData {
       categories: string;
       shopId: string;
       path: string;
+      avatar: string | null;
 }
 
 export interface AddProductToUserFavData {

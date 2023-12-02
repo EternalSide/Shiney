@@ -27,6 +27,9 @@ export const getCategoryProducts = async (params: GetCategoryProductsParams) => 
                                           },
                                     },
                               },
+                              orderBy: {
+                                    createdAt: "desc",
+                              },
                               take: pageSize,
                               skip: skipAmount,
                         },

@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useOptimistic } from "react";
 import { MotionDiv } from "../shared/MotionDiv";
 import { addProductToUserFav } from "@/actions/dbActions/product.action";
+import Image from "next/image";
 
 interface Props {
       id: string | number;
@@ -107,14 +108,8 @@ const ProductCard = ({
                   viewport={{ amount: 0 }}
                   className="max-w-sm rounded relative w-full"
             >
-                  <Link className="block relative w-full h-64" href={`/${id}`}>
-                        <img className="h-64 object-cover rounded-xl w-full" src={imgSrc} />
-                        {/* <Image
-					className='h-64 object-cover rounded-xl'
-					src={imgSrc}
-					alt={title}
-					fill
-				/> */}
+                  <Link className="block relative w-full h-64" href={`/`}>
+                        <Image className="h-64 object-cover rounded-xl" src={imgSrc} alt={title} fill />
                   </Link>
 
                   <div className="flex justify-between w-full items-center mt-2.5">
@@ -124,6 +119,7 @@ const ProductCard = ({
                         <div className="flex gap-2 items-center">
                               <button onClick={handleLikeProduct}>
                                     <Heart
+                                          fill={optimisticState ? "#38bdf8" : "none"}
                                           className={`h-5 w-5 hover:text-sky-400 transition hover:scale-110 ${
                                                 optimisticState && "text-sky-400"
                                           }`}

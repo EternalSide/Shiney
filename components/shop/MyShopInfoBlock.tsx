@@ -17,7 +17,7 @@ const MyShopInfoBlock = ({ link, avatar, description, name, productsCount, buyCo
       return (
             <div className="flex items-start gap-3">
                   <Link href={`/shop/${link}`} className="relative h-32 w-32 mt-1">
-                        <Image className="rounded-lg" alt={`Изображение магазина ${name}`} fill src={avatar || noShopImage} />
+                        <Image className="rounded-lg object-cover" alt={`Изображение магазина ${name}`} fill src={avatar || noShopImage} />
                   </Link>
                   <div className="flex flex-col gap-3">
                         <Link href={`/shop/${link}`}>

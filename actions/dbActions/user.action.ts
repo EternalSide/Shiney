@@ -72,15 +72,17 @@ export const getUserProducts = async (params: { clerkId: string | null }) => {
       }
 };
 
-export const getUserInfo = async (params: { clerkId: string }) => {
+export const getUserInfo = async (params: { clerkId: string | null }) => {
       try {
             const { clerkId } = params;
+
+            if (!clerkId) return null;
 
             const user = await prisma.user.findFirst({
                   where: {
                         clerkId,
                   },
-                  include: { shops: { orderBy: { createdOn: "desc" } } },
+                  include: { shops: { orderBy: { createdOn: "desc" } }, follower: true },
             });
 
             if (!user) return null;

@@ -91,6 +91,7 @@ model Follower {
   id String           @id @default(uuid())
   userId     String
   shopId  String
+  
   user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   shop    Shop   @relation(fields: [shopId], references: [id], onDelete: Cascade)
 }

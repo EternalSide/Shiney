@@ -37,16 +37,16 @@ const NewProductsPage = async ({ searchParams }: Props) => {
                         {newProducts?.length > 0 ? (
                               newProducts.map((item: any) => (
                                     <ProductCard
-                                          key={item._id}
+                                          key={item.id}
                                           title={item.title}
-                                          id={item._id.toString()}
-                                          imgSrc={item?.image || noShopImage}
+                                          id={item.id}
+                                          imgSrc={item?.picture || noShopImage}
                                           price={Number(item.price)}
                                           ratingNumber={5.0}
-                                          ratingCounter={item.comments.length}
-                                          buyNumber={item.shop.buyCount}
-                                          shopName={item.shop.name}
-                                          shopLink={item.shop.link}
+                                          ratingCounter={0}
+                                          buyNumber={item.Shop.buyCount}
+                                          shopName={item.Shop.name}
+                                          shopLink={item.Shop.link}
                                           description={item.description}
                                           clerkId={userId!}
                                           inFav={userProducts?.some((product: (typeof userProducts)[0]) => product.id === item.id)}

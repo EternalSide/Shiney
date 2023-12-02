@@ -12,15 +12,21 @@ import { createShop, updateShop } from "@/actions/dbActions/shop.action";
 import { useEdgeStore } from "@/lib/edgestore";
 import { useState } from "react";
 import { SingleImageDropzone } from "./SingleImageDropzone";
+import { Follower, Product, Shop } from "@prisma/client";
+
+interface ShopWithProductsAndFollowers extends Shop {
+      followers: Follower[];
+      products: Product[];
+}
 
 interface Props {
       clerkId: string;
       type?: string;
-      shopData?: any;
+      shopData?: ShopWithProductsAndFollowers;
 }
 
 const CreateEditShopForm = ({ clerkId, type, shopData }: Props) => {
-      const shop = shopData && type === "Edit" && JSON.parse(shopData);
+      const shop = shopData && type === "Edit" ? shopData : null;
 
       const form = useForm<z.infer<typeof shopSchema>>({
             resolver: zodResolver(shopSchema),
@@ -32,9 +38,7 @@ const CreateEditShopForm = ({ clerkId, type, shopData }: Props) => {
       });
 
       const [shopImage, setShopImage] = useState<File>();
-
       const { edgestore } = useEdgeStore();
-
       const router = useRouter();
       const { toast } = useToast();
       const path = usePathname();
@@ -82,7 +86,7 @@ const CreateEditShopForm = ({ clerkId, type, shopData }: Props) => {
                                     onProgressChange: (progress) => {},
                                     file: shopImage,
                                     options: {
-                                          replaceTargetUrl: shop?.avatar,
+                                          replaceTargetUrl: shop?.avatar!,
                                     },
                               });
 
@@ -93,7 +97,7 @@ const CreateEditShopForm = ({ clerkId, type, shopData }: Props) => {
                               ...values,
                               path,
                               avatar: updated_shop_avatar,
-                              shopLink: shop.link.trim(),
+                              shopLink: shop?.link.trim()!,
                         });
 
                         toast({

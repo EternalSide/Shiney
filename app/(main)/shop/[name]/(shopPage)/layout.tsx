@@ -4,6 +4,8 @@ import ShopLinks from "@/components/shop/ShopLinks";
 import { auth } from "@clerk/nextjs";
 import { AdminParams } from "@/types";
 import { getShopInfo } from "@/actions/dbActions/shop.action";
+import { getUserInfo } from "@/actions/dbActions/user.action";
+import { Follower } from "@prisma/client";
 
 export async function generateMetadata({ params }: AdminParams) {
       const shop = await getShopInfo({ name: params.name });
@@ -28,7 +30,10 @@ interface Props {
 const ShopPageLayout = async ({ params, children }: Props) => {
       const shop = await getShopInfo({ name: params.name });
 
-      const { userId } = auth();
+      const { userId: clerkId } = auth();
+
+      const currentUser = await getUserInfo({ clerkId });
+      const isFollowing = currentUser ? currentUser.follower.some((item: Follower) => item.shopId === shop?.id) : false;
 
       if (!shop) {
             return (
@@ -47,13 +52,13 @@ const ShopPageLayout = async ({ params, children }: Props) => {
                         shopDescription={shop.description}
                         shopLink={shop.link}
                         buyCount={shop.buyCount}
-                        followersLength={0}
+                        followersLength={shop?.followers.length}
                         commentsLength={0}
                         ratingNumber={shop.rating}
                         createdOn={shop.createdOn}
                         verified={shop.verified}
-                        isFollowing={false}
-                        clerkId={userId || null}
+                        isFollowing={isFollowing}
+                        clerkId={clerkId || null}
                   />
                   <div className="min-h-[720px] bg-white rounded-lg mt-6 p-6">
                         <ShopLinks shopLink={shop.link} />

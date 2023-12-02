@@ -23,7 +23,7 @@ const CreateEditImages = ({ shopData }: Props) => {
       const router = useRouter();
       const { toast } = useToast();
       const path = usePathname();
-
+      console.log(shop);
       const onSubmit = async (e: FormEvent) => {
             e.preventDefault();
             setIsLoading(true);
@@ -45,14 +45,16 @@ const CreateEditImages = ({ shopData }: Props) => {
                         });
                         shop_image = res.url;
                   }
+
                   // Если есть Баннер
                   if (shopBanner) {
                         const res = await edgestore.shopBanner.upload({
-                              file: shopBanner!,
+                              file: shopBanner,
                               options: {
-                                    replaceTargetUrl: shop?.banner,
+                                    replaceTargetUrl: shop?.banner ? shop.banner : "",
                               },
                         });
+
                         shop_banner = res.url;
                   }
 

@@ -22,7 +22,7 @@ const WishListPage = async () => {
                                     <ProductCard
                                           key={item.id}
                                           title={item.product.title}
-                                          id={item.id}
+                                          id={item.productId}
                                           imgSrc={item.product.picture || noShopImage}
                                           price={Number(item.product.price)}
                                           ratingNumber={5.0}

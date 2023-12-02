@@ -4,14 +4,16 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { productSchema } from "@/lib/validations";
 import { useToast } from "../ui/use-toast";
 import { AllCategoryItem, allCategories } from "@/lib/allCategories";
 import { useState } from "react";
 import { addProductToShop } from "@/actions/dbActions/product.action";
+import { useEdgeStore } from "@/lib/edgestore";
+import { SingleImageDropzone } from "./SingleImageDropzone";
 
 interface Props {
       userId: string;
@@ -34,9 +36,20 @@ const CreateEditProductForm = ({ userId, shopId }: Props) => {
 
       const [mainCategory, setMainCategory] = useState("");
       const [currentCategory, setCurrentCategory] = useState(null);
+      const [productImage, setProductImage] = useState<File>();
+      const { edgestore } = useEdgeStore();
 
       const onSubmit = async (values: z.infer<typeof productSchema>) => {
+            let pic_avatar = "";
+
             try {
+                  if (productImage) {
+                        const res = await edgestore.productImages.upload({
+                              file: productImage!,
+                        });
+                        pic_avatar = res.url;
+                  }
+
                   await addProductToShop({
                         title: values.title,
                         description: values.description,
@@ -44,11 +57,14 @@ const CreateEditProductForm = ({ userId, shopId }: Props) => {
                         categories: values.categoryHref,
                         path,
                         shopId,
+                        avatar: pic_avatar,
                   });
 
                   toast({
                         title: "Товар добавлен",
                   });
+
+                  return redirect("/new-products");
             } catch (e) {
                   toast({
                         title: "Что-то пошло не так...",
@@ -161,6 +177,17 @@ const CreateEditProductForm = ({ userId, shopId }: Props) => {
                                     </FormItem>
                               )}
                         />
+                        <div>
+                              <h3 className="mb-3 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 font-semibold">
+                                    Изображение
+                              </h3>
+                              <SingleImageDropzone
+                                    width={300}
+                                    height={300}
+                                    value={productImage || undefined}
+                                    onChange={(file) => setProductImage(file)}
+                              />
+                        </div>
                         <div className="flex justify-end items-center gap-6">
                               <Button
                                     onClick={() => router.back()}

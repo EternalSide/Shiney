@@ -9,6 +9,7 @@ import { toast } from "../ui/use-toast";
 import { usePathname } from "next/navigation";
 import { useOptimistic } from "react";
 import { noShopImage } from "@/constants";
+import { followShopAction } from "@/actions/dbActions/shop.action";
 
 interface Props {
       shopName: string;
@@ -68,10 +69,9 @@ const ShopHeader = ({
                   }
 
                   addOptimisticFollowers(optimisticState ? optimisticFollowers - 1 : optimisticFollowers + 1);
-
                   addOptimistic(!optimisticState);
 
-                  // await followShopAction({ clerkId, path, shopLink, isFollowing });
+                  await followShopAction({ clerkId, path, shopLink, isFollowing });
             } catch (e) {
                   toast({
                         title: "Что-то пошло не так...",
