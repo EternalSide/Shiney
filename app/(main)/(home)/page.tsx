@@ -1,6 +1,5 @@
 import PopularCategories from "@/components/shared/PopularCategories";
 import MainSlider from "@/components/shared/MainSlider";
-import Promos from "@/components/shared/Promos";
 import SpecialOffers from "@/components/shared/SpecialOffers";
 
 export default function Home() {
@@ -9,7 +8,7 @@ export default function Home() {
                   <MainSlider />
                   <PopularCategories />
                   <SpecialOffers />
-                  <Promos />
+                  {/* <Promos /> */}
             </main>
       );
 }

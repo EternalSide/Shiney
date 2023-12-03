@@ -21,6 +21,11 @@ const AllShopsPage = async ({ searchParams }: Props) => {
                               user: true,
                         },
                   },
+                  products: {
+                        select: {
+                              id: true,
+                        },
+                  },
             },
       });
 
@@ -35,7 +40,7 @@ const AllShopsPage = async ({ searchParams }: Props) => {
                                           title={shop.name}
                                           imgSrc={shop?.avatar || noShopImage}
                                           link={shop.link}
-                                          buyNumber={shop.buyCount}
+                                          productCount={shop.products.length}
                                           description={shop.description}
                                           followersCount={shop.followers.length}
                                     />

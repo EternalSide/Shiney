@@ -6,27 +6,30 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { redirect, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { productSchema } from "@/lib/validations";
 import { useToast } from "../ui/use-toast";
 import { AllCategoryItem, allCategories } from "@/lib/allCategories";
 import { useState } from "react";
-import { addProductToShop } from "@/actions/dbActions/product.action";
+import { addProductToShop, editProduct } from "@/actions/dbActions/product.action";
 import { useEdgeStore } from "@/lib/edgestore";
 import { SingleImageDropzone } from "./SingleImageDropzone";
 
 interface Props {
-      userId: string;
-      shopId: string;
+      userId?: string;
+      shopId?: string;
+      shopLink?: string;
+      productData?: any;
+      type?: string;
 }
 
-const CreateEditProductForm = ({ userId, shopId }: Props) => {
+const CreateEditProductForm = ({ userId, shopId, shopLink, productData, type }: Props) => {
       const form = useForm<z.infer<typeof productSchema>>({
             resolver: zodResolver(productSchema),
             defaultValues: {
-                  title: "",
-                  description: "",
-                  price: "0",
+                  title: productData ? productData.title : "",
+                  description: productData ? productData.description : "",
+                  price: productData ? productData.price : "",
                   categoryHref: "",
             },
       });
@@ -40,31 +43,60 @@ const CreateEditProductForm = ({ userId, shopId }: Props) => {
       const { edgestore } = useEdgeStore();
 
       const onSubmit = async (values: z.infer<typeof productSchema>) => {
-            let pic_avatar = "";
-
             try {
-                  if (productImage) {
-                        const res = await edgestore.productImages.upload({
-                              file: productImage!,
+                  if (type !== "Edit") {
+                        let pic_avatar = "";
+                        if (productImage) {
+                              const res = await edgestore.productImages.upload({
+                                    file: productImage!,
+                              });
+                              pic_avatar = res.url;
+                        }
+
+                        await addProductToShop({
+                              title: values.title,
+                              description: values.description,
+                              price: values.price,
+                              categories: values.categoryHref,
+                              path,
+                              shopId: shopId!,
+                              avatar: pic_avatar,
                         });
-                        pic_avatar = res.url;
+
+                        toast({
+                              title: "Товар добавлен ✅",
+                        });
+
+                        return router.push(`/shop/${shopLink}`);
+                  } else {
+                        let new_pic_avatar = productData?.picture;
+                        toast({
+                              title: "Обновляем информацию..",
+                        });
+                        if (productImage) {
+                              const res = await edgestore.productImages.upload({
+                                    file: productImage!,
+                                    options: {
+                                          replaceTargetUrl: productData?.picture!,
+                                    },
+                              });
+                              new_pic_avatar = res.url;
+                        }
+                        await editProduct({
+                              title: values.title,
+                              description: values.description,
+                              price: values.price,
+                              id: productData?.id,
+                              path,
+                              shopId: shopId!,
+                              picture: new_pic_avatar,
+                        });
+
+                        toast({
+                              title: "Изменения сохранены ✅",
+                        });
+                        return router.back();
                   }
-
-                  await addProductToShop({
-                        title: values.title,
-                        description: values.description,
-                        price: values.price,
-                        categories: values.categoryHref,
-                        path,
-                        shopId,
-                        avatar: pic_avatar,
-                  });
-
-                  toast({
-                        title: "Товар добавлен",
-                  });
-
-                  return redirect("/new-products");
             } catch (e) {
                   toast({
                         title: "Что-то пошло не так...",
@@ -74,61 +106,63 @@ const CreateEditProductForm = ({ userId, shopId }: Props) => {
             }
       };
 
-      const { isLoading } = form.formState;
+      const { isLoading, isDirty } = form.formState;
 
       return (
             <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-4 w-full">
-                        <div className="flex gap-3 items-end w-full">
-                              <FormField
-                                    control={form.control}
-                                    name="categoryHref"
-                                    render={({ field }) => (
-                                          <FormItem className="w-full">
-                                                <FormLabel className="font-semibold">Категория</FormLabel>
-                                                <FormControl>
-                                                      <Select
-                                                            onValueChange={(value) => {
-                                                                  const currentItem = allCategories?.find((item: any) => {
-                                                                        if (value === item.data.value) return item;
-                                                                  });
-                                                                  // @ts-ignore
-                                                                  setCurrentCategory(currentItem);
+                        {type !== "Edit" && (
+                              <div className="flex gap-3 items-end w-full">
+                                    <FormField
+                                          control={form.control}
+                                          name="categoryHref"
+                                          render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                      <FormLabel className="font-semibold">Категория</FormLabel>
+                                                      <FormControl>
+                                                            <Select
+                                                                  onValueChange={(value) => {
+                                                                        const currentItem = allCategories?.find((item: any) => {
+                                                                              if (value === item.data.value) return item;
+                                                                        });
+                                                                        // @ts-ignore
+                                                                        setCurrentCategory(currentItem);
 
-                                                                  // @ts-ignore
-                                                                  setMainCategory(currentItem.href);
-                                                                  // @ts-ignore
-                                                                  form.setValue("categoryHref", currentItem.href);
-                                                            }}
-                                                      >
-                                                            <SelectTrigger className="!min-w-full  bg-[#f4f5fa]">
-                                                                  <SelectValue placeholder="Выберите категорию" />
-                                                            </SelectTrigger>
-                                                            <SelectContent className="bg-[#f4f5fa]">
-                                                                  {allCategories.map((item: AllCategoryItem) => (
-                                                                        <div className="flex flex-col items-start">
-                                                                              <SelectItem
-                                                                                    value={item.value}
-                                                                                    key={item.value}
-                                                                                    className="hover:bg-[#e0f2fe] p-3 rounded-md w-full cursor-pointer"
-                                                                              >
-                                                                                    <div className="!flex !flex-row items-center gap-4">
-                                                                                          <item.data.icon className="text-zinc-500 h-[22px] w-[22px]" />
-                                                                                          <h3 className="font-medium text-base">
-                                                                                                {item.data.label}
-                                                                                          </h3>
-                                                                                    </div>
-                                                                              </SelectItem>
-                                                                        </div>
-                                                                  ))}
-                                                            </SelectContent>
-                                                      </Select>
-                                                </FormControl>
-                                                <FormMessage />
-                                          </FormItem>
-                                    )}
-                              />
-                        </div>
+                                                                        // @ts-ignore
+                                                                        setMainCategory(currentItem.href);
+                                                                        // @ts-ignore
+                                                                        form.setValue("categoryHref", currentItem.href);
+                                                                  }}
+                                                            >
+                                                                  <SelectTrigger className="!min-w-full  bg-[#f4f5fa]">
+                                                                        <SelectValue placeholder="Выберите категорию" />
+                                                                  </SelectTrigger>
+                                                                  <SelectContent className="bg-[#f4f5fa]">
+                                                                        {allCategories.map((item: AllCategoryItem) => (
+                                                                              <div className="flex flex-col items-start">
+                                                                                    <SelectItem
+                                                                                          value={item.value}
+                                                                                          key={item.value}
+                                                                                          className="hover:bg-[#e0f2fe] p-3 rounded-md w-full cursor-pointer"
+                                                                                    >
+                                                                                          <div className="!flex !flex-row items-center gap-4">
+                                                                                                <item.data.icon className="text-zinc-500 h-[22px] w-[22px]" />
+                                                                                                <h3 className="font-medium text-base">
+                                                                                                      {item.data.label}
+                                                                                                </h3>
+                                                                                          </div>
+                                                                                    </SelectItem>
+                                                                              </div>
+                                                                        ))}
+                                                                  </SelectContent>
+                                                            </Select>
+                                                      </FormControl>
+                                                      <FormMessage />
+                                                </FormItem>
+                                          )}
+                                    />
+                              </div>
+                        )}
                         <FormField
                               control={form.control}
                               name="title"
@@ -191,7 +225,7 @@ const CreateEditProductForm = ({ userId, shopId }: Props) => {
                               <SingleImageDropzone
                                     width={300}
                                     height={300}
-                                    value={productImage || undefined}
+                                    value={type !== "Edit" ? productImage || undefined : productImage ? productImage : productData?.picture}
                                     onChange={(file) => setProductImage(file)}
                               />
                         </div>
@@ -203,7 +237,7 @@ const CreateEditProductForm = ({ userId, shopId }: Props) => {
                               >
                                     Отменить
                               </Button>
-                              <Button disabled={isLoading} variant="blue" type="submit">
+                              <Button disabled={isLoading || !isDirty} variant="blue" type="submit">
                                     Добавить
                               </Button>
                         </div>

@@ -134,7 +134,7 @@ const ProductCard = ({
 
                   <div className="flex justify-between w-full items-center mt-2.5">
                         <Link href="/" className="flex-1">
-                              <h3 className="text-[#252525] font-semibold">{title}</h3>
+                              <h3 className="text-[#252525] font-semibold text-lg">{title}</h3>
                         </Link>
                         <div className="flex gap-2 items-center">
                               <button onClick={handleLikeProduct}>

@@ -12,13 +12,12 @@ export async function generateMetadata({ params }: AdminParams) {
 
 const AddProductPage = async ({ params }: AdminParams) => {
       const data = await checkAdmin(params.name);
-      let isLoading = true;
-      if (isLoading) return <Loading />;
+
       return (
             <>
                   <div className="base-block">
                         <h3 className="base-title">Магазин {data.shop.name} / Добавить товар</h3>
-                        <CreateEditProductForm shopId={data.shop.id} userId={data.user.id} />
+                        <CreateEditProductForm shopId={data.shop.id} shopLink={data.shop.link} userId={data.user.id} />
                   </div>
             </>
       );

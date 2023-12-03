@@ -12,12 +12,12 @@ const ShopLinks = ({ shopLink }: { shopLink: string }) => {
                   href: `/shop/${shopLink}/`,
                   value: "/",
             },
-            // {
-            // 	label: "Отзывы",
-            // 	icon: Star,
-            // 	href: `/shop/${shopLink}/reviews`,
-            // 	value: "reviews",
-            // },
+            {
+                  label: "Отзывы",
+                  icon: Star,
+                  href: `/shop/${shopLink}/reviews`,
+                  value: "reviews",
+            },
             // {
             // 	label: "О нас",
             // 	icon: MailQuestion,

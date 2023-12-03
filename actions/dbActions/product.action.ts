@@ -12,7 +12,6 @@ export const addProductToShop = async (productData: ProductData) => {
                         href: categoryHref,
                   },
             });
-
             await prisma.product.create({
                   data: {
                         shopId,
@@ -61,6 +60,42 @@ export const addProductToUserFav = async (data: AddProductToUserFavData) => {
                         },
                   });
             }
+
+            return revalidatePath(path);
+      } catch (e) {
+            console.log(e);
+            throw e;
+      }
+};
+
+export const deleteProductAction = async (params: any) => {
+      try {
+            const { id, path } = params;
+
+            await prisma.product.delete({
+                  where: {
+                        id,
+                  },
+            });
+            return revalidatePath(path);
+      } catch (e) {
+            console.log(e);
+            throw e;
+      }
+};
+export const editProduct = async (params: any) => {
+      try {
+            const { title, description, price, path, shopId, picture, id } = params;
+
+            await prisma.product.update({
+                  where: { id, shopId },
+                  data: {
+                        title,
+                        price,
+                        description,
+                        picture,
+                  },
+            });
 
             return revalidatePath(path);
       } catch (e) {
