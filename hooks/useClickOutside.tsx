@@ -12,7 +12,6 @@ const useClickOutside = ({ ref, open, setOpen, korzina }: Props) => {
       useEffect(() => {
             const handleOutsideClick = (e: MouseEvent) => {
                   if (ref && ref.current && !ref.current.contains(e.target)) {
-                        console.log("opa");
                         return setOpen(false);
                   }
             };
