@@ -1,6 +1,6 @@
 "use server";
-import { allCategoriesDetection } from "./allCategories";
-import { prisma } from "./prisma";
+import { allCategoriesDetection } from "../allCategories";
+import { prisma } from "../prisma";
 
 export async function addCategories() {
       const categoriesToAdd: any = [];

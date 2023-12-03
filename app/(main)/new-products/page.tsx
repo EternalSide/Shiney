@@ -35,7 +35,7 @@ const NewProductsPage = async ({ searchParams }: Props) => {
                   <h1 className="base-title">Новинки</h1>
                   <div className="grid_new-products">
                         {newProducts?.length > 0 ? (
-                              newProducts.map((item: any) => (
+                              newProducts.map((item: (typeof newProducts)[0]) => (
                                     <ProductCard
                                           key={item.id}
                                           title={item.title}
@@ -49,14 +49,14 @@ const NewProductsPage = async ({ searchParams }: Props) => {
                                           shopLink={item.Shop.link}
                                           description={item.description}
                                           clerkId={userId!}
-                                          inFav={userProducts?.some((product: (typeof userProducts)[0]) => product.id === item.id)}
+                                          inFav={userProducts?.some((product: (typeof userProducts)[0]) => product.product.id === item.id)}
                                     />
                               ))
                         ) : (
                               <h1 className="text-[#626d7a] font-semibold text-2xl">Ничего не найдено</h1>
                         )}
                   </div>
-                  {newProducts?.length > 0 && <Pagination currentPage={currentPage} isNextPage={isNextPage} />}
+                  {newProducts?.length >= 20 && <Pagination currentPage={currentPage} isNextPage={isNextPage} />}
             </>
       );
 };

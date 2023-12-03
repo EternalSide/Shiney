@@ -5,16 +5,18 @@ import Link from "next/link";
 import { Input } from "../ui/input";
 import { useState } from "react";
 import { ILocalProduct } from "@/types";
+import { noShopImage } from "@/constants";
 
 interface Props extends ILocalProduct {
       removeProduct: (id: string) => void;
       updateProduct: (productId: string, data: any) => void;
 }
 
-const KorzinaCard = ({ image, title, description, quantity = 1, price, removeProduct, updateProduct, id }: Props) => {
+const KorzinaCard = ({ picture, title, description, quantity = 1, price, removeProduct, updateProduct, id }: Props) => {
       const [localQuantity, setLocalQuantity] = useState(quantity);
       const [totalProductPrice, setTotalProductPrice] = useState(price * quantity);
 
+      // Изменить количество
       const changeQuantity = (action: "plus" | "minus") => {
             setLocalQuantity((prev) => (action === "minus" ? prev - 1 : prev + 1));
             setTotalProductPrice(() => (action === "minus" ? totalProductPrice - price : totalProductPrice + price));
@@ -24,11 +26,16 @@ const KorzinaCard = ({ image, title, description, quantity = 1, price, removePro
       };
 
       return (
-            <div className="flex justify-between w-full items-start border-b py-3">
+            <div className="flex justify-between w-full items-start border-b py-3 KorzinaCard">
                   <div className="flex items-center gap-1.5">
                         <Link href={"/"}>
                               <div className="h-14 w-14 relative">
-                                    <Image fill alt={title} className="object-cover object-center rounded-lg" src={image || ""} />
+                                    <Image
+                                          fill
+                                          alt={title}
+                                          className="object-cover object-center rounded-lg"
+                                          src={picture || noShopImage}
+                                    />
                               </div>
                         </Link>
                         <div>

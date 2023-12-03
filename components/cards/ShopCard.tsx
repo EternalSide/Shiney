@@ -1,11 +1,7 @@
 import Link from "next/link";
 import { MotionDiv } from "../shared/MotionDiv";
 import Image from "next/image";
-
-const variants = {
-      hidden: { opacity: 0 },
-      visible: { opacity: 1 },
-};
+import { motionVariants } from "@/constants";
 
 interface Props {
       imgSrc: string | null;
@@ -19,7 +15,7 @@ interface Props {
 const ShopCard = ({ imgSrc, title, buyNumber, description, followersCount, link }: Props) => {
       return (
             <MotionDiv
-                  variants={variants}
+                  variants={motionVariants}
                   initial="hidden"
                   animate="visible"
                   transition={{

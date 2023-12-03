@@ -171,7 +171,14 @@ const CreateEditProductForm = ({ userId, shopId }: Props) => {
                                     <FormItem>
                                           <FormLabel className="font-semibold">Цена</FormLabel>
                                           <FormControl>
-                                                <Input type="number" className="border-none bg-[#f4f5fa]" {...field} />
+                                                <div className="flex items-center gap-2">
+                                                      <Input
+                                                            type="number"
+                                                            className="border-none bg-[#f4f5fa] w-1/4 max-w-[200px]"
+                                                            {...field}
+                                                      />
+                                                      <p className="font-semibold text-lg">₽</p>
+                                                </div>
                                           </FormControl>
                                           <FormMessage />
                                     </FormItem>

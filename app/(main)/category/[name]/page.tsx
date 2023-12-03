@@ -38,7 +38,7 @@ const CategoryPage = async ({ params, searchParams }: any) => {
                   <div className="mt-12">
                         <div className="flex items-center gap-2.5">
                               <h1 className="base-title">{activeTitle}</h1>
-                              <p className="text-[#626d7a] font-semibold mt-0.5">{totalLength} Товаров</p>
+                              <p className="text-[#626d7a] font-semibold mt-0.5">Товаров - {totalLength}</p>
                         </div>
                         <div className="mt-2 flex items-start h-full">
                               <Suspense fallback={<Loading />}>
@@ -71,7 +71,7 @@ const CategoryPage = async ({ params, searchParams }: any) => {
                                     )}
                               </Suspense>
                         </div>
-                        {products?.length > 0 && <Pagination currentPage={currentPage} isNextPage={isNextPage} />}
+                        {products?.length >= 20 && <Pagination currentPage={currentPage} isNextPage={isNextPage} />}
                   </div>
             </>
       );

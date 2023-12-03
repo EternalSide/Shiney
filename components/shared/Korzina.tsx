@@ -3,41 +3,53 @@ import { Button } from "../ui/button";
 import { useEffect, useRef, useState } from "react";
 import OverlayMain from "./OverlayMain";
 import KorzinaCard from "../cards/KorzinaCard";
-import useClickOutside from "@/hooks/useClickOutside";
 import { useKorzina } from "@/hooks/useKorzina";
 import Link from "next/link";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ILocalProduct } from "@/types";
 import KorzinaButton from "./KorzinaButton";
 import { usePathname } from "next/navigation";
+import { ILocalProduct } from "@/types";
 
 const Korzina = () => {
-      const [hydration, setHydration] = useState(false);
       const [open, setOpen] = useState(false);
+      const [hydration, setHydration] = useState(false);
+      const korzinaRef = useRef<HTMLDivElement>(null);
+      const pathname = usePathname();
+      const { products, removeProduct, updateProduct, clearAllProducts } = useKorzina();
 
       useEffect(() => {
             setHydration(true);
       }, []);
 
-      const korzinaRef = useRef<HTMLDivElement>(null);
-      const pathname = usePathname();
-
-      const { products, removeProduct, updateProduct, clearAllProducts } = useKorzina();
-
-      useClickOutside({
-            ref: korzinaRef,
-            setOpen,
-            open,
-            korzina: true,
-      });
-
       useEffect(() => {
             setOpen(false);
       }, [pathname]);
 
-      const totalPrice = products?.reduce((total: number, product: any) => {
-            return total + product.price * product.quantity;
-      }, 0);
+      useEffect(() => {
+            const handleOutsideClick = (e: MouseEvent) => {
+                  // @ts-ignore
+                  if (korzinaRef && korzinaRef.current && !korzinaRef.current.contains(e.target) && !e.target.closest(".KorzinaCard")) {
+                        return setOpen(false);
+                  }
+            };
+
+            const handleScroll = () => window.scrollTo(0, 0);
+
+            const handleEscClick = (e: KeyboardEvent) => {
+                  if (e.key === "Escape") return setOpen(false);
+            };
+
+            document.addEventListener("click", handleOutsideClick);
+            document.addEventListener("keydown", handleEscClick);
+
+            return () => {
+                  document.removeEventListener("click", handleOutsideClick);
+                  document.removeEventListener("scroll", handleScroll);
+                  document.removeEventListener("keydown", handleEscClick);
+            };
+      }, [open, setOpen]);
+
+      const totalPrice = products?.reduce((total: number, product: ILocalProduct) => total + product.price * product.quantity, 0);
 
       const zeroProducts = products?.length === 0;
 
@@ -48,9 +60,9 @@ const Korzina = () => {
       return (
             <>
                   <OverlayMain zIndex="z-[50]" />
-                  <KorzinaButton productsLength={products?.length} />
-                  <div className="z-[60] w-[500px] bg-white rounded-lg absolute top-0 right-[52px] mt-[91px]">
-                        <div ref={korzinaRef} className="relative py-6">
+                  <KorzinaButton productsLength={products?.length} setOpen={setOpen} />
+                  <div ref={korzinaRef} className="z-[60] w-[500px] absolute top-0 right-[52px] mt-[91px]">
+                        <div className="relative py-6 bg-white  rounded-lg ">
                               <div className="flex justify-between items-center  px-6">
                                     <h3 className="font-semibold">Корзина</h3>
                                     <button onClick={clearAllProducts}>
@@ -64,15 +76,15 @@ const Korzina = () => {
                                                       <p> Товары отсутствуют...</p>
                                                 </div>
                                           ) : (
-                                                products?.map((item: ILocalProduct | any) => (
+                                                products?.map((product: ILocalProduct) => (
                                                       <KorzinaCard
-                                                            id={item.id}
-                                                            key={item.id}
-                                                            image={item.picture!}
-                                                            title={item.title}
-                                                            description={item.description}
-                                                            quantity={item.quantity}
-                                                            price={item.price}
+                                                            id={product.id}
+                                                            key={product.id}
+                                                            picture={product.picture!}
+                                                            title={product.title}
+                                                            description={product.description}
+                                                            quantity={1}
+                                                            price={product.price}
                                                             removeProduct={removeProduct}
                                                             updateProduct={updateProduct}
                                                       />

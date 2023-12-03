@@ -20,7 +20,6 @@ export const getCategoryProducts = async (params: GetCategoryProductsParams) => 
                               include: {
                                     Shop: {
                                           select: {
-                                                id: true,
                                                 name: true,
                                                 link: true,
                                                 buyCount: true,

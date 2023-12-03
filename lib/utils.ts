@@ -1,51 +1,33 @@
-import {type ClassValue, clsx} from "clsx";
-import {twMerge} from "tailwind-merge";
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 import qs from "query-string";
+
 export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
+      return twMerge(clsx(inputs));
 }
 
 // Форматирование даты на странице магазина.
 export function formatDateString(inputDate: Date): string {
-	const dateObj = new Date(inputDate);
+      const dateObj = new Date(inputDate);
 
-	// Проверка на корректность даты
-	if (isNaN(dateObj.getTime())) {
-		return "Неверный формат даты";
-	}
+      if (isNaN(dateObj.getTime())) {
+            return "Неверный формат даты";
+      }
 
-	const months = [
-		"января",
-		"февраля",
-		"марта",
-		"апреля",
-		"мая",
-		"июня",
-		"июля",
-		"августа",
-		"сентября",
-		"октября",
-		"ноября",
-		"декабря",
-	];
-	const month = months[dateObj.getMonth()];
+      const months = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
+      const month = months[dateObj.getMonth()];
 
-	// Определение года
-	const year = dateObj.getFullYear();
+      const year = dateObj.getFullYear();
 
-	// Формирование результирующей строки
-	const resultString = `с ${month} ${year}`;
+      const resultString = `с ${month} ${year}`;
 
-	return resultString;
+      return resultString;
 }
 
-export const formUrlQuery = ({params, key, value}: any) => {
-	const currentUrl = qs.parse(params);
+export const formUrlQuery = ({ params, key, value }: any) => {
+      const currentUrl = qs.parse(params);
 
-	currentUrl[key] = value;
+      currentUrl[key] = value;
 
-	return qs.stringifyUrl(
-		{url: window.location.pathname, query: currentUrl},
-		{skipNull: true}
-	);
+      return qs.stringifyUrl({ url: window.location.pathname, query: currentUrl }, { skipNull: true });
 };

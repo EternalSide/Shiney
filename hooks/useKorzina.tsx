@@ -1,11 +1,11 @@
 // Управление корзиной пользователя
-
 import { create } from "zustand";
 import Cookies from "js-cookie";
+import { ILocalProduct } from "@/types";
 
 interface KorzinaStore {
-      products: any;
-      addProduct: (newProduct: any) => void;
+      products: ILocalProduct[];
+      addProduct: (newProduct: ILocalProduct) => void;
       updateProduct: (productId: string, data: any) => void;
       removeProduct: (productId: string) => void;
       clearAllProducts: () => void;
@@ -21,8 +21,8 @@ const getInitialProducts = () => {
 };
 
 // Сохранение данных в куках
-const saveProductsToCookie = (products: any) => {
-      return Cookies.set("products", JSON.stringify(products), { expires: 7 }); // 7 дней
+const saveProductsToCookie = (products: ILocalProduct[]) => {
+      return Cookies.set("products", JSON.stringify(products), { expires: 7 });
 };
 
 export const useKorzina = create<KorzinaStore>((set) => ({
@@ -38,7 +38,9 @@ export const useKorzina = create<KorzinaStore>((set) => ({
       },
       updateProduct: (productId, data) => {
             set((state) => {
-                  const products = state.products.map((product: any) => (product.id === productId ? { ...product, ...data } : product));
+                  const products = state.products.map((product: ILocalProduct) =>
+                        product.id === productId ? { ...product, ...data } : product
+                  );
                   saveProductsToCookie(products);
                   return {
                         products,
@@ -47,7 +49,7 @@ export const useKorzina = create<KorzinaStore>((set) => ({
       },
       removeProduct: (productId) => {
             set((state) => {
-                  const products = state.products.filter((product: any) => product.id !== productId);
+                  const products = state.products.filter((product: ILocalProduct) => product.id !== productId);
                   saveProductsToCookie(products);
                   return {
                         products,

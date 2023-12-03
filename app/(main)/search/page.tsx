@@ -44,23 +44,23 @@ const SearchPage = async ({ searchParams }: Props) => {
                         {products?.length > 0 &&
                               products.map((item: any) => (
                                     <ProductCard
-                                          key={item._id}
+                                          key={item.id}
                                           title={item.title}
-                                          id={item._id.toString()}
-                                          imgSrc={item?.image || noShopImage}
+                                          id={item.id}
+                                          imgSrc={item?.picture || noShopImage}
                                           price={Number(item.price)}
                                           ratingNumber={5.0}
-                                          ratingCounter={item.comments.length}
-                                          buyNumber={item.shop.buyCount}
-                                          shopName={item.shop.name}
-                                          shopLink={item.shop.link}
+                                          ratingCounter={0}
+                                          buyNumber={item.Shop.buyCount}
+                                          shopName={item.Shop.name}
+                                          shopLink={item.Shop.link}
                                           description={item.description}
                                           clerkId={userId!}
-                                          inFav={userProducts?.some((product: any) => product._id.toString() === item._id.toString())}
+                                          inFav={userProducts?.some((product: any) => product.product.id === item.id)}
                                     />
                               ))}
                   </div>
-                  {products?.length > 0 && <Pagination currentPage={currentPage} isNextPage={isNext} />}
+                  {products?.length >= 20 && <Pagination currentPage={currentPage} isNextPage={isNext} />}
             </>
       );
 };

@@ -4,13 +4,15 @@ import { Heart, ShoppingCart, Star } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "../ui/use-toast";
 import { usePathname } from "next/navigation";
-import { useOptimistic } from "react";
+import { useEffect, useOptimistic } from "react";
 import { MotionDiv } from "../shared/MotionDiv";
 import { addProductToUserFav } from "@/actions/dbActions/product.action";
 import Image from "next/image";
+import { motionVariants } from "@/constants";
+import { ILocalProduct } from "@/types";
 
 interface Props {
-      id: string | number;
+      id: string;
       title: string;
       description: string;
       imgSrc: string;
@@ -23,11 +25,6 @@ interface Props {
       clerkId?: string | undefined | null;
       inFav?: boolean;
 }
-
-const variants = {
-      hidden: { opacity: 0 },
-      visible: { opacity: 1 },
-};
 
 const ProductCard = ({
       id,
@@ -43,20 +40,46 @@ const ProductCard = ({
       clerkId,
       shopLink,
 }: Props) => {
-      const { addProduct, products } = useKorzina();
+      const { addProduct, products, removeProduct } = useKorzina();
       const { toast } = useToast();
       const path = usePathname();
-      // Optimistic UI
-      const [optimisticState, addOptimistic] = useOptimistic(inFav, (currentState: boolean | undefined, optimisticValue: boolean) => {
-            return (currentState = optimisticValue);
-      });
 
+      const [optimisticState, addOptimistic] = useOptimistic(
+            inFav,
+            (currentState: boolean | undefined, optimisticValue: boolean) => (currentState = optimisticValue)
+      );
+
+      const alreadyInKorzina = products.some((item: ILocalProduct) => item.id === id);
+
+      const [optimisticKorzina, addOptimisticKorzina] = useOptimistic(
+            alreadyInKorzina,
+            (currentState: boolean | undefined, optimisticValue: boolean) => (currentState = optimisticValue)
+      );
+
+      // Для реал тайма удаления подсветки с иконки корзины,
+      // если товар был удален из корзины, а не из карточки.
+      // zustand  прокинет products и мы перепишем значение.
+      useEffect(() => {
+            addOptimisticKorzina(products.some((item: ILocalProduct) => item.id === id));
+      }, [products]);
+
+      // Управление корзиной
       const handleKorzina = () => {
-            const alreadyInKorzina = products.some((item: any) => item.id === id);
+            if (alreadyInKorzina) {
+                  toast({
+                        title: "Товар удален из корзины!",
+                  });
+                  addOptimisticKorzina(!optimisticKorzina);
+                  return removeProduct(id);
+            }
 
-            if (alreadyInKorzina) return;
+            addOptimisticKorzina(!optimisticKorzina);
 
-            let product = {
+            toast({
+                  title: "Товар добавлен в корзину!",
+            });
+
+            const product = {
                   title,
                   description,
                   picture: imgSrc,
@@ -65,13 +88,10 @@ const ProductCard = ({
                   quantity: 1,
             };
 
-            addProduct(product);
-
-            return toast({
-                  title: "Товар добавлен в корзину!",
-            });
+            return addProduct(product);
       };
 
+      // Добавить в избранное
       const handleLikeProduct = async () => {
             if (!clerkId) {
                   return toast({
@@ -88,7 +108,7 @@ const ProductCard = ({
             });
 
             await addProductToUserFav({
-                  productId: id as string,
+                  productId: id,
                   userId: clerkId,
                   path,
                   inFav,
@@ -97,7 +117,7 @@ const ProductCard = ({
 
       return (
             <MotionDiv
-                  variants={variants}
+                  variants={motionVariants}
                   initial="hidden"
                   animate="visible"
                   transition={{
@@ -126,7 +146,12 @@ const ProductCard = ({
                                     />
                               </button>
                               <button onClick={handleKorzina}>
-                                    <ShoppingCart className={"h-5 w-5 hover:text-orange-400 transition hover:scale-110"} />
+                                    <ShoppingCart
+                                          color={optimisticKorzina === true ? "#fb923c" : "black"}
+                                          className={`h-5 w-5 hover:text-orange-400 transition hover:scale-110 ${
+                                                optimisticKorzina === true && "text-orange-400"
+                                          }`}
+                                    />
                               </button>
                         </div>
                   </div>
