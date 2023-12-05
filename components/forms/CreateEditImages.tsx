@@ -47,11 +47,11 @@ const CreateEditImages = ({ shopData }: Props) => {
 					},
 				});
 
-				// await easyLoad.upload(shopImage, "3e2ae505-main");
-				// await easyLoad.delete(
-				// 	"https://s3.timeweb.com/3e2ae505-main/64ff9ee3-ae32-4a31-9702-0b87d44005bc-a35f3931074ef21c94fa9fbae4259431.jpg",
-				// 	"3e2ae505-main"
-				// );
+				await easyLoad.upload(shopImage, "3e2ae505-main");
+				await easyLoad.delete(
+					"https://s3.timeweb.com/3e2ae505-main/64ff9ee3-ae32-4a31-9702-0b87d44005bc-a35f3931074ef21c94fa9fbae4259431.jpg",
+					"3e2ae505-main"
+				);
 				shop_image = res.url;
 			}
 
