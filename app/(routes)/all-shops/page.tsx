@@ -1,7 +1,6 @@
 import ShopCard from "@/components/cards/ShopCard";
 import { Metadata } from "next";
-import { prisma } from "@/lib/prisma";
-import { Shop } from "@prisma/client";
+import { db } from "@/lib/prisma";
 import { noShopImage } from "@/constants";
 export const metadata: Metadata = {
       title: "Shiney / Магазины",
@@ -14,7 +13,7 @@ interface Props {
 }
 
 const AllShopsPage = async ({ searchParams }: Props) => {
-      const allShops = await prisma.shop.findMany({
+      const allShops = await db.shop.findMany({
             include: {
                   followers: {
                         include: {

@@ -7,7 +7,6 @@ import { toast } from "../ui/use-toast";
 import { deleteShop } from "@/actions/dbActions/shop.action";
 import { usePathname, useRouter } from "next/navigation";
 import { useEdgeStore } from "@/lib/edgestore";
-import { prisma } from "@/lib/prisma";
 
 const DeleteShopModal = () => {
       const { isOpen, onClose, type, data } = useModal();

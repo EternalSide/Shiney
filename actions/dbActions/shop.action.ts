@@ -9,15 +9,15 @@ import {
       UpdateShopImages,
       UpdateShopParams,
 } from "./index.shared";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/prisma";
 
 export const createShop = async (shopData: CreateShopParams) => {
       try {
             const { name, link, description, clerkId, image, path } = shopData;
 
-            const user = await prisma.user.findFirst({ where: { clerkId } });
+            const user = await db.user.findFirst({ where: { clerkId } });
 
-            const newShop = await prisma.shop.create({
+            const newShop = await db.shop.create({
                   data: {
                         name,
                         link,
@@ -27,7 +27,7 @@ export const createShop = async (shopData: CreateShopParams) => {
                   },
             });
 
-            await prisma.follower.create({
+            await db.follower.create({
                   data: {
                         shopId: newShop.id,
                         userId: user?.id!,
@@ -49,7 +49,7 @@ export const updateShop = async (params: UpdateShopParams) => {
       try {
             const { shopLink, name, link, description, path, avatar } = params;
 
-            await prisma.shop.update({
+            await db.shop.update({
                   where: { link: shopLink },
                   data: {
                         name,
@@ -70,7 +70,7 @@ export const updateShopImages = async (params: UpdateShopImages) => {
       try {
             const { shopId, shopImage, path, shopBanner } = params;
 
-            const shop = await prisma.shop.update({
+            const shop = await db.shop.update({
                   where: { id: shopId },
                   data: {
                         avatar: shopImage,
@@ -91,7 +91,7 @@ export const getShopInfo = async (params: GetShopInfoParams) => {
       try {
             const { name: link } = params;
 
-            const shop = await prisma.shop.findUnique({
+            const shop = await db.shop.findUnique({
                   where: { link },
                   include: {
                         products: true,
@@ -118,7 +118,7 @@ export const getNewProducts = async (params: GetNewProductsParams) => {
 
             const skipAmount = (page - 1) * pageSize;
 
-            const newProducts = await prisma.product.findMany({
+            const newProducts = await db.product.findMany({
                   orderBy: {
                         createdAt: "desc",
                   },
@@ -127,7 +127,7 @@ export const getNewProducts = async (params: GetNewProductsParams) => {
                   include: { Shop: true },
             });
 
-            const totalNewProducts = await prisma.product.count();
+            const totalNewProducts = await db.product.count();
 
             const isNextPage = totalNewProducts > skipAmount + newProducts.length;
 
@@ -142,7 +142,7 @@ export const deleteShop = async (params: DeleteShopParams) => {
       try {
             const { shopId, path } = params;
 
-            await prisma.shop.delete({ where: { id: shopId } });
+            await db.shop.delete({ where: { id: shopId } });
 
             return revalidatePath(path);
       } catch (e) {
@@ -155,18 +155,18 @@ export const followShopAction = async (params: FollowShopParams) => {
       try {
             const { shopLink: link, path, clerkId, isFollowing } = params;
 
-            const updatedUser = await prisma.user.findUnique({
+            const updatedUser = await db.user.findUnique({
                   where: {
                         clerkId,
                   },
             });
 
-            const shop = await prisma.shop.findUnique({
+            const shop = await db.shop.findUnique({
                   where: { link },
             });
 
             if (isFollowing) {
-                  const follow = await prisma.follower.findFirst({
+                  const follow = await db.follower.findFirst({
                         where: {
                               userId: updatedUser?.id!,
                               shopId: shop?.id!,
@@ -174,7 +174,7 @@ export const followShopAction = async (params: FollowShopParams) => {
                   });
 
                   if (follow) {
-                        await prisma.follower.delete({
+                        await db.follower.delete({
                               where: {
                                     id: follow?.id,
                                     userId: updatedUser?.id!,
@@ -183,7 +183,7 @@ export const followShopAction = async (params: FollowShopParams) => {
                         });
                   }
             } else {
-                  const t = await prisma.follower.create({
+                  const t = await db.follower.create({
                         data: {
                               userId: updatedUser?.id!,
                               shopId: shop?.id!,
@@ -202,7 +202,7 @@ export const getShopProducts = async (params: GetShopInfoParams) => {
       try {
             const { name: link } = params;
 
-            const shop = await prisma.shop.findUnique({
+            const shop = await db.shop.findUnique({
                   where: {
                         link,
                   },

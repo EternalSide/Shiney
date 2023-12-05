@@ -1,10 +1,10 @@
 "use server";
 import { CreateUserParams } from "./index.shared";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/prisma";
 
 export const createUser = async (userData: CreateUserParams) => {
       try {
-            const user = await prisma.user.create({ data: userData });
+            const user = await db.user.create({ data: userData });
 
             return user;
       } catch (e) {
@@ -17,7 +17,7 @@ export const getUserShops = async (params: { clerkId: string }) => {
       try {
             const { clerkId } = params;
 
-            const user = await prisma.user.findFirst({
+            const user = await db.user.findFirst({
                   where: {
                         clerkId,
                   },
@@ -45,7 +45,7 @@ export const getUserProducts = async (params: { clerkId: string | null }) => {
             const { clerkId } = params;
             if (!clerkId) return [];
 
-            const user = await prisma.user.findFirst({
+            const user = await db.user.findFirst({
                   where: {
                         clerkId,
                   },
@@ -78,7 +78,7 @@ export const getUserInfo = async (params: { clerkId: string | null }) => {
 
             if (!clerkId) return null;
 
-            const user = await prisma.user.findFirst({
+            const user = await db.user.findFirst({
                   where: {
                         clerkId,
                   },

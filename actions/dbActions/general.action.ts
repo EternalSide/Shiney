@@ -1,6 +1,6 @@
 "use server";
 import { GlobalSearchParams } from "./index.shared";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/prisma";
 
 export const globalSearch = async (params: GlobalSearchParams) => {
       try {
@@ -10,7 +10,7 @@ export const globalSearch = async (params: GlobalSearchParams) => {
 
             let skipAmount = (page - 1) * pageLimit;
 
-            const products = await prisma.product.findMany({
+            const products = await db.product.findMany({
                   where: {
                         title: {
                               contains: searchQuery,
@@ -38,7 +38,7 @@ export const globalSearch = async (params: GlobalSearchParams) => {
 
             if (!products) return noResultsFound;
 
-            const totalLength = await prisma.product.count({
+            const totalLength = await db.product.count({
                   where: {
                         title: {
                               contains: searchQuery,

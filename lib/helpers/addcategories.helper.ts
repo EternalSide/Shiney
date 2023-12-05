@@ -1,6 +1,6 @@
 "use server";
 import { allCategoriesDetection } from "../allCategories";
-import { prisma } from "../prisma";
+import { db } from "../prisma";
 
 export async function addCategories() {
       const categoriesToAdd: any = [];
@@ -21,7 +21,7 @@ export async function addCategories() {
 
       try {
             for (const categoryItem of categoriesToAdd) {
-                  await prisma.category.create({
+                  await db.category.create({
                         data: {
                               href: categoryItem.href,
                               label: categoryItem.label,
