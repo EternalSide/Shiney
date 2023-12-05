@@ -1,3 +1,4 @@
+// asdad
 import { Shop, User } from "@prisma/client";
 import { UserWishShops } from "./checkAdmin";
 

@@ -40,6 +40,9 @@ export interface ILocalProduct {
       quantity: number;
       price: number;
       picture?: string;
+      shopName: string;
+      shopLink: string;
+      shopImage: string;
 }
 
 export interface ParamsName {

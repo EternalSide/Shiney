@@ -103,3 +103,27 @@ export const editProduct = async (params: any) => {
             throw e;
       }
 };
+
+export const getProductInfo = async (params: any) => {
+      try {
+            const { id } = params;
+
+            const productInfo = await prisma.product.findFirst({
+                  where: {
+                        id: params.id,
+                  },
+                  include: {
+                        Shop: {
+                              select: {
+                                    name: true,
+                              },
+                        },
+                  },
+            });
+
+            return productInfo;
+      } catch (e) {
+            console.log(e);
+            throw e;
+      }
+};

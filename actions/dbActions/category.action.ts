@@ -23,6 +23,7 @@ export const getCategoryProducts = async (params: GetCategoryProductsParams) => 
                                                 name: true,
                                                 link: true,
                                                 buyCount: true,
+                                                avatar: true,
                                           },
                                     },
                               },

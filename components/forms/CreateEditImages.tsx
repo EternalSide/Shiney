@@ -7,6 +7,7 @@ import { FormEvent, useState } from "react";
 import { SingleImageDropzone } from "./SingleImageDropzone";
 import { updateShopImages } from "@/actions/dbActions/shop.action";
 import { noShopBanner } from "@/constants";
+import { useEasyLoad } from "@/hooks/useEasyLoad";
 
 interface Props {
       shopData?: any;
@@ -14,6 +15,7 @@ interface Props {
 
 const CreateEditImages = ({ shopData }: Props) => {
       const shop = shopData && JSON.parse(shopData);
+      const { easyLoad } = useEasyLoad();
 
       const [shopImage, setShopImage] = useState<File>();
       const [shopBanner, setShopBanner] = useState<File>();
@@ -23,7 +25,7 @@ const CreateEditImages = ({ shopData }: Props) => {
       const router = useRouter();
       const { toast } = useToast();
       const path = usePathname();
-      console.log(shop);
+
       const onSubmit = async (e: FormEvent) => {
             e.preventDefault();
             setIsLoading(true);
@@ -43,7 +45,10 @@ const CreateEditImages = ({ shopData }: Props) => {
                                     replaceTargetUrl: shop?.avatar,
                               },
                         });
-                        shop_image = res.url;
+
+                        const responce = await easyLoad.upload(shopImage, "3e2ae505-main");
+
+                        shop_image = responce.Location;
                   }
 
                   // Если есть Баннер

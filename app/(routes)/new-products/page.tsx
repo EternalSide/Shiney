@@ -1,28 +1,41 @@
-import { auth } from "@clerk/nextjs";
-import ProductCard from "../cards/ProductCard";
-import { getUserProducts } from "@/actions/dbActions/user.action";
 import { getNewProducts } from "@/actions/dbActions/shop.action";
+import { getUserProducts } from "@/actions/dbActions/user.action";
+import Pagination from "@/components/shared/Pagination";
+import ProductCard from "@/components/cards/ProductCard";
 import { noShopImage } from "@/constants";
+import { auth } from "@clerk/nextjs";
+import { Metadata } from "next";
 
-const SpecialOffers = async () => {
+export const metadata: Metadata = {
+      title: "Shiney / Новинки",
+};
+
+interface Props {
+      searchParams: {
+            [key: string]: string | undefined;
+      };
+}
+
+const NewProductsPage = async ({ searchParams }: Props) => {
       const { userId } = auth();
 
       const userProducts = await getUserProducts({
             clerkId: userId,
       });
 
-      // 65
+      // Текущая страница
+      const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
 
       const { newProducts, isNextPage } = await getNewProducts({
-            page: 1,
+            page: currentPage,
       });
 
       return (
-            <div className="mt-10">
-                  <h3 className="main-title">Новинки</h3>
-                  <div className="mt-4 grid max-md:grid-cols-2 max-md:gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <>
+                  <h1 className="base-title">Новинки</h1>
+                  <div className="grid_new-products">
                         {newProducts?.length > 0 ? (
-                              newProducts.map((item: any) => (
+                              newProducts.map((item: (typeof newProducts)[0]) => (
                                     <ProductCard
                                           key={item.id}
                                           title={item.title}
@@ -34,8 +47,8 @@ const SpecialOffers = async () => {
                                           buyNumber={item.Shop.buyCount}
                                           shopName={item.Shop.name}
                                           shopLink={item.Shop.link}
-                                          shopImage={item.Shop.avatar}
                                           description={item.description}
+                                          shopImage={item.Shop.avatar!}
                                           clerkId={userId!}
                                           inFav={userProducts?.some((product: (typeof userProducts)[0]) => product.product.id === item.id)}
                                     />
@@ -44,7 +57,8 @@ const SpecialOffers = async () => {
                               <h1 className="text-[#626d7a] font-semibold text-2xl">Ничего не найдено</h1>
                         )}
                   </div>
-            </div>
+                  {newProducts?.length >= 20 && <Pagination currentPage={currentPage} isNextPage={isNextPage} />}
+            </>
       );
 };
-export default SpecialOffers;
+export default NewProductsPage;

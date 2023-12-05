@@ -13,6 +13,10 @@ const nextConfig = {
                   },
                   {
                         protocol: "https",
+                        hostname: "s3.timeweb.com",
+                  },
+                  {
+                        protocol: "https",
                         hostname: "blablabla.cdn.wikkeo.com",
                   },
                   {

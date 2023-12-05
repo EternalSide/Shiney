@@ -7,20 +7,20 @@ import { useState } from "react";
 import { ILocalProduct } from "@/types";
 import { noShopImage } from "@/constants";
 
-interface Props extends ILocalProduct {
+interface Props extends Partial<ILocalProduct> {
       removeProduct: (id: string) => void;
       updateProduct: (productId: string, data: any) => void;
 }
 
 const KorzinaCard = ({ picture, title, description, quantity = 1, price, removeProduct, updateProduct, id }: Props) => {
       const [localQuantity, setLocalQuantity] = useState(quantity);
-      const [totalProductPrice, setTotalProductPrice] = useState(price * quantity);
+      const [totalProductPrice, setTotalProductPrice] = useState(price! * quantity);
 
       // Изменить количество
       const changeQuantity = (action: "plus" | "minus") => {
             setLocalQuantity((prev) => (action === "minus" ? prev - 1 : prev + 1));
-            setTotalProductPrice(() => (action === "minus" ? totalProductPrice - price : totalProductPrice + price));
-            updateProduct(id, {
+            setTotalProductPrice(() => (action === "minus" ? totalProductPrice - price! : totalProductPrice + price!));
+            updateProduct(id!, {
                   quantity: action === "minus" ? localQuantity - 1 : localQuantity + 1,
             });
       };
@@ -32,7 +32,7 @@ const KorzinaCard = ({ picture, title, description, quantity = 1, price, removeP
                               <div className="h-14 w-14 relative">
                                     <Image
                                           fill
-                                          alt={title}
+                                          alt={title!}
                                           className="object-cover object-center rounded-lg"
                                           src={picture || noShopImage}
                                     />
@@ -57,7 +57,7 @@ const KorzinaCard = ({ picture, title, description, quantity = 1, price, removeP
                                           <Plus className="h-5 w-5 text-[#caccd8] hover:text-blue-500 transition" />
                                     </button>
                               </div>
-                              <button onClick={() => removeProduct(id)}>
+                              <button onClick={() => removeProduct(id!)}>
                                     <X className="h-5 w-5 text-[#caccd8] hover:text-red-500 transition" />
                               </button>
                         </div>

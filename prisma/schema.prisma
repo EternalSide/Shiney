@@ -21,6 +21,7 @@ model User {
  shops Shop[]
  favorites  Favorite[]
  follower Follower[]
+//  orders Order[]
 
 
  joinedAt DateTime @default(now())
@@ -42,6 +43,7 @@ model Shop {
 
   products Product[]  
   followers Follower[]
+  //  orders Order[]
 
   createdOn DateTime   @default(now())
 }
@@ -60,6 +62,10 @@ model Product {
   
   categoryId String   
   categories Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  //  orderId String
+  //  order Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
   
   favorites    Favorite[]
 
@@ -91,3 +97,14 @@ model Follower {
   user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   shop    Shop   @relation(fields: [shopId], references: [id], onDelete: Cascade)
 }
+
+// model Order {
+//   id String           @id @default(uuid())
+//   userId     String
+//   shopId  String
+  
+//   products Product[]
+  
+//   user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   shop    Shop   @relation(fields: [shopId], references: [id], onDelete: Cascade)
+// }

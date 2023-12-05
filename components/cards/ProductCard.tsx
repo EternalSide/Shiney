@@ -17,6 +17,7 @@ interface Props {
       description: string;
       imgSrc: string;
       shopName: string;
+      shopImage: string;
       shopLink: string;
       buyNumber: number | string;
       ratingNumber: number;
@@ -32,13 +33,14 @@ const ProductCard = ({
       title,
       description,
       imgSrc,
-      shopName,
       buyNumber,
       ratingNumber,
       ratingCounter,
       price,
       clerkId,
       shopLink,
+      shopName,
+      shopImage,
 }: Props) => {
       const { addProduct, products, removeProduct } = useKorzina();
       const { toast } = useToast();
@@ -65,13 +67,7 @@ const ProductCard = ({
 
       // Управление корзиной
       const handleKorzina = () => {
-            if (alreadyInKorzina) {
-                  toast({
-                        title: "Товар удален из корзины!",
-                  });
-                  addOptimisticKorzina(!optimisticKorzina);
-                  return removeProduct(id);
-            }
+            if (alreadyInKorzina) return;
 
             addOptimisticKorzina(!optimisticKorzina);
 
@@ -86,6 +82,9 @@ const ProductCard = ({
                   price,
                   id,
                   quantity: 1,
+                  shopName,
+                  shopLink,
+                  shopImage,
             };
 
             return addProduct(product);
@@ -146,12 +145,7 @@ const ProductCard = ({
                                     />
                               </button>
                               <button onClick={handleKorzina}>
-                                    <ShoppingCart
-                                          color={optimisticKorzina === true ? "#fb923c" : "black"}
-                                          className={`h-5 w-5 hover:text-orange-400 transition hover:scale-110 ${
-                                                optimisticKorzina === true && "text-orange-400"
-                                          }`}
-                                    />
+                                    <ShoppingCart className="h-5 w-5 hover:text-orange-400 transition hover:scale-110" />
                               </button>
                         </div>
                   </div>
