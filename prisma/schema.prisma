@@ -21,6 +21,7 @@ model User {
  shops Shop[]
  favorites  Favorite[]
  follower Follower[]
+ stars Star[]
 //  orders Order[]
 
 
@@ -36,6 +37,7 @@ model Shop {
   description String  @db.Text
   buyCount Int         @default(0)
   rating String        @default("0.00")
+  
   verified Boolean     @default(false)
 
   creatorId String    
@@ -43,9 +45,21 @@ model Shop {
 
   products Product[]  
   followers Follower[]
+  stars Star[]
   //  orders Order[]
 
   createdOn DateTime   @default(now())
+}
+
+
+model Star {
+  id String           @id @default(uuid())
+  userId     String
+  shopId  String
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  shop    Shop   @relation(fields: [shopId], references: [id], onDelete: Cascade)
+
+   createdAt DateTime @default(now())
 }
 
 model Product {
@@ -93,7 +107,6 @@ model Follower {
   id String           @id @default(uuid())
   userId     String
   shopId  String
-  
   user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   shop    Shop   @relation(fields: [shopId], references: [id], onDelete: Cascade)
 }

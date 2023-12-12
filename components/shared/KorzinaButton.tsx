@@ -1,26 +1,26 @@
 "use client";
 
-import {ShoppingCart} from "lucide-react";
-import {Button} from "../ui/button";
+import { ShoppingCart } from "lucide-react";
+import { Button } from "../ui/button";
 
 interface Props {
 	setOpen?: (action: boolean) => void;
 	productsLength?: number;
 }
 
-const KorzinaButton = ({setOpen, productsLength}: Props) => {
+const KorzinaButton = ({ setOpen, productsLength }: Props) => {
 	return (
 		<Button
 			onClick={() => (setOpen ? setOpen(true) : () => {})}
-			variant='mainPage'
-			className=' hover:border-sky-500 relative p-0 header__button'
+			variant="mainPage"
+			className=" hover:border-sky-500 relative p-0 header__button dark:hover:bg-opacity-80 dark:bg-[#292b31] dark:border-transparent"
 		>
 			{Boolean(productsLength) && (
-				<div className='absolute -top-3 -right-2 px-2 py-0.5 rounded-full bg-sky-500 text-white text-sm'>
+				<div className="absolute -top-3 -right-2 px-2 py-0.5 rounded-full bg-sky-500 text-white text-sm">
 					{productsLength}
 				</div>
 			)}
-			<ShoppingCart className='text-[#252525] h-5 w-5' />
+			<ShoppingCart className="text-[#252525] h-5 w-5 dark:text-white" />
 		</Button>
 	);
 };

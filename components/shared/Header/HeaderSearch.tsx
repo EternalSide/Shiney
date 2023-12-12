@@ -1,11 +1,11 @@
 "use client";
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import useClickOutside from "@/hooks/useClickOutside";
-import {Search, ChevronRight, X} from "lucide-react";
+import { Search, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
-import {usePathname, useRouter} from "next/navigation";
-import {useEffect, useRef, useState} from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import SearchResults from "./SearchResults";
 
 const HeaderSearch = () => {
@@ -80,31 +80,31 @@ const HeaderSearch = () => {
 			ref={searchResultsRef}
 			onFocus={handleFocus}
 			onBlur={handleBlur}
-			className={`flex-1 bg-[#f4f5fa] relative rounded-xl flex items-center justify-between lg:mr-4 ${
+			className={`flex-1 bg-[#f4f5fa] dark:bg-[#141518] relative rounded-xl flex items-center justify-between lg:mr-4 ${
 				isFinishedTyping && "rounded-b-none"
 			}`}
 		>
 			<Button
-				variant='mainPage'
-				className='ml-1 flex items-center gap-1.5 w-40 !px-0 border-transparent'
+				variant="mainPage"
+				className="ml-1 flex items-center gap-1.5 w-40 !px-0 border-transparent dark:bg-[#1d1f24]"
 			>
 				<Image
-					alt='header icon'
+					alt="header icon"
 					width={24}
 					height={24}
-					src='/logo.png'
-					className='object-cover rounded-full'
+					src="/logo.svg"
+					className="object-cover rounded-full"
 				/>
-				<p className='text-sky-500 font-semibold max-md:hidden'>Везде</p>
-				<ChevronRight className='text-neutral-700 h-4 w-4' />
+				<p className="text-sky-500 font-semibold max-md:hidden">Везде</p>
+				<ChevronRight className="text-neutral-700 h-4 w-4 dark:text-sky-500" />
 			</Button>
 			<Input
 				onChange={(e) => setSearchValue(e.target.value)}
 				value={searchValue}
-				placeholder='Глобальный поиск в Shiney...'
-				className='bg-transparent border-none placeholder:text-zinc-900 font-medium max-sm:placeholder:text-[13px]'
+				placeholder="Глобальный поиск в Shiney..."
+				className="bg-transparent border-none placeholder:text-zinc-900 font-medium max-sm:placeholder:text-[13px] dark:placeholder:text-[#626d7a] dark:text-white"
 			/>
-			<div className='flex items-center gap-1'>
+			<div className="flex items-center gap-1">
 				{searchValue ? (
 					<Button
 						onClick={() => {
@@ -112,28 +112,23 @@ const HeaderSearch = () => {
 							setIsFinishedTyping(false);
 							setResults("");
 						}}
-						variant='mainPage'
-						className='mr-1 border-transparent'
+						variant="mainPage"
+						className="mr-1 border-transparent dark:bg-[#1d1f24]"
 					>
-						<X className='text-sky-500 h-4 w-4' />
+						<X className="text-sky-500 h-4 w-4" />
 					</Button>
 				) : (
-					<div className='bg-transparent w-[54px]' />
+					<div className="bg-transparent w-[54px]" />
 				)}
 				<Button
 					onClick={handleSearch}
-					variant='mainPage'
-					className='mr-1 border-transparent'
+					variant="mainPage"
+					className="mr-1 border-transparent dark:bg-[#1d1f24]"
 				>
-					<Search className='text-sky-500 h-4 w-4' />
+					<Search className="text-sky-500 h-4 w-4 " />
 				</Button>
 			</div>
-			{isFinishedTyping && (
-				<SearchResults
-					results={results}
-					isLoading={isLoading}
-				/>
-			)}
+			{isFinishedTyping && <SearchResults results={results} isLoading={isLoading} />}
 		</div>
 	);
 };

@@ -27,7 +27,7 @@
 
 @layer base {
 	body {
-		@apply bg-[#f4f5fa];
+		@apply bg-[#f4f5fa] dark:bg-[#141518];
 	}
 }
 
@@ -37,7 +37,7 @@
 	}
 
 	.header__button {
-		@apply w-12 h-12;
+		@apply w-14 h-14;
 	}
 
 	.clerk__styles {
@@ -49,19 +49,31 @@
 	}
 
 	.main-title {
-		@apply font-semibold text-3xl;
+		@apply font-semibold text-3xl dark:text-white;
 	}
 	.no-focus {
 		@apply focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
 	}
 
 	.base-block {
-		@apply p-6 bg-white rounded-xl;
+		@apply p-6 bg-white rounded-xl dark:bg-[#1d1f24];
 	}
 	.base-title {
-		@apply font-semibold text-2xl;
+		@apply font-semibold text-2xl dark:text-white;
 	}
 	.admin-shop-card {
 		@apply bg-transparent w-full  text-black text-xl justify-center py-6 rounded-md gap-5 font-semibold border-[1px] border-sky-400 flex flex-col items-center;
+	}
+
+	.bg-loading {
+		@apply bg-neutral-300 dark:bg-neutral-800;
+	}
+
+	.shop-input {
+		@apply border-none bg-[#f4f5fa] dark:bg-neutral-900 dark:text-white;
+	}
+
+	.input-product {
+		@apply border-none bg-[#f4f5fa]  dark:text-white dark:bg-neutral-800;
 	}
 }

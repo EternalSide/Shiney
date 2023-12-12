@@ -1,9 +1,9 @@
-import {Menu} from "lucide-react";
+import { Menu } from "lucide-react";
 
 const HeaderMobileMenu = () => {
 	return (
 		<div>
-			<Menu />
+			<Menu className="dark:text-sky-500" />
 		</div>
 	);
 };

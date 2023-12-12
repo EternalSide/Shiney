@@ -1,11 +1,11 @@
 // asdad
-import { Shop, User } from "@prisma/client";
+import { Shop } from "@prisma/client";
 import { UserWishShops } from "./checkAdmin";
 
 // Функция проверяет только является ли пользователь владельцем магазина
 const checkOwner = (user: UserWishShops, shopId: string): boolean => {
-      const isOwner = user.shops.some((shop: Shop) => shop.id === shopId);
+	const isOwner = user.shops.some((shop: Shop) => shop.id === shopId);
 
-      return isOwner;
+	return isOwner;
 };
 export default checkOwner;

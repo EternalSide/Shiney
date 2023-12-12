@@ -1,4 +1,4 @@
-import {AccumulatorItem, RecursiveData} from "@/types";
+import { AccumulatorItem, RecursiveData } from "@/types";
 import {
 	electronic,
 	beaty,
@@ -65,10 +65,7 @@ export const allCategories = [
 export type AllCategoryItem = (typeof allCategories)[0];
 
 // Определить на главной ли мы категории
-export const detectIfMainCategory = (
-	array: typeof mainCategories,
-	targetValue: string
-) => {
+export const detectIfMainCategory = (array: typeof mainCategories, targetValue: string) => {
 	for (const item of array) {
 		if (item.href === `/${targetValue}`) return item;
 	}
@@ -76,14 +73,14 @@ export const detectIfMainCategory = (
 
 // Главные категории, Для detectIfMainCategory();
 export const mainCategories = [
-	{href: "/electric", label: "Электроника"},
-	{href: "/beaty", label: "Красота и здоровье"},
-	{href: "/sport", label: "Спорт и отдых"},
-	{href: "/clothes", label: "Одежда"},
-	{href: "/shoes", label: "Обувь"},
-	{href: "/autoproducts", label: "Автотовары"},
-	{href: "/build", label: "Строительство"},
-	{href: "/others", label: "Аксессуары"},
+	{ href: "/electric", label: "Электроника" },
+	{ href: "/beaty", label: "Красота и здоровье" },
+	{ href: "/sport", label: "Спорт и отдых" },
+	{ href: "/clothes", label: "Одежда" },
+	{ href: "/shoes", label: "Обувь" },
+	{ href: "/autoproducts", label: "Автотовары" },
+	{ href: "/build", label: "Строительство" },
+	{ href: "/others", label: "Аксессуары" },
 ];
 
 // Для recursiveSearch();
@@ -138,7 +135,7 @@ export const recursiveSearch = (
 	}
 
 	// Значение не найдено
-	return {currentCategory: null, accumulator};
+	return { currentCategory: null, accumulator };
 };
 
 export const getCategory = (categoryName: string) => {
@@ -158,15 +155,12 @@ export const getCategory = (categoryName: string) => {
 				href: isMainCategory.href,
 			},
 		];
+		console.log(accumulator);
 	}
 
 	// Не главная категория
 	if (!isMainCategory) {
-		const data = recursiveSearch(
-			allCategoriesDetection,
-			categoryName,
-			accumulator
-		);
+		const data = recursiveSearch(allCategoriesDetection, categoryName, accumulator);
 
 		accumulator = data.accumulator;
 		currentCategory = data.currentCategory;

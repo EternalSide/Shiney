@@ -2,12 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
 import { useToast } from "../ui/use-toast";
-import { useEdgeStore } from "@/lib/edgestore";
+
 import { FormEvent, useState } from "react";
 import { SingleImageDropzone } from "./SingleImageDropzone";
-import { updateShopImages } from "@/actions/dbActions/shop.action";
+import { updateShopImages } from "@/actions/shop.action";
 import { noShopBanner } from "@/constants";
-import { useEasyLoad } from "@/hooks/useEasyLoad";
+import { useEdgeStore } from "@/lib/edgestore";
 
 interface Props {
 	shopData?: any;
@@ -19,9 +19,6 @@ const CreateEditImages = ({ shopData }: Props) => {
 	const [shopImage, setShopImage] = useState<File>();
 	const [shopBanner, setShopBanner] = useState<File>();
 	const [isLoading, setIsLoading] = useState(false);
-
-	const { easyLoad } = useEasyLoad();
-
 	const { edgestore } = useEdgeStore();
 	const router = useRouter();
 	const { toast } = useToast();
@@ -47,11 +44,6 @@ const CreateEditImages = ({ shopData }: Props) => {
 					},
 				});
 
-				await easyLoad.upload(shopImage, "3e2ae505-main");
-				await easyLoad.delete(
-					"https://s3.timeweb.com/3e2ae505-main/64ff9ee3-ae32-4a31-9702-0b87d44005bc-a35f3931074ef21c94fa9fbae4259431.jpg",
-					"3e2ae505-main"
-				);
 				shop_image = res.url;
 			}
 
@@ -63,7 +55,6 @@ const CreateEditImages = ({ shopData }: Props) => {
 						replaceTargetUrl: shop?.banner ? shop.banner : "",
 					},
 				});
-
 				shop_banner = res.url;
 			}
 
@@ -94,7 +85,7 @@ const CreateEditImages = ({ shopData }: Props) => {
 	return (
 		<form className="mt-8 space-y-8" onSubmit={onSubmit}>
 			<div>
-				<h3 className="mb-3 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 font-semibold">
+				<h3 className="mb-3 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 font-semibold dark:text-white">
 					Изображение
 				</h3>
 				<SingleImageDropzone
@@ -106,7 +97,7 @@ const CreateEditImages = ({ shopData }: Props) => {
 				<p className="mt-2 text-sm text-muted-foreground">Изображение вашего магазина.</p>
 			</div>
 			<div>
-				<h3 className="mb-3 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 font-semibold">
+				<h3 className="mb-3 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 font-semibold dark:text-white">
 					Баннер
 				</h3>
 				<SingleImageDropzone
