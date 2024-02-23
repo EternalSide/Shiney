@@ -11,7 +11,7 @@ const SupportModal = () => {
 	const supportLinks: HeaderSupportLink[] = [
 		{
 			label: "Telegram",
-			href: "https://t.me/J_Eternal",
+			href: "https://t.me/AAT_L",
 			icon: Navigation,
 		},
 		{

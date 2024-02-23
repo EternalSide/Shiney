@@ -34,7 +34,7 @@ const ShopsPage = async () => {
 					))}
 				</div>
 			) : (
-				<h3 className="mt-4">Ничего не найдено.</h3>
+				<h3 className="mt-4 dark:text-white">Ничего не найдено.</h3>
 			)}
 		</div>
 	);

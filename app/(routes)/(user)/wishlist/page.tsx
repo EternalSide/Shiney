@@ -37,7 +37,7 @@ const WishListPage = async () => {
 						/>
 					))
 				) : (
-					<h3>Ничего не найдено</h3>
+					<h3 className="dark:text-white">Ничего не найдено.</h3>
 				)}
 			</div>
 		</>

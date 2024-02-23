@@ -9,7 +9,8 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-	const [mode, setMode] = useState(localStorage?.getItem("theme") || "light");
+	const [mode, setMode] = useState("dark");
+	const [h, setH] = useState(false);
 
 	const handleThemeChange = () => {
 		if (
