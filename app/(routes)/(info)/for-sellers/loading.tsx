@@ -1,10 +1,10 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Loader2Icon } from "lucide-react";
 
 const Loading = () => {
 	return (
 		<>
 			<h1 className="base-title text-black">Для продавцов</h1>
-			<Skeleton className="h-[146px] w-full rounded-lg bg-loading mt-4" />
+			<Loader2Icon className="mx-auto mt-10 h-10 w-10 animate-spin text-indigo-500" />
 		</>
 	);
 };

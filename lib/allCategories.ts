@@ -155,7 +155,6 @@ export const getCategory = (categoryName: string) => {
 				href: isMainCategory.href,
 			},
 		];
-		console.log(accumulator);
 	}
 
 	// Не главная категория

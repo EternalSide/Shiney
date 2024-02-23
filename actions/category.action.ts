@@ -18,7 +18,7 @@ export const getCategoryProducts = async (params: GetCategoryProductsParams) => 
 			include: {
 				products: {
 					include: {
-						Shop: {
+						shop: {
 							select: {
 								name: true,
 								link: true,

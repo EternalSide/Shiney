@@ -17,7 +17,7 @@ export const globalSearch = async (params: GlobalSearchParams) => {
 				},
 			},
 			include: {
-				Shop: {
+				shop: {
 					select: {
 						id: true,
 						link: true,

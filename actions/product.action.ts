@@ -20,9 +20,16 @@ export const addProductToShop = async (productData: ProductData) => {
 				href: categoryHref,
 			},
 		});
+		const shop = await db.shop.findUnique({
+			where: {
+				id: shopId,
+			},
+		});
+		console.log(shop);
 		await db.product.create({
 			data: {
-				shopId,
+				shopId: shopId,
+
 				title,
 				description,
 				price,
@@ -121,7 +128,7 @@ export const getProductInfo = async (params: any) => {
 				id: params.id,
 			},
 			include: {
-				Shop: {
+				shop: {
 					select: {
 						name: true,
 					},

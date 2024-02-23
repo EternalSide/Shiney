@@ -37,7 +37,7 @@ const KorzinaCard = ({
 	};
 
 	return (
-		<div className="flex justify-between w-full items-start border-b dark:border-black py-3 KorzinaCard">
+		<div className="flex justify-between w-full items-start border-b dark:border-black  py-3 KorzinaCard">
 			<div className="flex items-center gap-1.5">
 				<Link href={`/item/${id}`}>
 					<div className="h-14 w-14 relative">

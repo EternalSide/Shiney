@@ -29,10 +29,10 @@ const SpecialOffers = async () => {
 							price={Number(item.price)}
 							ratingNumber={"0.00"}
 							ratingCounter={0}
-							buyNumber={item.Shop.buyCount}
-							shopName={item.Shop.name}
-							shopLink={item.Shop.link}
-							shopImage={item.Shop.avatar}
+							buyNumber={item.shop.buyCount}
+							shopName={item.shop.name}
+							shopLink={item.shop.link}
+							shopImage={item.shop.avatar}
 							description={item.description}
 							clerkId={userId!}
 							inFav={userProducts?.some(

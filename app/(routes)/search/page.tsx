@@ -39,9 +39,9 @@ const SearchPage = async ({ searchParams }: Props) => {
 			</div>
 			<h1 className="base-title mt-12">
 				По запросу <span className="text-blue-500">“{searchParams?.q}”</span> найдено{" "}
-				{totalLength} товаров
+				{totalLength} товаров:
 			</h1>
-			<div className="grid_new-products !mt-2">
+			<div className="grid_new-products">
 				{products?.length > 0 &&
 					products.map((item: any) => (
 						<ProductCard
@@ -52,10 +52,10 @@ const SearchPage = async ({ searchParams }: Props) => {
 							price={Number(item.price)}
 							ratingNumber={5.0}
 							ratingCounter={0}
-							buyNumber={item.Shop.buyCount}
-							shopName={item.Shop.name}
-							shopLink={item.Shop.link}
-							shopImage={item.Shop.avatar}
+							buyNumber={item.shop.buyCount}
+							shopName={item.shop.name}
+							shopLink={item.shop.link}
+							shopImage={item.shop.avatar}
 							description={item.description}
 							clerkId={userId!}
 							inFav={userProducts?.some(

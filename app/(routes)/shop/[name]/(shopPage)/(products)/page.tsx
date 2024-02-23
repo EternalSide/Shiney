@@ -33,10 +33,10 @@ const ShopProductsPage = async ({ params }: ShopPageProps) => {
 								price={Number(item.price)}
 								ratingNumber={5.0}
 								ratingCounter={0}
-								buyNumber={item.Shop.buyCount}
-								shopName={item.Shop.name}
-								shopLink={item.Shop.link}
-								shopImage={item.Shop.avatar}
+								buyNumber={item.shop.buyCount}
+								shopName={item.shop.name}
+								shopLink={item.shop.link}
+								shopImage={item.shop.avatar}
 								description={item.description}
 								clerkId={userId!}
 								inFav={userProducts?.some(

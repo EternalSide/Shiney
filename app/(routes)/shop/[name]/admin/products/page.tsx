@@ -2,7 +2,6 @@ import checkAdmin from "@/lib/checkAdmin";
 import { getShopProducts } from "@/actions/shop.action";
 import ProductAdminCard from "@/components/cards/ProductAdminCard";
 import { AdminParams } from "@/types";
-import Loading from "../loading";
 
 export async function generateMetadata({ params }: AdminParams) {
 	const data = await checkAdmin(params.name);
@@ -27,13 +26,13 @@ const ShopProductsPage = async ({ params }: AdminParams) => {
 							picture={product.picture!}
 							position={i}
 							title={product.title}
-							link={product.Shop.link}
-							name={product.Shop.name}
+							link={product.shop.link}
+							name={product.shop.name}
 							price={product.price}
 						/>
 					))
 				) : (
-					<h3 className="mt-4">Товары отсутствуют.</h3>
+					<h3 className="dark:text-zinc-400">Товары отсутствуют.</h3>
 				)}
 			</div>
 		</div>

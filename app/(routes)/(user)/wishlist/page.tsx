@@ -27,11 +27,11 @@ const WishListPage = async () => {
 							price={Number(item.product.price)}
 							ratingNumber={5.0}
 							ratingCounter={0}
-							buyNumber={item?.product.Shop.buyCount}
-							shopName={item?.product.Shop.name}
-							shopLink={item?.product.Shop.link}
+							buyNumber={item?.product.shop.buyCount}
+							shopName={item?.product.shop.name}
+							shopLink={item?.product.shop.link}
 							description={item.product.description}
-							shopImage={item?.product.Shop.avatar!}
+							shopImage={item?.product.shop.avatar!}
 							clerkId={userId!}
 							inFav={userProducts.some((product: Favorite) => product.id === item.id)}
 						/>

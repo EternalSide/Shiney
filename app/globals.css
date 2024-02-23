@@ -74,6 +74,6 @@
 	}
 
 	.input-product {
-		@apply border-none bg-[#f4f5fa]  dark:text-white dark:bg-neutral-800;
+		@apply border-none bg-[#f4f5fa] dark:bg-neutral-900 dark:text-white;
 	}
 }

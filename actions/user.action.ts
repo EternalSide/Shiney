@@ -57,7 +57,7 @@ export const getUserProducts = async (params: { clerkId: string | null }) => {
 					include: {
 						product: {
 							include: {
-								Shop: true,
+								shop: true,
 							},
 						},
 					},

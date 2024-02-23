@@ -55,12 +55,12 @@ const CreateEditShopForm = ({ clerkId, type, shopData }: Props) => {
 
 	const uploadImage = async () => {
 		let shop_image = "";
-
+		console.log(shopImage);
 		if (shopImage) {
 			const res = await edgestore.shopImage.upload({
 				file: shopImage,
 			});
-
+			console.log(res);
 			shop_image = res.url;
 		}
 		return shop_image;
@@ -123,8 +123,8 @@ const CreateEditShopForm = ({ clerkId, type, shopData }: Props) => {
 			}
 		} catch (e) {
 			toast({
-				title: "Что-то пошло не так...",
-				description: "Попробуйте еще раз",
+				title: "Что-то пошло не так.",
+				description: "Попробуйте еще раз.",
 				variant: "destructive",
 			});
 			console.log(e);

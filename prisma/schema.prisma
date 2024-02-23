@@ -72,7 +72,7 @@ model Product {
 
 
   shopId String
-  Shop Shop  @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  shop Shop  @relation(fields: [shopId], references: [id], onDelete: Cascade)
   
   categoryId String   
   categories Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)

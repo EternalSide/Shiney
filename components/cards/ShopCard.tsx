@@ -47,7 +47,7 @@ const ShopCard = ({ imgSrc, title, productCount, description, followersCount, li
 						<div className="flex items-center gap-1.5">
 							<Star className="h-4 w-4 text-orange-400" fill="orange" />
 							<p className="font-semibold text-gray-400 text-sm">
-								<span className="text-orange-400">{"5.00"} </span>
+								<span className="text-orange-400">{"0.00"} </span>
 							</p>
 						</div>
 					</Link>

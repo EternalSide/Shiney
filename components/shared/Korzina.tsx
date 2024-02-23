@@ -88,7 +88,7 @@ const Korzina = () => {
 						<div className="flex flex-col gap-4 mt-6 px-6">
 							{zeroProducts ? (
 								<div className="flex py-4 text-center justify-center items-center text-zinc-400">
-									<p> Товары отсутствуют...</p>
+									<p> Товары отсутствуют.</p>
 								</div>
 							) : (
 								products?.map((product: ILocalProduct) => (

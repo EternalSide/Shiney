@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 			categories: {
 				select: { href: true },
 			},
-			Shop: true,
+			shop: true,
 		},
 	});
 	if (!product) {
@@ -33,7 +33,7 @@ const ItemPage = async ({ params }: { params: { id: string } }) => {
 			categories: {
 				select: { href: true },
 			},
-			Shop: true,
+			shop: true,
 		},
 	});
 	if (!product) return <h1 className="base-title">Товар не найден.</h1>;

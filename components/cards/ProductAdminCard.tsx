@@ -32,7 +32,7 @@ const ProductAdminCard = ({ id, picture, title, position, link, name, price }: P
 			});
 
 			toast({
-				title: "Товар удален",
+				title: "Товар удален.",
 			});
 		} catch (e) {
 			toast({

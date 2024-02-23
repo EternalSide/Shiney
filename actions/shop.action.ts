@@ -87,10 +87,10 @@ export const updateShopImages = async (params: UpdateShopImages) => {
 
 export const getShopInfo = async (params: GetShopInfoParams) => {
 	try {
-		const { name: link } = params;
+		const { name } = params;
 
 		const shop = await db.shop.findUnique({
-			where: { link },
+			where: { link: name },
 			include: {
 				products: true,
 				followers: true,
@@ -122,7 +122,7 @@ export const getNewProducts = async (params: GetNewProductsParams) => {
 			},
 			skip: skipAmount,
 			take: pageSize,
-			include: { Shop: true },
+			include: { shop: true },
 		});
 
 		const totalNewProducts = await db.product.count();
@@ -207,7 +207,7 @@ export const getShopProducts = async (params: GetShopInfoParams) => {
 			select: {
 				products: {
 					include: {
-						Shop: true,
+						shop: true,
 					},
 					orderBy: {
 						createdAt: "desc",

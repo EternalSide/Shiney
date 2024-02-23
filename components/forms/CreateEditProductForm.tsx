@@ -124,62 +124,6 @@ const CreateEditProductForm = ({ userId, shopId, shopLink, productData, type }: 
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-4 w-full">
-				{type !== "Edit" && (
-					<div className="flex gap-3 items-end w-full">
-						<FormField
-							control={form.control}
-							name="categoryHref"
-							render={({ field }) => (
-								<FormItem className="w-full">
-									<FormLabel className="font-semibold dark:text-white">
-										Категория
-									</FormLabel>
-									<FormControl>
-										<Select
-											onValueChange={(value) => {
-												const currentItem = allCategories?.find(
-													(item: any) => {
-														if (value === item.data.value) return item;
-													}
-												);
-												// @ts-ignore
-												setCurrentCategory(currentItem);
-
-												// @ts-ignore
-												setMainCategory(currentItem.href);
-												// @ts-ignore
-												form.setValue("categoryHref", currentItem.href);
-											}}
-										>
-											<SelectTrigger className="!min-w-full  bg-[#f4f5fa]">
-												<SelectValue placeholder="Выберите категорию" />
-											</SelectTrigger>
-											<SelectContent className="bg-[#f4f5fa]">
-												{allCategories.map((item: AllCategoryItem) => (
-													<div className="flex flex-col items-start">
-														<SelectItem
-															value={item.value}
-															key={item.value}
-															className="hover:bg-[#e0f2fe] p-3 rounded-md w-full cursor-pointer"
-														>
-															<div className="!flex !flex-row items-center gap-4">
-																<item.data.icon className="text-zinc-500 h-[22px] w-[22px]" />
-																<h3 className="font-medium text-base">
-																	{item.data.label}
-																</h3>
-															</div>
-														</SelectItem>
-													</div>
-												))}
-											</SelectContent>
-										</Select>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
-				)}
 				<FormField
 					control={form.control}
 					name="title"
@@ -218,13 +162,69 @@ const CreateEditProductForm = ({ userId, shopId, shopLink, productData, type }: 
 							<FormMessage />
 						</FormItem>
 					)}
-				/>
+				/>{" "}
+				{type !== "Edit" && (
+					<div className="flex gap-3 items-end w-full">
+						<FormField
+							control={form.control}
+							name="categoryHref"
+							render={({ field }) => (
+								<FormItem className="w-full">
+									<FormLabel className="font-semibold dark:text-white">
+										Категория
+									</FormLabel>
+									<FormControl>
+										<Select
+											onValueChange={(value) => {
+												const currentItem = allCategories?.find(
+													(item: any) => {
+														if (value === item.data.value) return item;
+													}
+												);
+												// @ts-ignore
+												setCurrentCategory(currentItem);
+
+												// @ts-ignore
+												setMainCategory(currentItem.href);
+												// @ts-ignore
+												form.setValue("categoryHref", currentItem.href);
+											}}
+										>
+											<SelectTrigger className="w-[400px]  bg-[#f4f5fa] dark:bg-neutral-900 dark:border-transparent dark:text-white">
+												<SelectValue placeholder="Выберите категорию" />
+											</SelectTrigger>
+											<SelectContent className="bg-[#f4f5fa] dark:bg-neutral-900 dark:border-transparent dark:text-white ">
+												{allCategories.map((item: AllCategoryItem) => (
+													<div className="flex flex-col items-start">
+														<SelectItem
+															value={item.value}
+															key={item.value}
+															className="hover:bg-[#e0f2fe] p-3 rounded-md w-full cursor-pointer dark:hover:bg-neutral-800 dark:hover:text-white"
+														>
+															<div className="!flex !flex-row items-center gap-4">
+																<item.data.icon className="text-zinc-500 h-[22px] w-[22px]" />
+																<h3 className="font-medium text-base">
+																	{item.data.label}
+																</h3>
+															</div>
+														</SelectItem>
+													</div>
+												))}
+											</SelectContent>
+										</Select>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
+				)}
 				<FormField
 					control={form.control}
 					name="price"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel className="font-semibold dark:text-white">Цена</FormLabel>
+							<FormLabel className="font-semibold dark:text-zinc-400">Цена</FormLabel>
 							<FormControl>
 								<div className="flex items-center gap-2">
 									<Input

@@ -55,12 +55,12 @@ const CategoryPage = async ({ params, searchParams }: any) => {
 										price={Number(item.price)}
 										ratingNumber={5.0}
 										ratingCounter={0}
-										buyNumber={item.Shop.buyCount}
-										shopName={item.Shop.name}
-										shopLink={item.Shop.link}
+										buyNumber={item.shop.buyCount}
+										shopName={item.shop.name}
+										shopLink={item.shop.link}
 										description={item.description}
 										clerkId={userId!}
-										shopImage={item.Shop.avatar}
+										shopImage={item.shop.avatar}
 										inFav={userProducts?.some(
 											(product: (typeof userProducts)[0]) =>
 												product.id === item.id
@@ -71,7 +71,7 @@ const CategoryPage = async ({ params, searchParams }: any) => {
 						) : (
 							<div className="flex justify-center items-center mt-10 w-full">
 								<h1 className="text-[#626d7a] font-semibold text-2xl">
-									Ничего не найдено
+									Ничего не найдено.
 								</h1>
 							</div>
 						)}
