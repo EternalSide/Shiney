@@ -65,8 +65,8 @@ const ShopHeader = ({
 		try {
 			if (!clerkId) {
 				return toast({
-					title: "Вы не авторизованы",
-					description: "Войдите, чтобы подписаться на магазин",
+					title: "Вы не авторизованы.",
+					description: "Войдите, чтобы подписаться на магазин.",
 					variant: "destructive",
 				});
 			}

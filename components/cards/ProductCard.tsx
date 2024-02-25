@@ -96,8 +96,8 @@ const ProductCard = ({
 	const handleLikeProduct = async () => {
 		if (!clerkId) {
 			return toast({
-				title: "Вы не авторизованы!",
-				description: "Войдите, чтобы добавить товар в избранное",
+				title: "Вы не авторизованы.",
+				description: "Войдите, чтобы добавить товар в избранное.",
 				variant: "destructive",
 			});
 		}
