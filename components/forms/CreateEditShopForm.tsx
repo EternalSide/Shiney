@@ -55,14 +55,14 @@ const CreateEditShopForm = ({ clerkId, type, shopData }: Props) => {
 
 	const uploadImage = async () => {
 		let shop_image = "";
-		console.log(shopImage);
-		if (shopImage) {
-			const res = await edgestore.shopImage.upload({
-				file: shopImage,
-			});
-			console.log(res);
-			shop_image = res.url;
-		}
+
+		// if (shopImage) {
+		// 	const res = await edgestore.shopImage.upload({
+		// 		file: shopImage,
+		// 	});
+		// 	console.log(res);
+		// 	shop_image = res.url;
+		// }
 		return shop_image;
 	};
 
@@ -190,7 +190,7 @@ const CreateEditShopForm = ({ clerkId, type, shopData }: Props) => {
 					)}
 				/>
 
-				{type !== "Edit" && (
+				{/* {type !== "Edit" && (
 					<FormField
 						control={form.control}
 						// @ts-ignore
@@ -215,7 +215,7 @@ const CreateEditShopForm = ({ clerkId, type, shopData }: Props) => {
 							</FormItem>
 						)}
 					/>
-				)}
+				)} */}
 				<div className="flex justify-end items-center gap-6">
 					<Button
 						onClick={() => router.back()}

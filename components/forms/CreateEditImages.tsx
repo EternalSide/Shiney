@@ -49,13 +49,17 @@ const CreateEditImages = ({ shopData }: Props) => {
 
 			// Если есть Баннер
 			if (shopBanner) {
-				const res = await edgestore.shopBanner.upload({
-					file: shopBanner,
-					options: {
-						replaceTargetUrl: shop?.banner ? shop.banner : "",
-					},
-				});
-				shop_banner = res.url;
+				try {
+					const res = await edgestore.shopBanner.upload({
+						file: shopBanner,
+						options: {
+							replaceTargetUrl: shop?.banner ? shop.banner : "",
+						},
+					});
+					shop_banner = res.url;
+				} catch (error) {
+					console.log(error);
+				}
 			}
 
 			await updateShopImages({
