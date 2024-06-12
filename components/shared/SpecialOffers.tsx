@@ -16,7 +16,7 @@ const SpecialOffers = async () => {
 	});
 
 	return (
-		<div className="mt-10">
+		<div className="mt-10 pb-10">
 			<h3 className="main-title">Новинки</h3>
 			<div className="mt-4 grid max-md:grid-cols-2 max-md:gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
 				{newProducts?.length > 0 ? (
