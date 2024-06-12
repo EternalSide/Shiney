@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReactChildren } from "@/types";
+// @ts-ignore
 import { ClerkProvider } from "@clerk/nextjs";
 import { ruRU } from "@clerk/localizations";
 import { EdgeStoreProvider } from "../lib/edgestore";

@@ -4,6 +4,7 @@ import ModalProvider from "@/providers/ModalProvider";
 import { ReactChildren } from "@/types";
 import { Toaster } from "@/components/ui/toaster";
 import Hydration from "@/providers/Hydration";
+import { addCategories } from "@/lib/helpers/addcategories.helper";
 
 const MainLayout = async ({ children }: ReactChildren) => {
 	return (
