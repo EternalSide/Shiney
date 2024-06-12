@@ -10,6 +10,10 @@ export const headerLinks: HeaderLinkType[] = [
 		href: "/orders",
 		icon: ShoppingBag,
 	},
+	// {
+	// 	href: "/chat",
+	// 	icon: MessageCircle,
+	// },
 ];
 
 export const popularCategories: PopularCategory[] = [

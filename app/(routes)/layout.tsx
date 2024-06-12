@@ -7,15 +7,17 @@ import Hydration from "@/providers/Hydration";
 
 const MainLayout = async ({ children }: ReactChildren) => {
 	return (
-		<Hydration>
-			<Header />
-			<div className="max-w-[1420px] w-full mx-auto p-6 max-lg:px-4 max-lg:pb-[88px]">
-				{children}
-			</div>
-			<MobileNavigation />
-			<ModalProvider />
-			<Toaster />
-		</Hydration>
+		<div className="h-full">
+			<Hydration>
+				<Header />
+				<div className="max-w-[1420px] w-full mx-auto p-6 max-lg:px-4 max-lg:pb-[88px] h-full">
+					{children}
+				</div>
+				<MobileNavigation />
+				<ModalProvider />
+				<Toaster />
+			</Hydration>
+		</div>
 	);
 };
 export default MainLayout;

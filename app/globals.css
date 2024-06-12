@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root,
+html,
+body {
+	height: 100%;
+}
+
 /* shadcn ui config */
 @layer base {
 	:root {
@@ -37,7 +43,7 @@
 	}
 
 	.header__button {
-		@apply w-14 h-14;
+		@apply w-12 h-12;
 	}
 
 	.clerk__styles {

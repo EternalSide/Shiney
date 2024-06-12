@@ -3,7 +3,7 @@ import { allCategoriesDetection, mainCategories } from "../allCategories";
 import { db } from "../prisma";
 
 export async function addCategories() {
-	// const categoriesToAdd: any = [];
+	const categoriesToAdd: any = [];
 
 	// const extractCategories = (category: any) => {
 	//       categoriesToAdd.push({ href: category.href, label: category.label });
@@ -20,7 +20,7 @@ export async function addCategories() {
 	// });
 
 	try {
-		for (const categoryItem of mainCategories) {
+		for (const categoryItem of categoriesToAdd) {
 			await db.category.create({
 				data: {
 					href: categoryItem.href,

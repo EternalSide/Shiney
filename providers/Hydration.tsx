@@ -29,6 +29,6 @@ const Hydration = ({ children }: any) => {
 			</div>
 		);
 
-	return <>{children}</>;
+	return <div className="h-full bg-red-500">{children}</div>;
 };
 export default Hydration;

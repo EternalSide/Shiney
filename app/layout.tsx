@@ -7,6 +7,7 @@ import { ruRU } from "@clerk/localizations";
 import { EdgeStoreProvider } from "../lib/edgestore";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { dark } from "@clerk/themes";
+import { addCategories } from "@/lib/helpers/addcategories.helper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

@@ -18,7 +18,7 @@ const HeaderRightLinks = () => {
 					<Link key={item.href} href={item.href}>
 						<Button
 							variant="mainPage"
-							className={`header__button dark:hover:bg-opacity-80 p-0 hover:border-sky-300 dark:bg-[#292b31] dark:border-transparent
+							className={`header__button dark:hover:bg-opacity-80 !p-0 hover:border-sky-300 dark:bg-[#292b31] dark:border-transparent
 							 ${isActive && "border-sky-300"}`}
 						>
 							<item.icon className="text-[#252525] h-5 w-5 dark:text-white" />
